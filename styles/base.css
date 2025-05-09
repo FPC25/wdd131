@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --primary-color: #333;
+    --secondary-color: #fff;
+    --accent-color-1: #cccccc;
+    --accent-color-2: #000;
+}
+
+h1, h2, a, footer p {
+    font-family: "Baumans", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 1rem;
+    background-color: var(--primary-color);
+}
+
+p{
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-family: "Noto Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+}
+  
+body {
+    line-height: 1.6;
+}
+
+/* Header styles */
+header {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    background-color: var(--accent-color-2);
+    padding: 1rem;
+}
+
+nav a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    padding: 1.2rem;
+    font-size: 1.1rem;
+}
+
+nav a:hover {
+    text-decoration: overline;
+}
+
+/* Main Content style */
+
+main {
+    display: grid;
+    grid-template-columns: 66% 32%;
+    gap: 25px;
+    padding: 20px;
+}
+
+/* General section styles */
+
+.card {
+    background: var(--accent-color-1);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.card h2 {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin: -20px -20px 20px -20px; 
+    border: 1px solid var(--primary-color);
+}
+
+/* Section styles */
+
+.card img {
+    max-width: 200px;
+    float: right;
+    margin: 0 0 20px 20px;
+    border: 1px solid var(--primary-color);
+}
+
+/* Add new styles for flag image */
+.card img[src*="Flag"] {
+    max-width: 150px;
+    float: left;
+    margin: 0 20px 20px 0;
+    
+}
+
+/* Add styles for location title */
+.card h2:not(:first-child) {
+    clear: both;
+    text-align: center;
+    background: none;
+    color: var(--primary-color);
+    border: none;
+    margin-top: 20px;
+    padding: 10px;
+    border-bottom: 1px solid var(--primary-color);  /* Add this line */
+    /* padding-bottom: 15px;  Add this line */
+    width: 75%;  /* Add this line */
+    margin-left: auto;  /* Add this line */
+    margin-right: auto;  /* Add this line */
+}
+
+/* Paragraph spacing */
+.card p {
+    margin-bottom: 20px;
+    clear: both;
+}
+
+/* Clear floats after sections */
+.card::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Aside styles */
+.card ul li {
+    margin: 0 0 10px 10px;
+}
+
+.card a {
+    color: var(--accent-color-2);
+    text-decoration: none;
+}
+
+.card a:hover {
+    color:  var(--primary-color);
+    text-decoration: underline;
+}
+
+/* Footer styles */
+footer {
+    background: var(--primary-color);
+    color: var(--accent-color-1);
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin: 0;
+    color: var(--accent-color-1);
+}
+
