@@ -45,12 +45,12 @@ header {
     color: var(--secondary-color);
     cursor: pointer;
     padding: 0 15px;
-    display: block;  /* Show by default on mobile */
+    display: block;  
 }
 
 nav {
-    display: none;  /* Hidden by default on mobile */
-    grid-column: 1 / -1;  /* Full width when visible */
+    display: none;  
+    grid-column: 1 / -1;
 }
 
 nav.open {
@@ -60,7 +60,7 @@ nav.open {
 nav ul {
     list-style: none;
     display: flex;
-    flex-direction: column;  /* Stack vertically on mobile */
+    flex-direction: column;  
     padding: 1rem;
     background-color: var(--accent-color-2);
 }
