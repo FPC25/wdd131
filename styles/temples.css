@@ -1,0 +1,111 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    --primary-color: #333;
+    --secondary-color: #fff;
+    --accent-color-1: #cccccc;
+    --accent-color-2: #000;
+}
+
+h1,
+a,
+footer p {
+    font-family: "Baumans", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    padding: 25px;
+}
+
+body {
+    line-height: 1.6;
+}
+
+/* Header styles */
+header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    padding: 20px;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+#hamburger {
+    font-size: 2rem;
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    padding: 0 15px;
+    display: block;  /* Show by default on mobile */
+}
+
+nav {
+    display: none;  /* Hidden by default on mobile */
+    grid-column: 1 / -1;  /* Full width when visible */
+}
+
+nav.open {
+    display: block;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;  /* Stack vertically on mobile */
+    padding: 1rem;
+    background-color: var(--accent-color-2);
+}
+
+nav a {
+    display: block;
+    padding: 1rem;
+    color: var(--secondary-color);
+    text-decoration: none;
+    text-align: center;
+    font-size: larger;
+}
+
+nav a:hover {
+    text-decoration: overline;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+/* main */
+
+figcaption {
+    font-family: "Noto Sans", sans-serif;
+    ;
+    font-size: 0.8rem;
+    color: var(--accent-color-1);
+    text-align: center;
+}
+
+/* Footer styles */
+footer {
+    background: var(--primary-color);
+    color: var(--accent-color-1);
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin-bottom: 1rem;
+    font-family: "Noto Sans", sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    font-size: clamp(1rem, 1vw, 3rem);
+    color: var(--accent-color-1);
+}
