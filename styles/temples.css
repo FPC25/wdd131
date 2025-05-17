@@ -91,7 +91,7 @@ main h1 {
     font-size: 2rem;
     text-align: center;
     padding: 25px;
-    color: var(--accent-color-2);
+    color: var(--primary-color);
 }
 
 .grid-container {
