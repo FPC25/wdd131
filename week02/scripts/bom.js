@@ -22,6 +22,7 @@ function addToList() {
         })
     }
 }
+
 const input = document.getElementById("favchap");
 const addButton = document.querySelector("button");
 const list = document.getElementById("list");
