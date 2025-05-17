@@ -29,4 +29,20 @@
     nav a {
         padding: 0.5rem 1rem;
     }
+
+	main {
+		max-width: 1400px;
+	}
+
+	.grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+		justify-content: center;
+    }
+
+    figure:hover {
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        transform: scale(1.02);
+        transition: all 0.3s ease;
+    }
 }
