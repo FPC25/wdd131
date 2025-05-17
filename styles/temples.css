@@ -101,6 +101,7 @@ figure {
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
+    background-color: var(--primary-color);
 }
 
 figure img {
@@ -111,7 +112,7 @@ figure img {
 figcaption {
     font-family: "Noto Sans", sans-serif;
     font-size: 0.9rem;
-    color: var(--accent-color-2);
+    color: var(--accent-color-1);
     text-align: center;
     margin-top: 10px;
 }
