@@ -9,6 +9,7 @@
 }
 
 h1,
+h2,
 a,
 footer p {
     font-family: "Baumans", system-ui;
@@ -94,6 +95,13 @@ main h1 {
     color: var(--primary-color);
 }
 
+main h2 {
+    font-size: 1.5rem;
+    text-align: left;
+    padding: 10px;
+    color: var(--primary-color);
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: 1fr;  
@@ -108,7 +116,6 @@ figure {
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
-    background-color: var(--primary-color);
 }
 
 figure img {
@@ -119,7 +126,7 @@ figure img {
 figcaption {
     font-family: "Noto Sans", sans-serif;
     font-size: 0.9rem;
-    color: var(--accent-color-1);
+    color: var(--accent-color-2);
     text-align: center;
     margin-top: 10px;
 }
