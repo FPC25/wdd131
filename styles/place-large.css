@@ -1,0 +1,41 @@
+@media screen and (min-width: 768px) {
+    * {
+        max-width: none;
+    }
+
+    /* Main content layout */
+    main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* Hero image spans full width */
+    picture {
+        grid-column: 1 / -1;
+    }
+
+    /* Data and Weather sections side by side */
+    section {
+        margin: 0;
+        min-width: 0;     /* Reset mobile min-width */
+        height: fit-content;
+    }
+
+    /* Adjust table width for larger screens */
+    table {
+        width: 90%;
+    }
+
+    /* Increase heading sizes */
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+}
