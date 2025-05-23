@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="Felipe Proença Corral" />
+        <meta
+        name="description"
+        content="A project site for Felipe Proença Corral's WDD 131 – Dynamic Web Fundamentals course, featuring information about Brazil and current weather conditions in São Paulo, where I live."
+        />
+        <title>Place Site</title>
+        <link rel="stylesheet" href="styles/place.css" />
+        <link rel="stylesheet" href="styles/place-large.css" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+        href="https://fonts.googleapis.com/css2?family=Baumans&family=Noto+Sans:wght@400&display=swap"
+        />
+        <script src="scripts/place.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <h1>São Paulo, Brazil</h1>
+        </header>
+        <main>
+            <picture>
+                <source 
+                    srcset="images/hero-large.webp" 
+                    media="(min-width: 1024px)" 
+                />
+                <source 
+                    srcset="images/hero-medium.webp" 
+                    media="(min-width: 768px)" 
+                />
+                <img
+                    src="images/hero-small.webp"
+                    alt="São Paulo cityscape showing urban development"
+                    width="400"
+                    height="500"
+                />
+            </picture>
+
+            <section>
+                <h2>Data</h2>
+                <table>
+                    <caption>Brazil</caption>
+                    <tr>
+                        <td>Area:</td>
+                        <td>8,515,767 km²</td>
+                    </tr>
+                    <tr>
+                        <td>Population:</td>
+                        <td>212,583,750</td>
+                    </tr>
+                    <tr>
+                        <td>Capital:</td>
+                        <td>Brasília</td>
+                    </tr>
+                    <tr>
+                        <td>Languages:</td>
+                        <td>Portuguese, Libras</td>
+                    </tr>
+                    <tr>
+                        <td>Currency:</td>
+                        <td>Reais (R$)</td>
+                    </tr>
+                    <tr>
+                        <td>Time Zone:</td>
+                        <td>GMT-3</td>
+                    </tr>
+                    <tr>
+                        <td>Calling Code:</td>
+                        <td>+55</td>
+                    </tr>
+                    <tr>
+                        <td>Internet TLD:</td>
+                        <td>.br</td>
+                    </tr>
+                </table>
+
+                <table>
+                    <caption>São Paulo</caption>
+                    <tr>
+                        <td>Area:</td>
+                        <td>248,219.481 km²</td>
+                    </tr>
+                    <tr>
+                        <td>Population:</td>
+                        <td>45,973,194</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section>
+                <h2>Weather</h2>
+                <img id="weather-icon" src="images/weather_icon.svg" alt="weather icon">
+
+                <table>
+                    <caption>São Paulo</caption>
+                    <tr>
+                        <td>Temperature:</td>
+                        <td id="temperature">Loading...</td>
+                    </tr>
+                    <tr>
+                        <td>Condition:</td>
+                        <td id="condition">Loading...</td>
+                    </tr>
+                    <tr>
+                        <td>Wind:</td>
+                        <td id="windspeed">Loading...</td>
+                    </tr>
+                    <tr>
+                        <td>Wind Chill:</td>
+                        <td id="windchill">Loading...</td>
+                    </tr>
+                </table>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; <span id="currentYear"></span> &#128187; Felipe Proença Corral &#128187; Brazil</p>
+            <p id="lastModified"></p>
+        </footer>
+    </body>
+</html>
