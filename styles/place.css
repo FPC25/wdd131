@@ -1,0 +1,132 @@
+/* General rules */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 767px;
+}
+
+:root {
+    --primary-color: #333;
+    --secondary-color: #fff;
+    --accent-color-1: #cccccc;
+    --accent-color-2: #000;
+}
+
+h1,
+h2,
+caption,
+a,
+footer p {
+    font-family: "Baumans", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+
+p, td {
+    color: var(--primary-color);
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1rem;
+}
+
+/* body styles */
+
+body {
+    line-height: 1.6;
+}
+
+/* Header styles */
+header {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+h1 {
+    padding: 25px;
+}
+
+/* main styles */
+h2 {
+    margin-bottom: 1rem;
+    background-color: var(--primary-color);
+    text-align: center;
+}
+
+
+/* hero */
+picture img{
+    display: block;
+    margin: 10px auto;
+    max-width: 100%;
+    height: auto;
+    align-items: center;
+}
+
+/* Section style */
+section {
+    padding: 20px;
+    margin: 10px auto;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    width: fit-content; 
+    min-width: 90%; 
+}
+
+table {
+    width: 80%;       
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+table caption {
+    color: var(--accent-color-2);
+    margin-top: 1rem;
+    margin-bottom: 0.1rem;
+}
+
+td {
+    padding: 0.1px 7.5px;
+    width: 50%;
+}
+
+td:first-child {
+    font-weight: bold;
+    text-align: right;
+}
+
+td:last-child {
+    text-align: left;
+}
+
+#weather-icon {
+    display: block;
+    margin: 0 auto;
+    width: 40%;
+    height: auto;
+}
+
+/* Footer styles */
+footer {
+    background: var(--primary-color);
+    color: var(--accent-color-1);
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    margin-bottom: 1rem;
+    margin: 0;
+    color: var(--accent-color-1);
+}
