@@ -28,7 +28,7 @@ function calculateWindChill(tempF, windSpeed) {
 const currentTemp = 10; // °C
 const currentTempUnit = "C"; // Celsius
 const windSpeed = 5;    // Km/h
-const windSpeedUnit = "Km/h"; // Kilometers per hour
+const windSpeedUnit = "km/h"; // Kilometers per hour
 
 // DOM elements
 const tempElement = document.querySelector("#temperature");
@@ -42,20 +42,35 @@ const lastModified = document.querySelector("#lastModified");
 // Display static weather data
 conditionElement.textContent = "Cloudy";
 
-if (currentTempUnit === "C" && windSpeedUnit === "Km/h") {
+let temp;
+let speed;
+
+if (currentTempUnit === "C" && windSpeedUnit === "km/h") {
     tempElement.textContent = `${currentTemp}°C`;
     windSpeedElement.textContent = `${windSpeed} km/h`;
 
-    const tempF = celsiusToFahrenheit(currentTemp);
-    const windMph = mphToKmh(windSpeed);
-
-    windChillElement.textContent = calculateWindChill(tempF, windMph);
+    temp = celsiusToFahrenheit(currentTemp);
+    speed = mphToKmh(windSpeed);
 
 } else if (currentTempUnit === "F" && windSpeedUnit === "Mph") {
     tempElement.textContent = `${currentTemp}°F`;
     windSpeedElement.textContent = `${windSpeed} mph`;
-    windChillElement.textContent = calculateWindChill(currentTemp, windSpeed);
+
+    temp = currentTemp;
+    speed = windSpeed;
 }
+
+const windChillF = calculateWindChill(temp, speed);
+if (windChillF !== "N/A") {
+    if (currentTempUnit === "C") {
+        windChillElement.textContent = `${fahrenheitToCelsius(windChillF).toFixed(1)} °C`;
+    } else{
+        windChillElement.textContent = `${windChillF.toFixed(1)} °F`;
+    }
+} else {
+    windChillElement.textContent = "N/A";
+}
+
 // Date information
 const today = new Date();
 currentYear.textContent = today.getFullYear();
