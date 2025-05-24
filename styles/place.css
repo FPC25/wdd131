@@ -39,6 +39,7 @@ p, td {
 
 body {
     line-height: 1.6;
+    background-color: var(--accent-color-1);
 }
 
 /* Header styles */
@@ -59,8 +60,8 @@ h2 {
     text-align: center;
 }
 
-
 /* hero */
+
 picture img{
     display: block;
     margin: 10px auto;
@@ -78,7 +79,7 @@ section {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     align-items: center;
     width: fit-content; 
-    min-width: 90%; 
+    min-width: 85%; 
 }
 
 table {
@@ -123,6 +124,7 @@ footer {
     position: relative;
     bottom: 0;
     width: 100%;
+    margin-top: 10px
 }
 
 footer p {
