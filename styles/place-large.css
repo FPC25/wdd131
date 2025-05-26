@@ -64,4 +64,16 @@
         padding: 10px;
         border-radius: 10px 10px 0 0;
     }
+
+    section:last-child h2::after {
+        content: "⛅";  /* Sun behind cloud emoji */
+        display: inline-block;
+        font-size: 2rem;
+        margin-left: 1rem;
+        vertical-align: middle;
+    }
+
+    section:last-child #weather-icon {
+        display: none;
+    }
 }
