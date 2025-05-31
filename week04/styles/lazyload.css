@@ -1,0 +1,78 @@
+/* General rules */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #333;
+    --secondary-color: #fff;
+    --accent-color-1: #cccccc;
+    --accent-color-2: #000;
+}
+
+header {
+    width: 1fr;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+}
+
+h1 {
+    font-family: "Baumans", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-weight: bold;
+    color: var(--secondary-color);
+    padding: 25px;
+    text-align: center;
+}
+
+/* body styles */
+
+body {
+    line-height: 1.6;
+    background-color: var(--accent-color-2);
+}
+
+main {
+    margin: 0 auto;
+    width: 400px;
+    padding: 20px;
+    display: block;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    animation: fade 20s;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Footer styles */
+footer {
+    background: var(--primary-color);
+    color: var(--accent-color-1);
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 10px
+}
+
+footer p {
+    margin-bottom: 1rem;
+    margin: 0;
+    color: var(--accent-color-1);
+}
