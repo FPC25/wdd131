@@ -10,6 +10,8 @@
     --primary-color: #5A7454; /* Earthy Green */
     --accent-color: #A95C32; /* Terracotta/Rust */
     --secondary-color: #FFFFFF; /* Pure White */
+    --star: #FFAE42; /* Star Color */
+    --star-hover: #FF8C00; /* Star Hover Color */
 }
 
 /* General Styles */
