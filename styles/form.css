@@ -165,14 +165,15 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-    background-color: var(--accent-color); 
-    border-color: var(--text-color); 
+    background-color: var(--accent-color);
+    border-color: var(--text-color);
 }
 
 .features {
     display: flex;
     flex-direction: column;
     margin-top: 0.25rem;
+    margin-bottom: 1rem;
 }
 
 .features>label {
@@ -186,13 +187,47 @@ input[type="checkbox"]:checked {
     cursor: pointer;
 }
 
+/* textarea */
+label>p {
+    display: inline;
+    font-size: small;
+    color: var(--accent-color);
+}
+
+textarea {
+    width: 100%;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+    padding: 10px;
+    border: 1px solid var(--accent-color);
+}
+
+/* Name */
+label[for="text"] {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+    min-height: 44px;
+}
+
 /* Footer Styles */
 footer {
     background-color: var(--primary-color);
     color: var(--secondary-color);
     text-align: center;
     padding: 1rem;
-    font-weight: 400;;
+    font-weight: 400;
 }
 
 footer p {
