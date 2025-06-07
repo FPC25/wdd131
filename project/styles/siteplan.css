@@ -1,0 +1,122 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --background-color: #F5EFE6; /* Eggshell/Off-White */
+    --text-color: #4D403D; /* Dark Chocolate Brown */
+    --primary-color: #5A7454; /* Earthy Green */
+    --accent-color: #A95C32; /* Terracotta/Rust */
+    --secondary-color: #FFFFFF; /* Pure White */
+}
+
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+header {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    margin: 0;
+}
+
+main {
+    padding: 2rem;
+    max-width: 767px;
+    margin: 0 auto;
+}
+
+/* Section Styles */
+section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+section p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+section ul li {
+    margin-bottom: 1rem;
+}
+
+section ul li strong {
+    font-family: 'Lora', serif;
+    color: var(--accent-color);
+}
+
+section ul li em {
+    font-style: italic;
+    color: var(--text-color);
+}
+
+/* Logo style */
+#logo-container {
+    display: block;
+    margin: 0 auto;
+    width: 40%;
+    height: auto;
+    background-color: var(--background-color);
+}
+
+/* Typography Section */
+section ul ul {
+    margin-left: 1rem;
+}
+
+section ul ul li {
+    margin-bottom: 0.5rem;
+}
+
+/* Wireframes Section */
+section img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1rem auto;
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 1rem;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+}
