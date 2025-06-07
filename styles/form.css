@@ -1,0 +1,14 @@
+/* General rules */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 767px;
+}
+
+:root {
+    --primary-color: #333;
+    --secondary-color: #fff;
+    --accent-color-1: #cccccc;
+    --accent-color-2: #000;
+}
