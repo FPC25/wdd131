@@ -206,7 +206,7 @@ input[type="checkbox"]:checked {
 }
 
 /* textarea */
-label>p {
+label>span {
     display: inline;
     font-size: small;
     color: var(--accent-color);
