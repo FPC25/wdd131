@@ -10,14 +10,6 @@ function renderProducts(products) {
 	);
 }
 
-function checkNumVisits() {
-    const visitsDisplay = document.querySelector("#visits");
-    let numVisits = Number(window.localStorage.getItem("numVisits-ls")) || 1;   
-	visitsDisplay.textContent = `${numVisits} visit(s) so far.`;
-	numVisits++;
-    window.localStorage.setItem("numVisits-ls", numVisits);
-}
-
 const products = [
 	{
 		id: "fc-1888",
@@ -48,5 +40,9 @@ const products = [
 
 if (typeof window !== "undefined") {
 	renderProducts(products);
-    checkNumVisits();
+    const visitsDisplay = document.querySelector("#visits");
+    let numVisits = Number(window.localStorage.getItem("numVisits-ls")) || 1;   
+	visitsDisplay.textContent = `${numVisits} visit(s) so far.`;
+	numVisits++;
+    window.localStorage.setItem("numVisits-ls", numVisits);
 }
