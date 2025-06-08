@@ -1,3 +1,23 @@
+function productTemplate(product) {
+	return `<option value="${product.id}">${product.name}</option>`;
+}
+
+function renderProducts(products) {
+	const productSelect = document.querySelector("#product-name");
+	productSelect.insertAdjacentHTML(
+		"beforeend",
+		products.map(productTemplate).join("")
+	);
+}
+
+function checkNumVisits() {
+    const visitsDisplay = document.querySelector("#visits");
+    let numVisits = Number(window.localStorage.getItem("numVisits-ls")) || 1;   
+	visitsDisplay.textContent = `${numVisits} visit(s) so far.`;
+	numVisits++;
+    window.localStorage.setItem("numVisits-ls", numVisits);
+}
+
 const products = [
 	{
 		id: "fc-1888",
@@ -26,18 +46,7 @@ const products = [
 	},
 ];
 
-function productTemplate(product) {
-	return `<option value="${product.id}">${product.name}</option>`;
-}
-
-function renderProducts(products) {
-	const productSelect = document.querySelector("#product-name");
-	productSelect.insertAdjacentHTML(
-		"beforeend",
-		products.map(productTemplate).join("")
-	);
-}
-
 if (typeof window !== "undefined") {
-    renderProducts(products);
+	renderProducts(products);
+    checkNumVisits();
 }
