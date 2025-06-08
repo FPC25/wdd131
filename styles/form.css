@@ -71,7 +71,6 @@ main {
     font-weight: 550;
     text-align: center;
     margin: 0 auto;
-    
 }
 
 /* Form General Styles */
@@ -251,9 +250,10 @@ input[type="submit"] {
     padding: 0.8rem;
     width: 96%;
     max-width: 400px;
-    margin: -0.1rem 2%;
+    margin: -0.1rem auto;
     box-shadow: 2px 2px 8px #888;
     font-size: medium;
+    display: block;
 }
 
 input[type="submit"]:active {
