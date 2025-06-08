@@ -27,55 +27,51 @@
 		<main>
 			<form action="review.html" method="get" class="review">
 				<label>
-					Product Name*
+					Product Name *
 					<select name="product" id="product-name" required>
 						<option value="" disabled selected>Select a product</option>
 					</select>
 				</label>
 
-				<label>
-					Overall Rating*
-                </label>
-				<div class="stars">
-					<input
-						type="radio"
-						id="fivestar"
-						name="stars"
-						value="5"
-						required ><label for="fivestar"></label>
-					<input
-						type="radio"
-						id="fourstar"
-						name="stars"
-						value="4"
-						required ><label for="fourstar"></label>
-					<input
-						type="radio"
-						id="threestar"
-						name="stars"
-						value="3"
-						required ><label for="threestar"></label>
-					<input
-						type="radio"
-						id="twostar"
-						name="stars"
-						value="2"
-						required ><label for="twostar"></label>
-					<input
-						type="radio"
-						id="onestar"
-						name="stars"
-						value="1"
-						required ><label for="onestar"></label>
-				</div>
+				<fieldset class="no-border" required>
+                    <legend>Overall Rating *</legend>
+                    <div class="stars">
+                        <input
+                            type="radio"
+                            id="fivestar"
+                            name="stars"
+                            value="5"
+                            required><label for="fivestar"></label>
+                        <input
+                            type="radio"
+                            id="fourstar"
+                            name="stars"
+                            value="4"><label for="fourstar"></label>
+                        <input
+                            type="radio"
+                            id="threestar"
+                            name="stars"
+                            value="3"><label for="threestar"></label>
+                        <input
+                            type="radio"
+                            id="twostar"
+                            name="stars"
+                            value="2"><label for="twostar"></label>
+                        <input
+                            type="radio"
+                            id="onestar"
+                            name="stars"
+                            value="1"><label for="onestar"></label>
+                    </div>
+                </fieldset>
 
                 <label>
-                    Date of Installation*
+                    Date of Installation *
                     <input id="date" type="date" name="installDate" required>
                 </label>
 
                 <label>
-                    Which feature did you find useful in this product?* <em>(Check all that apply)</em>
+                    Which feature did you find useful in this product? * <em>(Check all that apply)</em>
                 </label>
                 <div class="features">
                     <label>

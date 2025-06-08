@@ -40,5 +40,17 @@ const products = [
 
 renderProducts(products);
 
+document.querySelector('form').addEventListener('submit', function() {
+    // Add a unique submission ID to prevent counting legitimate duplicates as refreshes
+    const submissionId = Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+    
+    // Add hidden input with unique ID
+    const hiddenInput = document.createElement('input');
+    hiddenInput.type = 'hidden';
+    hiddenInput.name = 'submissionId';
+    hiddenInput.value = submissionId;
+    this.appendChild(hiddenInput);
+});
+
 
 

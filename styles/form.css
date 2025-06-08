@@ -105,6 +105,20 @@ form select {
 }
 
 /* Rating */
+fieldset.no-border {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+fieldset.no-border legend {
+    font-family: 'Lora', serif;
+    font-size: 1rem;
+    color: var(--text-color);
+    font-weight: bold;
+    display: block;
+}
+
 input[type="radio"] {
     display: none;
     position: relative;
