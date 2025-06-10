@@ -13,27 +13,27 @@
 /* Outer container - Page layout */
 .search-container {
     display: flex;
-    justify-content: center;  /* Centers the search box */
-    margin: 2rem 0;          /* Spacing from other elements */
+    justify-content: center; 
+    margin: 2rem 0;
 }
 
 /* Inner container - Component styling */
 .search-box {
-    display: flex;           /* Arranges internal elements */
-    align-items: center;     /* Vertical alignment */
-    background-color: var(--secondary-color); /* Visual appearance */
-    border-radius: 50px;     /* Rounded shape */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Drop shadow */
-    padding: 1rem 1rem;    /* Internal spacing */
+    display: flex;           
+    align-items: center;     
+    background-color: var(--secondary-color); 
+    border-radius: 50px;     
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    padding: 1rem 1rem;   
     width: 66%;
 }
 
 .search-box input {
-    flex: 1;                 /* Takes available space */
-    border: none;           /* No border */
-    outline: none;          /* No outline on focus */
-    font-size: 1rem;        /* Font size */
-    color: var(--text-color); /* Text color */
+    flex: 1;                
+    border: none;          
+    outline: none;          
+    font-size: 1.25rem;        
+    color: var(--text-color); 
     min-height: 44px;
     align-self: center;
     display: block; 
@@ -41,28 +41,28 @@
 }
 
 .search-box .search-icon {
-    width: auto;                /* Icon size */
-    height: 80%;               /* Icon size */
-    fill: var(--text-color);    /* Icon color */
-    margin-right: 10%;      /* Space between icon and input */
-    align-self: center;         /* Vertically center in flex container */
-    display: block;             /* Ensure SVG behaves as block for alignment */
+    width: auto;                
+    height: 80%;               
+    fill: var(--text-color);    
+    margin-right: 10%;      
+    align-self: center;         
+    display: block;            
 }
 
 .search-box button {
-    background-color: var(--accent-color); /* Button background */
-    color: var(--secondary-color);           /* Button text color */
-    border: none;                            /* No border */
-    border-radius: 50px;                     /* Rounded shape */
-    padding: 0.5rem 1rem;                  /* Internal spacing */
-    font-size: 1.2rem;                          /* Font size */
-    cursor: pointer;                          /* Pointer cursor on hover */
-    transition: background-color 0.3s ease;  /* Smooth transition for hover effect */
-    margin-left: 10%; /* Space between input and button */
+    background-color: var(--accent-color); 
+    color: var(--secondary-color);           
+    border: none;                           
+    border-radius: 50px;                     
+    padding: 0.5rem 1rem;                  
+    font-size: 1.2rem;                          
+    cursor: pointer;                          
+    transition: background-color 0.3s ease;  
+    margin-left: 10%; 
 }
 
 .search-box button:hover {
-    cursor: pointer;        /* Pointer cursor on hover */
+    cursor: pointer;       
 }
 
 .search-box button img {
