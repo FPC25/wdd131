@@ -66,44 +66,44 @@ header {
 }
 
 /* Navigation */
-nav {
+.hamburger-menu {
     position: fixed;
     top: 0;
     left: -100%;
     width: 250px;
     height: 100vh;
-    background-color: white;
+    background-color: var(--secondary-color);
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     transition: left 0.3s ease;
     z-index: 999;
     padding-top: 80px;
 }
 
-nav.active {
+.hamburger-menu.active {
     left: 0;
 }
 
-nav ul {
+.hamburger-menu ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-nav ul li {
-    border-bottom: 1px solid #eee;
+.hamburger-menu ul li {
+    border-bottom: 1px solid var(--secondary-color);
 }
 
-nav ul li a {
+.hamburger-menu ul li a {
     display: block;
     padding: 1rem 2rem;
     text-decoration: none;
-    color: var(--text-color, #333);
+    color: var(--text-color);
     font-family: 'Roboto', sans-serif;
     transition: background-color 0.3s ease;
 }
 
-nav ul li a:hover {
-    background-color: var(--accent-color, #A95C32);
+.hamburger-menu ul li a:hover {
+    background-color: var(--accent-color);
     color: white;
 }
 
@@ -150,14 +150,65 @@ main {
     margin: 0 auto;
 }
 
+/* Footer */
 footer {
     background-color: var(--primary-color);
     color: var(--secondary-color);
-    text-align: center;
     padding: 1rem;
+    margin-top: 2rem;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
+/* Footer paragraphs */
 footer p {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    color: var(--secondary-color);
+    text-align: center;
 }
+
+/* Email link styling */
+footer p a {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+footer p a:hover {
+    opacity: 0.8;
+}
+
+/* Social Links - positioned at bottom right */
+.sociallinks {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center; /* This centers the images horizontally */
+    margin-top: 0.5rem; /* Add some space above the icons */
+}
+
+.sociallinks a {
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+    padding: 6px;
+    transition: opacity 0.3s ease;
+}
+
+.sociallinks a img {
+    width: 40px;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+    padding: 5px;
+    transition: opacity 0.3s ease;
+}
+
+.sociallinks a:hover {
+    opacity: 0.8;
+}
+
