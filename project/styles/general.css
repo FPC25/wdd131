@@ -24,6 +24,7 @@ body {
 }
 
 header {
+    font-family: 'Lora', serif;
     background-color: var(--primary-color);
     color: var(--secondary-color);
     text-align: center;
@@ -32,9 +33,18 @@ header {
 }
 
 header h1 {
-    font-family: 'Lora', serif;
     font-size: 2rem;
     margin: 0;
+}
+
+body h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    text-decoration: underline;
+    text-underline-offset: 12.5%;
+    text-decoration-thickness: 2.5%;
 }
 
 main {
