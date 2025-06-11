@@ -66,23 +66,38 @@ header {
 }
 
 /* Navigation */
+#hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: var(--text-color);
+    padding: 8px;
+    z-index: 1001;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+/* Navigation Menu - Sliding from left */
 .hamburger-menu {
     position: fixed;
     top: 0;
-    left: -100%;
+    left: -250px; /* Hide menu off-screen to the left */
     width: 250px;
     height: 100vh;
     background-color: var(--secondary-color);
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     transition: left 0.3s ease;
-    z-index: 999;
+    z-index: 1000;
     padding-top: 80px;
 }
 
-.hamburger-menu.active {
-    left: 0;
+/* Menu active state - slides in from left */
+.hamburger-menu.open {
+    left: 0; /* Slide in to position */
 }
 
+/* Menu list styling */
 .hamburger-menu ul {
     list-style: none;
     padding: 0;
@@ -90,7 +105,7 @@ header {
 }
 
 .hamburger-menu ul li {
-    border-bottom: 1px solid var(--secondary-color);
+    border-bottom: 1px solid #eee;
 }
 
 .hamburger-menu ul li a {
@@ -104,7 +119,31 @@ header {
 
 .hamburger-menu ul li a:hover {
     background-color: var(--accent-color);
-    color: white;
+    color: var(--secondary-color);
+}
+
+/* Overlay for mobile menu */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Prevent body scroll when menu is open */
+body.menu-open {
+    overflow: hidden;
 }
 
 /* Welcome Section */
