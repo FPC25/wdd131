@@ -9,34 +9,67 @@
 
 		<title>Flavorfy - Add/Edit recipe</title>
 
-		<link rel="stylesheet" href="styles/siteplan.css">
+        <link rel="stylesheet" href="styles/general.css">
+		<link rel="stylesheet" href="styles/recipe.css">
+
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link
 			href="https://fonts.googleapis.com/css2?family=Lora&family=Roboto&display=swap"
 			rel="stylesheet">
 
-        <script src="scripts/getdates.js" defer></script>
+        <script src="scripts/general.js" defer></script>
 	</head>
 	<body>
-        <header>
+		<header>
+			<div class="header-top">
+				<button id="hamburger" aria-label="Toggle navigation">☰</button>
+				<nav class="hamburger-menu">
+					<ul>
+						<li><a href="./index.html" id="home">Home</a></li>
+						<li><a href="./cookbook.html" id="cookbook">Cookbook</a></li>
+						<li><a href="./calculator.html" id="calculator">Calculator</a></li>
+					</ul>
+				</nav>
+				<a href="./index.html"><img src="./images/Logo.svg" alt="Logo of Flavorfy" id="logo"></a>
+			</div>
+			<div class="welcome-container">
+				<div id="welcome-message">
+					<h1>Welcome to</h1>
+					<h1><span class="brand">Flavorfy</span></h1>
+				</div>
+			</div>
+		</header>
 
-        </header>
+		<main>
+			
+		</main>
 
-        <main>
+		<footer>
+			<div class="footer-content"></div>
+				<p>
+					&copy; <span id="currentYear"></span> &#128187; Felipe Proença Corral
+					&#128187; Brazil
+				</p>
+				<p id="lastModified"></p>
+			</div>
 
-        </main>
+			<nav class="sociallinks">
+				<a href="mailto:felipepcorral@gmail.com">
+					<img src="./images/email.svg" alt="Emails logo">
+				</a>
 
-        <footer>
-            <p>&copy; <span id="currentYear"></span> &#128187; Felipe Proença Corral &#128187; Brazil</p>
-            <p id="lastModified"></p>
-            <p>Follow us on:
-                <a href="https://www.facebook.com" target="_blank">Facebook</a>,
-                <a href="https://www.twitter.com" target="_blank">Twitter</a>,
-                <a href="https://www.instagram.com" target="_blank">Instagram</a>
-            </p>
-            <p>Contact us at: <a href="mailto:felipepcorral@gmail.com">felipepcorral@gmail.com</a></p>
-        </footer>
-    </body>
+				<a href="https://instagram.com">
+					<img src="./images/instagram.svg" alt="Instagrams logo">
+				</a>
+				<a href="https://facebook.com">
+					<img src="./images/facebook.svg" alt="Facebooks logo">
+				</a>
+				<a href="https://x.com/">
+					<img src="./images/x_twitter.svg" alt="Xs logo">
+				</a>
+			</nav>
+		</footer>
+	</body>
 </html>
 
