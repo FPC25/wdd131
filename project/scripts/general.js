@@ -11,6 +11,7 @@ currentYear.textContent = today.getFullYear();
 // getting the last modified date
 lastModified.textContent = `Last Modification: ${document.lastModified}`;
 
+
 // Hamburger Menu Functionality
 const hamburger = document.getElementById('hamburger');
 const nav = document.querySelector('.hamburger-menu');
