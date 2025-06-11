@@ -1,0 +1,63 @@
+/* search bar styles */
+
+/* Outer container - Page layout */
+.search-container {
+    display: flex;
+    justify-content: center; 
+    margin: 2rem 0;
+}
+
+/* Inner container - Component styling */
+.search-box {
+    display: flex;           
+    align-items: center;     
+    background-color: var(--secondary-color); 
+    border-radius: 50px;     
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); 
+    padding: 1rem 1rem;   
+    width: 90%;
+}
+
+.search-box input {
+    flex: 1;                
+    border: none;          
+    outline: none;          
+    font-size: 1.25rem;        
+    color: var(--text-color); 
+    min-height: 44px;
+    align-self: center;
+    display: block; 
+    width: 80%;
+}
+
+.search-box .search-icon {
+    width: auto;                
+    height: 80%;               
+    fill: var(--text-color);    
+    margin-right: 10%;      
+    align-self: center;         
+    display: block;            
+}
+
+.search-box button {
+    background-color: var(--accent-color); 
+    color: var(--secondary-color);           
+    border: none;                           
+    border-radius: 50px;                     
+    padding: 0.5rem 1rem;                  
+    font-size: 1.2rem;                          
+    cursor: pointer;                          
+    transition: background-color 0.3s ease;  
+    margin-left: 10%; 
+}
+
+.search-box button:hover {
+    cursor: pointer;       
+}
+
+.search-box button img {
+    width: 40px;
+    height: 30px;
+    align-self: center;
+    display: block;
+}
