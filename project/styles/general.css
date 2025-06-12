@@ -146,31 +146,6 @@ body.menu-open {
     overflow: hidden;
 }
 
-/* Welcome Section */
-.welcome-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.welcome-message {
-    text-align: center;
-    margin: 2rem 0;
-}
-
-.welcome-message h1 {
-    font-family: 'Lora', serif;
-    font-size: 2.5rem;
-    color: var(--text-color, #4D403D);
-    margin: 0;
-    font-weight: normal;
-}
-
-.brand {
-    font-weight: bold;
-    font-size: 3rem;
-}
-
 /* body */
 
 body h2 {
