@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Don't hide nav at the very top of the page
         if (currentScroll <= 0) {
             bottomNav.classList.remove('hidden');
+            lastScrollTop = 0;
             return;
         }
         
@@ -38,12 +39,14 @@ document.addEventListener('DOMContentLoaded', function() {
             bottomNav.classList.remove('hidden');
         }
         
-        // Show nav again after user stops scrolling for 2 seconds
-        scrollTimeout = setTimeout(() => {
-            bottomNav.classList.remove('hidden');
-        }, 2000);
+        lastScrollTop = currentScroll;
         
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        // Only show nav again after user stops scrolling for 2 seconds AND nav is currently hidden
+        if (bottomNav.classList.contains('hidden')) {
+            scrollTimeout = setTimeout(() => {
+                bottomNav.classList.remove('hidden');
+            }, 2000);
+        }
     }
 
     // Add throttled scroll listener
