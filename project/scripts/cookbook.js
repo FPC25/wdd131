@@ -52,7 +52,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add throttled scroll listener
     window.addEventListener('scroll', throttle(handleScroll, 100));
 
-    // Category button functionality (your existing code)
+    // Check URL parameters for filters
+    const urlParams = new URLSearchParams(window.location.search);
+    const filterParam = urlParams.get('filter');
+    
+    // Category button functionality
     const categoryButtons = document.querySelectorAll('.category-btn');
     
     categoryButtons.forEach(button => {
@@ -62,6 +66,31 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const selectedCategory = this.dataset.category;
             console.log('Filtering by category:', selectedCategory);
+            // Add your category filtering logic here
         });
     });
+
+    // Bottom navigation functionality
+    const favoritesNavItem = document.querySelector('.bottom-nav .nav-item[href="#"]');
+    if (favoritesNavItem) {
+        favoritesNavItem.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Clear category filters
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            // Apply favorites filter
+            applyFavoritesFilter();
+        });
+    }
+
+    // Apply favorites filter function
+    function applyFavoritesFilter() {
+        console.log('Filtering by favorites');
+        // Add your favorites filtering logic here
+        // This should show only recipes marked as favorites
+    }
+
+    // Check if page loaded with favorites filter
+    if (filterParam === 'favorites') {
+        applyFavoritesFilter();
+    }
 });

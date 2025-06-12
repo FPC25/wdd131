@@ -27,3 +27,18 @@ document.addEventListener('keydown', function(e) {
         toggleMenu();
     }
 });
+
+// Favorite Button Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const favoriteButtons = document.querySelectorAll('.favorite-btn');
+    
+    favoriteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            this.classList.toggle('active');
+            
+            // Optional: Add visual feedback or save state
+            console.log('Recipe favorited:', this.classList.contains('active'));
+        });
+    });
+});
