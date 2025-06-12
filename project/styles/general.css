@@ -164,6 +164,34 @@ main {
     margin: 0 auto;
 }
 
+/* Favorite Button */
+.favorite-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: black;
+    transition: color 0.3s ease;
+    padding: 0;
+    margin-left: 0.25rem;
+    line-height: 1;
+}
+
+.favorite-btn::before {
+    content: "\2606"; /* Empty star */
+    color: black;
+    transition: color 0.3s ease;
+}
+
+.favorite-btn:hover::before {
+    color: var(--star-hover);
+}
+
+.favorite-btn.active::before {
+    content: "\2605"; /* Filled star */
+    color: var(--star);
+}
+
 /* Footer */
 footer {
     background-color: var(--primary-color);
