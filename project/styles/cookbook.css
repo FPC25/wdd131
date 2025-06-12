@@ -86,7 +86,7 @@
 
 .recipe-image {
     height: 120px;
-    background-color: #f0f0f0;
+    background-color: var(--auxiliary-color);
     overflow: hidden;
     position: relative;
     display: flex;
@@ -121,22 +121,6 @@
     flex: 1;
 }
 
-.favorite-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    color: #ccc;
-    cursor: pointer;
-    padding: 0;
-    margin-left: 0.5rem;
-    transition: color 0.3s ease;
-}
-
-.favorite-btn:hover,
-.favorite-btn.active {
-    color: var(--star);
-}
-
 .recipe-info p {
     font-family: 'Roboto', sans-serif;
     font-size: 0.8rem;
@@ -153,7 +137,7 @@
     left: 0;
     right: 0;
     background-color: var(--secondary-color);
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid var(--auxiliary-color);
     display: flex;
     justify-content: space-around;
     align-items: center;
