@@ -1,0 +1,36 @@
+{
+  "Ratatouille": {
+  "Cover": "image",
+  "reference": "Mother",
+  "ingredients": { 
+    "zucchini": 2,
+    "eggplants": 2,
+    "onions": 2,
+    "tomatoes": 3,
+    "green pepper": 1,
+    "yellow pepper": 1,
+    "red pepper": 1,
+    "olive oil": "to taste",
+    "rosemary": "to taste",
+    "basil": "to taste",
+    "garlic": "to taste",
+    "salt": "to taste",
+    "blonde": "to taste",
+    "tomate sauce": "to taste"
+  },
+  
+  "cookTime": {"time": 30, "unit": "minutes"},
+  "instructions": [
+    "Cut the vegetables into thin slices without the seeds", 
+    "Cover the bottom of a baking dish with the tomato sauce",
+    "Assemble everything by alternating the vegetables",
+    "Crush the garlic and spread it on top, adding salt and rosemary to taste", 
+    "Drizzle with a little olive oil and cover with parchment paper or aluminum foil",
+    "Bake in the oven for 40 minutes at a temperature of 180° C to 200° C (350° F to 400° F)"
+  ],
+  "Filters": ["Lunch", "Dinner"], 
+  "saved": true,
+  "favorite": true,
+  "serves": 10
+  }
+}
