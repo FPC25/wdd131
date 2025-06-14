@@ -195,7 +195,9 @@ function renderRecipes(recipes, container, emptyMessage = 'No recipes found.') {
 // Adiciona event listeners aos botões de ação
 function addButtonListeners(container) {
     const actionButtons = container.querySelectorAll('.action-btn');
+    const recipeCards = container.querySelectorAll('.recipe-card');
     
+    // Event listeners para botões de ação
     actionButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.stopPropagation();
@@ -208,6 +210,20 @@ function addButtonListeners(container) {
                 toggleSaved(recipeId);
             }
         });
+    });
+    
+    // Event listeners para clique no card (navegar para detalhes)
+    recipeCards.forEach(card => {
+        card.addEventListener('click', function(e) {
+            // Verificar se o clique não foi em um botão de ação
+            if (!e.target.closest('.action-btn')) {
+                const recipeId = this.dataset.recipeId;
+                window.location.href = `./recipe-detail.html?id=${recipeId}`;
+            }
+        });
+        
+        // Adicionar cursor pointer para indicar que é clicável
+        card.style.cursor = 'pointer';
     });
 }
 

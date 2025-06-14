@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta
+            name="description"
+            content="Flavorfy - Recipe details with ingredients, instructions, and cooking information.">
+        <meta
+            name="keywords"
+            content="recipe details, cooking instructions, ingredients, Flavorfy">
+        <meta name="author" content="Felipe Proença Corral">
+
+        <title id="page-title">Recipe Details - Flavorfy</title>
+
+        <link rel="stylesheet" href="styles/general.css">
+        <link rel="stylesheet" href="styles/recipe-detail.css">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Roboto:wght@400;500;600&display=swap"
+            rel="stylesheet">
+
+        <script src="./scripts/recipe-utils.js"></script>
+        <script src="./scripts/general.js" defer></script>
+        <script src="./scripts/recipe-detail.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <div class="header-top">
+                <button id="hamburger" aria-label="Toggle navigation">☰</button>
+                <nav class="hamburger-menu">
+                    <ul>
+                        <li><a href="./index.html" id="home">Home</a></li>
+                        <li><a href="./explore.html" id="explore">Explore</a></li>
+                        <li><a href="./calculator.html" id="calculator">Calculator</a></li>
+                    </ul>
+                </nav>
+                <a href="./index.html"><img src="./images/Logo.svg" alt="Logo of Flavorfy" id="logo"></a>
+            </div>
+        </header>
+
+        <main>
+            <div class="recipe-detail-container">
+                <div class="recipe-header">
+                    <button type="button" id="back-btn" aria-label="Go back">←</button>
+                    <div class="recipe-actions">
+                        <button class="action-btn favorite-btn" 
+                                id="favorite-btn"
+                                aria-label="Toggle favorite">
+                            <img src="./images/favorite.svg" alt="Favorite">
+                        </button>
+                        <button class="action-btn save-btn" 
+                                id="save-btn"
+                                aria-label="Toggle save">
+                            <img src="./images/plus.svg" alt="Save">
+                        </button>
+                    </div>
+                </div>
+
+                <div class="recipe-content">
+                    <!-- Loading state -->
+                    <div id="loading-state" class="loading-message">
+                        <p>Loading recipe...</p>
+                    </div>
+
+                    <!-- Error state -->
+                    <div id="error-state" class="error-message" style="display: none;">
+                        <p>Recipe not found. <a href="./index.html">Return to home</a></p>
+                    </div>
+
+                    <!-- Recipe content -->
+                    <div id="recipe-content" style="display: none;">
+                        <div class="recipe-image-section">
+                            <img id="recipe-image" src="" alt="Recipe image" class="recipe-main-image">
+                        </div>
+
+                        <div class="recipe-info-section">
+                            <h1 id="recipe-title">Recipe Title</h1>
+                            
+                            <div class="recipe-meta-info">
+                                <div class="meta-item">
+                                    <span class="meta-label">Cook Time:</span>
+                                    <span id="cook-time"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Difficulty:</span>
+                                    <span id="difficulty"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Serves:</span>
+                                    <span id="serves"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Source:</span>
+                                    <span id="source"></span>
+                                </div>
+                            </div>
+
+                            <div class="recipe-categories" id="categories">
+                                <!-- Categories will be populated here -->
+                            </div>
+                        </div>
+
+                        <div class="recipe-ingredients-section">
+                            <h2>Ingredients</h2>
+                            <ul id="ingredients-list">
+                                <!-- Ingredients will be populated here -->
+                            </ul>
+                        </div>
+
+                        <div class="recipe-instructions-section">
+                            <h2>Instructions</h2>
+                            <ol id="instructions-list">
+                                <!-- Instructions will be populated here -->
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Navigation - igual ao explore -->
+            <nav class="bottom-nav">
+                <a href="./index.html" class="nav-item">
+                    <img src="./images/home.svg" alt="Home" class="nav-icon">
+                    <span class="nav-label">Home</span>
+                </a>
+                <a href="./explore.html" class="nav-item">
+                    <img src="./images/explore.svg" alt="Explore" class="nav-icon">
+                    <span class="nav-label">Explore</span>
+                </a>
+                <a href="#" class="nav-item" id="favorites-nav">
+                    <img src="./images/favorite.svg" alt="Favorites" class="nav-icon">
+                    <span class="nav-label">Favorites</span>
+                </a>
+            </nav>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>
+                    &copy; <span id="currentYear"></span> &#128187; Felipe Proença Corral
+                    &#128187; Brazil
+                </p>
+                <p id="lastModified"></p>
+            </div>
+
+            <nav class="sociallinks">
+                <a href="mailto:felipepcorral@gmail.com">
+                    <img src="./images/email.svg" alt="Emails logo">
+                </a>
+                <a href="https://instagram.com">
+                    <img src="./images/instagram.svg" alt="Instagrams logo">
+                </a>
+                <a href="https://facebook.com">
+                    <img src="./images/facebook.svg" alt="Facebooks logo">
+                </a>
+                <a href="https://x.com/">
+                    <img src="./images/x_twitter.svg" alt="Xs logo">
+                </a>
+            </nav>
+        </footer>
+    </body>
+</html>
