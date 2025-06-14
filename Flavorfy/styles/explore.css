@@ -202,4 +202,9 @@ main {
     }
 }
 
+/* Footer - adicionar espaço extra para a bottom nav */
+footer {
+    padding-bottom: 80px; /* Espaço extra para a bottom navigation */
+}
+
 
