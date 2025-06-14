@@ -9,7 +9,10 @@ async function loadRecipes() {
         const response = await fetch('./scripts/recipes.json');
         recipesData = await response.json();
         
-        // Apply localStorage changes
+        // Check if this is first time on this device
+        initializeUserDataFromServer();
+        
+        // Apply localStorage changes AFTER getting user data
         applyLocalStorageChanges();
         
         return recipesData;
@@ -19,14 +22,59 @@ async function loadRecipes() {
     }
 }
 
+// Initialize user data from "server" (JSON) on first device access
+function initializeUserDataFromServer() {
+    const userDataLoaded = localStorage.getItem('flavorfy_user_data_loaded');
+    
+    if (!userDataLoaded) {
+        console.log('First time on this device - loading user data from server...');
+        
+        // Simulate loading user's saved data from server (JSON file)
+        const userFavorites = recipesData
+            .filter(recipe => recipe.favorite === true)
+            .map(recipe => recipe.id);
+            
+        const userSaved = recipesData
+            .filter(recipe => recipe.saved === true)
+            .map(recipe => recipe.id);
+        
+        // Ensure that all favorites are also in saved (business rule)
+        const allUserSaved = [...new Set([...userSaved, ...userFavorites])];
+        
+        // Save user data to localStorage (sync with device)
+        saveFavoritesToStorage(userFavorites);
+        saveSavedToStorage(allUserSaved);
+        
+        // Mark that user data has been loaded to this device
+        localStorage.setItem('flavorfy_user_data_loaded', 'true');
+        localStorage.setItem('flavorfy_sync_date', new Date().toISOString());
+        
+        console.log('User data synced to device:', { 
+            favorites: userFavorites, 
+            saved: allUserSaved,
+            syncDate: new Date().toISOString()
+        });
+    } else {
+        const syncDate = localStorage.getItem('flavorfy_sync_date');
+        console.log('User data already synced to this device on:', syncDate);
+        console.log('Using local data...');
+    }
+}
+
 // Apply changes from localStorage to recipes data
 function applyLocalStorageChanges() {
     const favorites = getFavoritesFromStorage();
     const saved = getSavedFromStorage();
     
+    console.log('Applying user data to recipes:', { favorites, saved });
+    
     recipesData.forEach(recipe => {
-        recipe.favorite = favorites.includes(recipe.id);
-        recipe.saved = saved.includes(recipe.id);
+        const isFavorite = favorites.includes(recipe.id);
+        const isSaved = saved.includes(recipe.id);
+        
+        // Update recipe state with user data
+        recipe.favorite = isFavorite;
+        recipe.saved = isSaved || isFavorite; // Business rule: favorite implies saved
     });
 }
 
@@ -45,19 +93,76 @@ function getSavedFromStorage() {
 // Save favorites to localStorage
 function saveFavoritesToStorage(favorites) {
     localStorage.setItem('flavorfy_favorites', JSON.stringify(favorites));
+    // Update sync date when user makes changes
+    localStorage.setItem('flavorfy_last_change', new Date().toISOString());
 }
 
 // Save saved recipes to localStorage
 function saveSavedToStorage(saved) {
     localStorage.setItem('flavorfy_saved', JSON.stringify(saved));
+    // Update sync date when user makes changes
+    localStorage.setItem('flavorfy_last_change', new Date().toISOString());
 }
 
-// Register callback for when favorites change
+// Simulate syncing user data back to server (for future implementation)
+function syncUserDataToServer() {
+    const userData = {
+        favorites: getFavoritesFromStorage(),
+        saved: getSavedFromStorage(),
+        lastChange: localStorage.getItem('flavorfy_last_change'),
+        deviceId: getDeviceId()
+    };
+    
+    console.log('Syncing user data to server:', userData);
+    // In a real app, this would be an API call
+    // await fetch('/api/user/sync', { method: 'POST', body: JSON.stringify(userData) });
+}
+
+// Generate simple device ID for tracking
+function getDeviceId() {
+    let deviceId = localStorage.getItem('flavorfy_device_id');
+    if (!deviceId) {
+        deviceId = 'device_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('flavorfy_device_id', deviceId);
+    }
+    return deviceId;
+}
+
+// Reset user data (simulate logout or new user)
+function resetUserData() {
+    const confirmReset = confirm('This will reset all your saved recipes and favorites. Continue?');
+    if (confirmReset) {
+        localStorage.removeItem('flavorfy_user_data_loaded');
+        localStorage.removeItem('flavorfy_favorites');
+        localStorage.removeItem('flavorfy_saved');
+        localStorage.removeItem('flavorfy_sync_date');
+        localStorage.removeItem('flavorfy_last_change');
+        console.log('User data reset - will reload from server on next refresh');
+        alert('User data reset! Refresh the page to reload from server.');
+    }
+}
+
+// Get user stats
+function getUserStats() {
+    const stats = {
+        totalFavorites: getFavoritesFromStorage().length,
+        totalSaved: getSavedFromStorage().length,
+        deviceId: getDeviceId(),
+        syncDate: localStorage.getItem('flavorfy_sync_date'),
+        lastChange: localStorage.getItem('flavorfy_last_change'),
+        isFirstTime: !localStorage.getItem('flavorfy_user_data_loaded')
+    };
+    
+    console.log('User stats:', stats);
+    return stats;
+}
+
+// Register callback for when favorites/saved change
 function onFavoritesChange(callback) {
     updateCallbacks.push(callback);
 }
 
-// Notify all callbacks when favorites change
+// Notify all callbacks when favorites/saved change
 function notifyFavoritesChange() {
     updateCallbacks.forEach(callback => callback());
 }
@@ -65,6 +170,7 @@ function notifyFavoritesChange() {
 // Create recipe card HTML
 function createRecipeCard(recipe) {
     const favoriteClass = recipe.favorite ? 'active' : '';
+    const savedClass = recipe.saved ? 'active' : '';
     const cookTime = `${recipe.cookTime.time} ${recipe.cookTime.unit}`;
     const difficulty = recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1);
     
@@ -76,7 +182,12 @@ function createRecipeCard(recipe) {
             <div class="recipe-info">
                 <div class="recipe-header">
                     <h3>${recipe.name}</h3>
-                    <button class="favorite-btn ${favoriteClass}" aria-label="Add to favorites" data-recipe="${recipe.id}"></button> 
+                    <div class="recipe-actions">
+                        <button class="save-btn ${savedClass}" aria-label="Save recipe" data-recipe="${recipe.id}">
+                            <img src="./images/plus.svg" alt="Save">
+                        </button>
+                        <button class="favorite-btn ${favoriteClass}" aria-label="Add to favorites" data-recipe="${recipe.id}"></button>
+                    </div>
                 </div>
                 <p>${difficulty} • ${cookTime} • Serves ${recipe.serves}</p>
             </div>
@@ -145,7 +256,7 @@ function filterRecipesByCategory(category, searchTerm = '') {
 
 // Toggle favorite status
 function toggleFavorite(recipeId) {
-    recipeId = parseInt(recipeId); // Ensure it's a number
+    recipeId = parseInt(recipeId);
     const recipe = recipesData.find(r => r.id === recipeId);
     
     if (recipe) {
@@ -153,25 +264,37 @@ function toggleFavorite(recipeId) {
         
         // Update localStorage
         const favorites = getFavoritesFromStorage();
+        const saved = getSavedFromStorage();
+        
         if (recipe.favorite) {
+            // Add to favorites
             if (!favorites.includes(recipeId)) {
                 favorites.push(recipeId);
             }
-        } else {
-            const index = favorites.indexOf(recipeId);
-            if (index > -1) {
-                favorites.splice(index, 1);
+            // Business rule: favorite implies saved
+            if (!saved.includes(recipeId)) {
+                saved.push(recipeId);
             }
+            recipe.saved = true;
+        } else {
+            // Remove from favorites
+            const favIndex = favorites.indexOf(recipeId);
+            if (favIndex > -1) {
+                favorites.splice(favIndex, 1);
+            }
+            // Don't automatically remove from saved
         }
+        
         saveFavoritesToStorage(favorites);
+        saveSavedToStorage(saved);
         
-        // Update all favorite buttons for this recipe across all pages
-        updateAllFavoriteButtons(recipeId, recipe.favorite);
+        // Update all buttons for this recipe across all pages
+        updateAllButtons(recipeId, recipe.favorite, recipe.saved);
         
-        // Notify all callbacks that favorites have changed
+        // Notify all callbacks that data changed
         notifyFavoritesChange();
         
-        console.log(`Recipe ${recipe.name} favorite status: ${recipe.favorite}`);
+        console.log(`Recipe ${recipe.name} favorite: ${recipe.favorite}, saved: ${recipe.saved}`);
         return recipe.favorite;
     }
     return false;
@@ -183,10 +306,17 @@ function toggleSaved(recipeId) {
     const recipe = recipesData.find(r => r.id === recipeId);
     
     if (recipe) {
+        // Cannot unsave a favorited recipe
+        if (recipe.favorite && recipe.saved) {
+            console.log('Cannot unsave a favorited recipe');
+            return recipe.saved;
+        }
+        
         recipe.saved = !recipe.saved;
         
         // Update localStorage
         const saved = getSavedFromStorage();
+        
         if (recipe.saved) {
             if (!saved.includes(recipeId)) {
                 saved.push(recipeId);
@@ -197,23 +327,32 @@ function toggleSaved(recipeId) {
                 saved.splice(index, 1);
             }
         }
+        
         saveSavedToStorage(saved);
         
-        console.log(`Recipe ${recipe.name} saved status: ${recipe.saved}`);
+        // Update all buttons for this recipe across all pages
+        updateAllButtons(recipeId, recipe.favorite, recipe.saved);
+        
+        // Notify all callbacks that data changed
+        notifyFavoritesChange();
+        
+        console.log(`Recipe ${recipe.name} saved: ${recipe.saved}`);
         return recipe.saved;
     }
     return false;
 }
 
-// Update all favorite buttons for a specific recipe across all containers
-function updateAllFavoriteButtons(recipeId, isFavorite) {
-    const allFavoriteButtons = document.querySelectorAll(`[data-recipe="${recipeId}"]`);
+// Update all buttons for a specific recipe across all containers
+function updateAllButtons(recipeId, isFavorite, isSaved) {
+    const allFavoriteButtons = document.querySelectorAll(`[data-recipe="${recipeId}"].favorite-btn`);
+    const allSaveButtons = document.querySelectorAll(`[data-recipe="${recipeId}"].save-btn`);
+    
     allFavoriteButtons.forEach(button => {
-        if (isFavorite) {
-            button.classList.add('active');
-        } else {
-            button.classList.remove('active');
-        }
+        button.classList.toggle('active', isFavorite);
+    });
+    
+    allSaveButtons.forEach(button => {
+        button.classList.toggle('active', isSaved);
     });
 }
 
@@ -227,11 +366,12 @@ function renderRecipes(recipes, container, emptyMessage = 'No recipes found.') {
     }
     
     container.innerHTML = recipes.map(recipe => createRecipeCard(recipe)).join('');
-    addFavoriteButtonListeners(container);
+    addButtonListeners(container);
 }
 
-// Universal favorite button listener
-function addFavoriteButtonListeners(container) {
+// Universal button listeners
+function addButtonListeners(container) {
+    // Favorite button listeners
     const favoriteButtons = container.querySelectorAll('.favorite-btn');
     favoriteButtons.forEach(button => {
         button.addEventListener('click', function(e) {
@@ -249,6 +389,24 @@ function addFavoriteButtonListeners(container) {
             }
         });
     });
+    
+    // Save button listeners
+    const saveButtons = container.querySelectorAll('.save-btn');
+    saveButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const recipeId = parseInt(this.dataset.recipe);
+            const recipe = recipesData.find(r => r.id === recipeId);
+            
+            // Cannot unsave a favorited recipe
+            if (recipe && recipe.favorite && recipe.saved) {
+                console.log('Cannot unsave a favorited recipe');
+                return;
+            }
+            
+            toggleSaved(recipeId);
+        });
+    });
 }
 
 // Export functions for use in other files
@@ -260,9 +418,12 @@ window.RecipeUtils = {
     toggleFavorite,
     toggleSaved,
     renderRecipes,
-    addFavoriteButtonListeners,
+    addButtonListeners,
     onFavoritesChange,
     getRecipesData: () => recipesData,
     getFavoritesFromStorage,
-    getSavedFromStorage
+    getSavedFromStorage,
+    syncUserDataToServer,
+    resetUserData,
+    getUserStats
 };

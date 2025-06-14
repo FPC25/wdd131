@@ -1,6 +1,10 @@
 document.addEventListener('DOMContentLoaded', async function() {
+    console.log('Index.js: DOM loaded, starting recipe loading...'); // Debug
+    
     // Load recipes data
     await RecipeUtils.loadRecipes();
+    
+    console.log('Index.js: Recipes loaded:', RecipeUtils.getRecipesData()); // Debug
     
     // Get DOM elements
     const favoritesGrid = document.querySelector('.favorites .recipe-grid');
@@ -10,13 +14,16 @@ document.addEventListener('DOMContentLoaded', async function() {
     renderFavoritesSection();
     renderSavedSection();
     
-    // Register callback to update favorites section when favorites change
+    // Register callback to update sections when data changes
     RecipeUtils.onFavoritesChange(() => {
+        console.log('Index.js: Favorites changed, re-rendering...'); // Debug
         renderFavoritesSection();
+        renderSavedSection(); // Update saved section too
     });
     
     function renderFavoritesSection() {
         const favoriteRecipes = RecipeUtils.filterRecipes('favorites');
+        console.log('Index.js: Rendering favorites:', favoriteRecipes); // Debug
         RecipeUtils.renderRecipes(
             favoriteRecipes, 
             favoritesGrid, 
@@ -26,6 +33,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     function renderSavedSection() {
         const savedRecipes = RecipeUtils.filterRecipes('saved');
+        console.log('Index.js: Rendering saved:', savedRecipes); // Debug
         RecipeUtils.renderRecipes(
             savedRecipes, 
             savedGrid, 
