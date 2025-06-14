@@ -108,7 +108,7 @@
     "source": "TudoGostoso",
     "difficulty": "easy",
     "cookTime": {"time": 120, "unit": "minutes"},
-    "Filters": ["Lunch"],
+    "Filters": ["Lunch", "Dinner"],
     "ingredients": [
       {"item": "chicken breast fillets", "quantity": 2, "unit": "kg"},
       {"item": "medium carrots", "quantity": 3, "unit": "unit"},
