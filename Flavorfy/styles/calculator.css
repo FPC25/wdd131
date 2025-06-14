@@ -3,7 +3,7 @@
     max-width: 1000px;
     margin: 2rem auto;
     padding: 0 2rem;
-    margin-bottom: 100px; /* Espaço para bottom nav */
+    margin-bottom: 100px;
 }
 
 /* Seções gerais */
@@ -22,6 +22,24 @@
     margin-bottom: 1.5rem;
     border-bottom: 2px solid var(--accent-color);
     padding-bottom: 0.5rem;
+}
+
+/* Headers de seção */
+.ingredients-section-header {
+    font-family: 'Lora', serif;
+    font-size: 1.3rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+}
+
+.section-description {
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    line-height: 1.5;
 }
 
 /* Recipe Selection */
@@ -115,7 +133,7 @@
     object-fit: cover;
 }
 
-/* Cost Input */
+/* Instructions */
 .instructions {
     color: var(--text-color);
     opacity: 0.8;
@@ -123,112 +141,282 @@
     font-style: italic;
 }
 
-.ingredients-cost-grid {
-    display: grid;
-    gap: 1rem;
-    margin-bottom: 2rem;
-}
-
-.ingredient-cost-item {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 1rem;
-    align-items: center;
-    padding: 1rem;
+/* Ingredient Items - Estilo unificado */
+.ingredient-item {
     background: var(--light-gray);
-    border-radius: 8px;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
 }
 
-/* Layout especial para ingredientes "to taste" */
-.ingredient-cost-item:has(.to-taste-inputs) {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+.ingredient-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-color);
 }
 
-.ingredient-info {
+.ingredient-item.optional {
+    background: var(--secondary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.ingredient-item.optional:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 12px rgba(90, 116, 84, 0.15);
+}
+
+/* Header do ingrediente */
+.ingredient-header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .ingredient-name {
     font-weight: 600;
     color: var(--text-color);
+    font-size: 1.1rem;
     margin-bottom: 0.25rem;
 }
 
-.ingredient-quantity {
-    font-size: 0.9rem;
-    color: var(--text-color);
-    opacity: 0.7;
-}
-
-.to-taste-label {
+.recipe-needs {
     color: var(--accent-color);
+    font-size: 0.9rem;
     font-weight: 500;
 }
 
-.to-taste-note {
-    font-size: 0.8rem;
-    color: var(--text-color);
-    opacity: 0.8;
-    font-style: italic;
-    margin-top: 0.25rem;
+.remove-btn {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+    flex-shrink: 0;
 }
 
-/* Inputs especiais para "to taste" */
-.to-taste-inputs {
+.remove-btn:hover {
+    background: #8B4A28;
+    transform: scale(1.1);
+}
+
+/* Seção de uso real */
+.actual-usage {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(90, 116, 84, 0.1);
+    border-radius: 6px;
+    border: 1px solid var(--primary-color);
+}
+
+.actual-usage h5 {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    font-family: 'Lora', serif;
+}
+
+.usage-inputs {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Inputs de compra */
+.purchase-inputs {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
-    margin: 1rem 0;
-    padding: 1rem;
-    background: var(--secondary-color);
-    border-radius: 6px;
-    border: 1px solid var(--border-color);
+    margin-bottom: 1rem;
 }
 
-.cost-input-group {
+.input-group {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.5rem;
 }
 
-.cost-input-group label {
-    font-size: 0.8rem;
-    color: var(--text-color);
-    opacity: 0.8;
+.input-group label {
     font-weight: 500;
-}
-
-.cost-input-group input,
-.cost-input-group select {
-    padding: 0.5rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
     font-size: 0.9rem;
 }
 
-.cost-input-group input:focus,
-.cost-input-group select:focus {
+/* Estilos unificados para todos os inputs */
+.purchase-quantity,
+.purchase-unit,
+.purchase-price,
+.actual-quantity,
+.actual-unit {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    background: var(--secondary-color);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.purchase-quantity:focus,
+.purchase-unit:focus,
+.purchase-price:focus,
+.actual-quantity:focus,
+.actual-unit:focus {
     outline: none;
     border-color: var(--accent-color);
     box-shadow: 0 0 0 2px rgba(169, 92, 50, 0.2);
 }
 
-.ingredient-total-cost {
-    text-align: right;
+.price-input {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.currency {
+    font-size: 1.1rem;
     font-weight: 600;
     color: var(--accent-color);
+}
+
+.purchase-price {
+    font-weight: 600;
+}
+
+/* Display de custos */
+.cost-display {
+    background: var(--secondary-color);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--accent-color);
+}
+
+.conversion-info {
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(169, 92, 50, 0.1);
+    border-radius: 4px;
+}
+
+.conversion-text {
+    color: var(--accent-color);
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.unit-cost,
+.recipe-cost {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.recipe-cost {
+    margin-bottom: 0;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.unit-cost-value,
+.recipe-cost-value {
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.recipe-cost-value {
     font-size: 1.1rem;
-    align-self: end;
 }
 
-/* Ingrediente não incluído no breakdown */
-.breakdown-item.excluded {
-    border-left: 3px solid #ccc;
+/* Seção "to taste" */
+.to-taste-section {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
 }
 
+.to-taste-controls {
+    margin-bottom: 1.5rem;
+}
+
+/* Botões unificados */
+.add-btn,
+.confirm-btn,
+.cancel-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    border: none;
+}
+
+.add-btn {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.add-btn:hover {
+    background: var(--accent-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.confirm-btn {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    padding: 0.5rem 1rem;
+}
+
+.confirm-btn:hover {
+    background: var(--primary-color);
+}
+
+.cancel-btn {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+}
+
+.cancel-btn:hover {
+    background: var(--light-gray);
+}
+
+.to-taste-selector {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--secondary-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.to-taste-selector select {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Calculate Button */
 .calculate-button {
     background: var(--accent-color);
     color: var(--secondary-color);
@@ -308,12 +496,6 @@
     align-items: baseline;
     gap: 0.25rem;
     margin-bottom: 0.5rem;
-}
-
-.currency {
-    font-size: 1.5rem;
-    color: var(--accent-color);
-    font-weight: 600;
 }
 
 .cost-value {
@@ -419,25 +601,45 @@
     border: 1px solid var(--border-color);
 }
 
+.breakdown-item.excluded {
+    opacity: 0.6;
+    background: #f8f8f8;
+}
+
 .breakdown-ingredient {
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 .breakdown-name {
     font-weight: 600;
     color: var(--text-color);
+    margin-bottom: 0.25rem;
 }
 
-.breakdown-quantity {
+.breakdown-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.breakdown-details > div {
     font-size: 0.8rem;
     color: var(--text-color);
-    opacity: 0.7;
+    opacity: 0.8;
+}
+
+.breakdown-details .conversion-info {
+    font-style: italic;
+    color: var(--primary-color);
 }
 
 .breakdown-cost {
     font-weight: 600;
     color: var(--accent-color);
+    text-align: right;
+    white-space: nowrap;
 }
 
 /* Action Buttons */
@@ -551,21 +753,32 @@
         text-align: center;
     }
     
-    .ingredient-cost-item {
+    .purchase-inputs {
         grid-template-columns: 1fr;
         gap: 0.75rem;
-        text-align: center;
     }
     
-    .to-taste-inputs {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-        text-align: left;
+    .usage-inputs {
+        flex-direction: column;
     }
     
-    .ingredient-total-cost {
-        text-align: center;
-        align-self: center;
+    .to-taste-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .to-taste-selector select {
+        margin-bottom: 0.5rem;
+    }
+    
+    .ingredient-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .remove-btn {
+        align-self: flex-end;
     }
     
     .price-suggestion {
@@ -581,6 +794,16 @@
     .cost-value {
         font-size: 2rem;
     }
+    
+    .breakdown-item {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: left;
+    }
+    
+    .breakdown-cost {
+        align-self: flex-start;
+    }
 }
 
 @media (max-width: 480px) {
@@ -592,18 +815,26 @@
         padding: 1rem;
     }
     
-    .to-taste-inputs {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
+    .ingredient-item {
+        padding: 1rem;
     }
     
-    .history-grid {
-        grid-template-columns: 1fr;
+    .cost-display {
+        padding: 0.75rem;
     }
     
-    .breakdown-item {
+    .actual-usage {
+        padding: 0.75rem;
+    }
+    
+    .to-taste-selector {
+        padding: 0.75rem;
+    }
+    
+    .unit-cost,
+    .recipe-cost {
         flex-direction: column;
-        gap: 0.5rem;
-        text-align: center;
+        align-items: flex-start;
+        gap: 0.25rem;
     }
 }
