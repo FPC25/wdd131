@@ -1,36 +1,317 @@
-{
-  "Ratatouille": {
-  "Cover": "image",
-  "reference": "Mother",
-  "ingredients": { 
-    "zucchini": 2,
-    "eggplants": 2,
-    "onions": 2,
-    "tomatoes": 3,
-    "green pepper": 1,
-    "yellow pepper": 1,
-    "red pepper": 1,
-    "olive oil": "to taste",
-    "rosemary": "to taste",
-    "basil": "to taste",
-    "garlic": "to taste",
-    "salt": "to taste",
-    "blonde": "to taste",
-    "tomate sauce": "to taste"
+[
+  {
+    "name": "Ratatouille",
+    "cover": "image",
+    "source": "Mother",
+    "difficulty": "hard",
+    "cookTime": {"time": 30, "unit": "minutes"},
+    "Filters": ["Lunch", "Dinner"],
+    "ingredients": [
+      {"item": "zucchini", "quantity": 2, "unit": "unit"},
+      {"item": "eggplants", "quantity": 2, "unit": "unit"},
+      {"item": "onions", "quantity": 2, "unit": "unit"},
+      {"item": "tomatoes", "quantity": 3, "unit": "unit"},
+      {"item": "green pepper", "quantity": 1, "unit": "unit"},
+      {"item": "yellow pepper", "quantity": 1, "unit": "unit"},
+      {"item": "red pepper", "quantity": 1, "unit": "unit"},
+      {"item": "olive oil", "quantity": "to taste", "unit": null},
+      {"item": "rosemary", "quantity": "to taste", "unit": null},
+      {"item": "basil", "quantity": "to taste", "unit": null},
+      {"item": "garlic", "quantity": "to taste", "unit": null},
+      {"item": "salt", "quantity": "to taste", "unit": null},
+      {"item": "blonde", "quantity": "to taste", "unit": null},
+      {"item": "tomate sauce", "quantity": "to taste", "unit": null}
+    ],
+    "instructions": [
+      "Cut the vegetables into thin slices without the seeds", 
+      "Cover the bottom of a baking dish with the tomato sauce",
+      "Assemble everything by alternating the vegetables",
+      "Crush the garlic and spread it on top, adding salt and rosemary to taste", 
+      "Drizzle with a little olive oil and cover with parchment paper or aluminum foil",
+      "Bake in the oven for 40 minutes at a temperature of 180° C to 200° C (350° F to 400° F)"
+    ], 
+    "saved": true,
+    "favorite": true,
+    "serves": 10
+  }, 
+  {
+    "name": "Simple Crepioca",
+    "cover": "image",
+    "source": "Papinhas da Xica",
+    "difficulty": "very easy",
+    "cookTime": {"time": 5, "unit": "minutes"},
+    "Filters": ["Snack", "Breakfast", "Dessert"],
+    "ingredients": [
+      {"item": "Egg", "quantity": 1, "unit": "unit"},
+      {"item": "Hydrated tapioca starch", "quantity": 1, "unit": "tbsp"},
+      {"item": "Cheese", "quantity": "to taste", "unit": null},
+      {"item": "Shredded Chicken", "quantity": "to taste", "unit": null},
+      {"item": "Banana", "quantity": "to taste", "unit": null},
+      {"item": "Cinnamon", "quantity": "to taste", "unit": null},
+      {"item": "Nutella", "quantity":"to taste", "unit": null}
+    ],
+    "instructions": [
+      "In a bowl, place the tapioca starch and the egg.",
+      "With a fork, beat vigorously until the mixture is homogeneous and the tapioca granules have completely dissolved, looking like just a beaten egg.",
+      "Heat a small frying pan over low heat and grease with a drizzle of coconut oil or olive oil, just enough to prevent sticking.",
+      "Pour the mixture into the pan and cook for a few minutes. The edges will start to lift on their own.",
+      "Carefully flip and cook for another minute on the other side.",
+      "Transfer to a plate and serve.",
+      "Be creative with fillings: cheese, shredded chicken, banana with cinnamon"
+    ],
+    "saved": true,
+    "favorite": true,
+    "serves": 1
   },
-  
-  "cookTime": {"time": 30, "unit": "minutes"},
-  "instructions": [
-    "Cut the vegetables into thin slices without the seeds", 
-    "Cover the bottom of a baking dish with the tomato sauce",
-    "Assemble everything by alternating the vegetables",
-    "Crush the garlic and spread it on top, adding salt and rosemary to taste", 
-    "Drizzle with a little olive oil and cover with parchment paper or aluminum foil",
-    "Bake in the oven for 40 minutes at a temperature of 180° C to 200° C (350° F to 400° F)"
-  ],
-  "Filters": ["Lunch", "Dinner"], 
-  "saved": true,
-  "favorite": true,
-  "serves": 10
+  {
+    "name": "Traditional Chicken Coxinha",
+    "cover": "image",
+    "source": "Estadão Paladar",
+    "difficulty": "medium",
+    "cookTime": {"time": 120, "unit": "minutes"},
+    "Filters": ["Snack"],
+    "ingredients": [
+      {"item": "Water", "quantity": 1.5, "unit": "L"},
+      {"item": "chicken bouillon powder", "quantity": 30, "unit": "g"},
+      {"item": "poultry seasoning", "quantity": 20, "unit": "g"},
+      {"item": "salt", "quantity": 25, "unit": "g"},
+      {"item": "oil", "quantity": 250, "unit": "ml"},
+      {"item": "all-purpose flour", "quantity": 1, "unit": "kg"},
+      {"item": "chicken breast", "quantity": 2, "unit": "kg"},
+      {"item": "minced garlic", "quantity": 30, "unit": "g"},
+      {"item": "chopped onion", "quantity": 40, "unit": "g"},
+      {"item": "annatto powder", "quantity": 20, "unit": "g"},
+      {"item": "oregano", "quantity": "1 pinch", "unit": null},
+      {"item": "tomato sauce", "quantity": "1/2 sachet", "unit": null},
+      {"item": "breadcrumbs", "quantity": 1, "unit": "kg"},
+      {"item": "water for breading", "quantity": 1, "unit": "L"},
+      {"item": "flour for breading", "quantity": 2, "unit": "tbsp"},
+      {"item": "salt for breading", "quantity": 1, "unit": "tbsp"}
+    ],
+    "instructions": [
+      "Cook the chicken breast in water with salt, reserve the water and shred the chicken",
+      "In a pan, heat oil and sauté garlic and onion, add annatto powder, oregano, tomato sauce, and shredded chicken",
+      "In a large pot, boil 1.5L of chicken cooking water with bouillon, seasoning, salt, and oil",
+      "Add all flour at once when boiling, stir vigorously for 10 minutes until dough pulls away from pan",
+      "Knead the hot dough until smooth and elastic, let cool",
+      "Shape portions of dough with chicken filling into coxinha form",
+      "Dip in water-salt-flour mixture, then coat with breadcrumbs",
+      "Fry in hot oil until golden brown"
+    ],
+    "saved": false,
+    "favorite": false,
+    "serves": 10
+  },
+  {
+    "name": "Grilled Chicken with Vegetables",
+    "cover": "image",
+    "source": "TudoGostoso",
+    "difficulty": "easy",
+    "cookTime": {"time": 120, "unit": "minutes"},
+    "Filters": ["Lunch"],
+    "ingredients": [
+      {"item": "chicken breast fillets", "quantity": 2, "unit": "kg"},
+      {"item": "medium carrots", "quantity": 3, "unit": "unit"},
+      {"item": "medium potatoes", "quantity": 4, "unit": "unit"},
+      {"item": "medium green beans", "quantity": 18, "unit": "unit"},
+      {"item": "Arisco complete seasoning", "quantity": 2, "unit": "tsp"},
+      {"item": "Sazón for meats", "quantity": 2, "unit": "sachets"},
+      {"item": "black pepper", "quantity": 1, "unit": "tsp"},
+      {"item": "cilantro", "quantity": "to taste", "unit": null},
+      {"item": "margarine", "quantity": 1, "unit": "tbsp"},
+      {"item": "olive oil", "quantity": "to taste", "unit": null},
+      {"item": "lime", "quantity": 1, "unit": "unit"}
+    ],
+    "instructions": [
+      "Cut chicken fillets into thin slices and wash with lime juice",
+      "Mix Arisco seasoning, Sazón, and black pepper, season each chicken slice",
+      "Cut carrots and potatoes into rounds, green beans into three parts",
+      "Steam each vegetable separately until tender but firm",
+      "Season vegetables with salt and chopped cilantro",
+      "Heat olive oil and margarine in non-stick pan, grill chicken until golden",
+      "Serve chicken with steamed vegetables, drizzle vegetables with olive oil"
+    ],
+    "saved": true,
+    "favorite": false,
+    "serves": 6
+  },
+  {
+    "name": "Dried Beef Escondidinho (Traditional Version)",
+    "cover": "image",
+    "source": "Panelinha",
+    "difficulty": "hard",
+    "cookTime": {"time": 120, "unit": "minutes"},
+    "Filters": ["Lunch", "Dinner"],
+    "ingredients": [
+      {"item": "dried beef (carne-seca)", "quantity": 1, "unit": "kg"},
+      {"item": "cassava", "quantity": 1, "unit": "kg"},
+      {"item": "milk", "quantity": "to taste", "unit": null},
+      {"item": "butter", "quantity": "to taste", "unit": null},
+      {"item": "queijo coalho", "quantity": "to taste", "unit": null},
+      {"item": "onion", "quantity": "to taste", "unit": null},
+      {"item": "garlic", "quantity": "to taste", "unit": null},
+      {"item": "salt", "quantity": "to taste", "unit": null}
+    ],
+    "instructions": [
+      "Desalt the dried beef for 12 hours, changing water several times",
+      "Pressure cook the desalted beef until tender, then shred",
+      "Cook cassava until very tender, mash with milk and butter",
+      "Sauté onion and garlic, add shredded beef and seasonings",
+      "Layer cassava puree, beef filling, and more puree in baking dish",
+      "Top with cheese and bake until golden",
+      "The desalting process is crucial for the final flavor",
+      "This dish can be assembled in advance and baked just before serving"
+    ],
+    "saved": false,
+    "favorite": false,
+    "serves": 8
+  },
+  {
+    "name": "Dried Beef Escondidinho (Creamy Version)",
+    "cover": "image",
+    "source": "Estadão Paladar",
+    "difficulty": "easy",
+    "cookTime": {"time": 90, "unit": "minutes"},
+    "Filters": ["Lunch", "Dinner"],
+    "ingredients": [
+      {"item": "dried beef (carne-seca)", "quantity": 600, "unit": "g"},
+      {"item": "cassava", "quantity": 1.2, "unit": "kg"},
+      {"item": "butter", "quantity": "to taste", "unit": null},
+      {"item": "creamy requeijão", "quantity": "to taste", "unit": null},
+      {"item": "onion", "quantity": "to taste", "unit": null},
+      {"item": "garlic", "quantity": "to taste", "unit": null},
+      {"item": "grated cheese", "quantity": "to taste", "unit": null}
+    ],
+    "instructions": [
+      "Pressure cook the dried beef for 1h30, shred, and sauté with seasonings. Add 2 tbsp of requeijão at the end",
+      "Cook the cassava for 15 min. Mash with a fork",
+      "In a pan, sauté the mashed cassava with butter, onion, and garlic",
+      "Add the rest of the requeijão to the puree and mix well",
+      "Assemble in a baking dish with a layer of puree, the filling, and another layer of puree",
+      "Cover with grated cheese and bake to gratinate"
+    ],
+    "saved": false,
+    "favorite": false,
+    "serves": 4
+  },
+  {
+    "name": "Arracacha Soup with Dried Beef",
+    "cover": "image",
+    "source": "Terra",
+    "difficulty": "easy",
+    "cookTime": {"time": 60, "unit": "minutes"},
+    "Filters": ["Lunch", "Dinner"],
+    "ingredients": [
+      {"item": "arracacha, in pieces", "quantity": 1, "unit": "kg"},
+      {"item": "salt", "quantity": "to taste", "unit": null},
+      {"item": "black pepper", "quantity": "to taste", "unit": null},
+      {"item": "milk", "quantity": 2, "unit": "cups"},
+      {"item": "vegetable bouillon cube", "quantity": 1, "unit": "unit"},
+      {"item": "butter", "quantity": 2, "unit": "tbsp"},
+      {"item": "chopped onion", "quantity": 1, "unit": "unit"},
+      {"item": "dried beef, desalted and shredded", "quantity": 500, "unit": "g"},
+      {"item": "table cream", "quantity": 400, "unit": "g"},
+      {"item": "grated Parmesan cheese", "quantity": "to taste", "unit": null},
+      {"item": "chopped chives", "quantity": "to taste", "unit": null}
+    ],
+    "instructions": [
+      "Cook arracacha in boiling salted water until very tender",
+      "Drain and blend with milk and bouillon cube until smooth",
+      "Sauté onion in butter, add dried beef and cook for 3 minutes",
+      "Add arracacha cream and cook until boiling",
+      "Stir in table cream, season with salt and pepper, turn off heat before boiling again",
+      "Serve hot with Parmesan and chives",
+      "For a special presentation, serve the soup inside a hollowed-out round Italian bread loaf",
+      "Do not let the soup boil after adding the cream to prevent curdling"
+    ],
+    "saved": false,
+    "favorite": false,
+    "serves": 6
+  },
+  {
+    "name": "Condensed Milk Pudding",
+    "cover": "image",
+    "source": "TudoGostoso",
+    "difficulty": "medium",
+    "cookTime": {"time": 50, "unit": "minutes"},
+    "Filters": ["Dessert"],
+    "ingredients": [
+      {"item": "condensed milk", "quantity": 1, "unit": "can"},
+      {"item": "milk", "quantity": 1, "unit": "can"},
+      {"item": "whole eggs", "quantity": 3, "unit": "unit"},
+      {"item": "sugar for caramel", "quantity": 1, "unit": "cup"},
+      {"item": "water for caramel", "quantity": 0.5, "unit": "cup"}
+    ],
+    "instructions": [
+      "Melt sugar over low heat until golden caramel forms",
+      "Carefully add water to caramel and stir until smooth",
+      "Pour caramel into pudding mold, covering bottom and sides",
+      "In blender, beat eggs for 1 minute, add condensed milk and milk, blend until smooth",
+      "Pour mixture into caramelized mold",
+      "Cover with aluminum foil and bake in water bath at 180°C for 45 minutes",
+      "Test doneness with toothpick - should come out clean",
+      "Cool completely and refrigerate before unmolding"
+    ],
+    "saved": false,
+    "favorite": false,
+    "serves": 8
+  },
+  {
+    "name": "Cheese Bread with Parmesan",
+    "cover": "image",
+    "source": "Estadão Paladar",
+    "difficulty": "easy",
+    "cookTime": {"time": 40, "unit": "minutes"},
+    "Filters": ["Snack"],
+    "ingredients": [
+      {"item": "finely grated Parmesan cheese", "quantity": 200, "unit": "g"},
+      {"item": "sour cassava starch", "quantity": 200, "unit": "g"},
+      {"item": "sunflower oil", "quantity": 40, "unit": "ml"},
+      {"item": "water", "quantity": 100, "unit": "ml"},
+      {"item": "egg", "quantity": 1, "unit": "unit"},
+      {"item": "salt", "quantity": "to taste", "unit": null}
+    ],
+    "instructions": [
+      "Preheat oven to 180°C (350°F)",
+      "Heat water and oil until boiling",
+      "Pour boiling mixture over cassava starch and stir vigorously",
+      "Add Parmesan cheese and mix well",
+      "Add egg and mix until smooth, adjust salt",
+      "Shape into small balls with oiled hands",
+      "Bake until golden brown",
+      "The intense flavor of Parmesan makes this cheese bread an excellent pairing for wine and cocktails",
+      "Adjust the salt carefully, as Parmesan is already quite salty"
+    ],
+    "saved": false,
+    "favorite": false,
+    "serves": 10
+  }, 
+  {
+    "name": "Traditional Cheese Bread",
+    "cover": "image",
+    "source": "Estadão Paladar",
+    "difficulty": "easy",
+    "cookTime": {"time": 40, "unit": "minutes"},
+    "Filters": ["Snack"],
+    "ingredients": [
+      {"item": "meia cura cheese", "quantity": 200, "unit": "g"},
+      {"item": "sour cassava starch", "quantity": 200, "unit": "g"},
+      {"item": "milk", "quantity": 100, "unit": "ml"},
+      {"item": "butter", "quantity": 40, "unit": "g"},
+      {"item": "Egg", "quantity": 1, "unit": "unit"},
+      {"item": "Salt", "quantity": "to taste", "unit": null}
+    ],
+    "instructions": [
+      "Preheat the oven to 180°C (350°F). This step is crucial for the success of the recipe.",
+      "In a small saucepan, heat the milk and butter until it boils.", 
+      "Pour the boiling mixture over the cassava starch and stir vigorously with a spoon to form a uniform paste. This process, known as 'scalding the starch', is the secret to the characteristic elastic texture.",
+      "Add the grated cheese and mix well to incorporate it into the dough. Then, add the egg and mix again. Adjust the salt if necessary, remembering that the cheese is already salty.",
+      "With oiled hands, shape small balls",
+      "Arrange the cheese breads on a baking sheet (no need to grease) and bake in the preheated medium oven until they are well-browned.",
+      "Tip: For a flawless result, don't be afraid to bake the cheese breads until they are very golden—the ideal color is more bronze than yellow. The perfect texture depends on balance: if the dough is too sticky, it may have too much liquid; if it's dry, it may lack fat. Feel the dough and adjust if necessary."
+    ],
+    "saved": false,
+    "favorite": false,
+    "serves": 5
   }
-}
+]
