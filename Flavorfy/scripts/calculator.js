@@ -342,17 +342,17 @@ function createIngredientTemplate(ingredient, index, recipeQuantity, isOptional)
 }
 
 function createUnitOptions() {
+    const unitOptions = ['unit']
+        .map(unit => `<option value="${unit}">${unit}</option>`).join('');
     const weightOptions = ['g', 'kg', 'lb', 'oz']
         .map(unit => `<option value="${unit}">${unit}</option>`).join('');
     const volumeOptions = ['ml', 'l', 'cup', 'tbsp', 'tsp', 'fl oz', 'pint', 'quart', 'gallon']
         .map(unit => `<option value="${unit}">${unit}</option>`).join('');
-    const unitOptions = ['piece', 'egg', 'can', 'package', 'jar', 'bottle', 'box', 'bag']
-        .map(unit => `<option value="${unit}">${unit}</option>`).join('');
     
     return `
+        <optgroup label="Units">${unitOptions}</optgroup>
         <optgroup label="Weight">${weightOptions}</optgroup>
         <optgroup label="Volume">${volumeOptions}</optgroup>
-        <optgroup label="Units">${unitOptions}</optgroup>
     `;
 }
 
