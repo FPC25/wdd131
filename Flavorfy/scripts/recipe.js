@@ -24,18 +24,30 @@ const quantityOptions = [
 const unitOptions = [
     { value: '', text: 'Select unit' },
     { value: 'unit', text: 'unit(s)' },
-    { value: 'g', text: 'g' },
-    { value: 'kg', text: 'kg' },
-    { value: 'ml', text: 'ml' },
-    { value: 'L', text: 'L' },
+    { value: 'piece', text: 'piece(s)' },
+    { value: 'g', text: 'g (grams)' },
+    { value: 'kg', text: 'kg (kilograms)' },
+    { value: 'ml', text: 'ml (milliliters)' },
+    { value: 'L', text: 'L (liters)' },
     { value: 'cup', text: 'cup(s)' },
-    { value: 'tbsp', text: 'tbsp' },
-    { value: 'tsp', text: 'tsp' },
-    { value: 'oz', text: 'oz' },
-    { value: 'lb', text: 'lb' },
+    { value: 'tbsp', text: 'tbsp (tablespoon)' },
+    { value: 'tsp', text: 'tsp (teaspoon)' },
+    { value: 'oz', text: 'oz (ounces)' },
+    { value: 'lb', text: 'lb (pounds)' },
     { value: 'can', text: 'can(s)' },
-    { value: 'sachets', text: 'sachet(s)' },
-    { value: 'pinch', text: 'pinch' }
+    { value: 'jar', text: 'jar(s)' },
+    { value: 'bottle', text: 'bottle(s)' },
+    { value: 'bag', text: 'bag(s)' },
+    { value: 'box', text: 'box(es)' },
+    { value: 'packet', text: 'packet(s)' },
+    { value: 'sachet', text: 'sachet(s)' },
+    { value: 'pinch', text: 'pinch' },
+    { value: 'dash', text: 'dash' },
+    { value: 'handful', text: 'handful' },
+    { value: 'slice', text: 'slice(s)' },
+    { value: 'clove', text: 'clove(s)' },
+    { value: 'sprig', text: 'sprig(s)' },
+    { value: 'bunch', text: 'bunch(es)' }
 ];
 
 function initializeForm() {
@@ -82,6 +94,23 @@ function addEventListeners() {
     
     // Image upload preview
     document.getElementById('cover-image').addEventListener('change', handleImageUpload);
+    
+    // Difficulty select behavior
+    setupDifficultySelect();
+}
+
+function setupDifficultySelect() {
+    const difficultySelect = document.getElementById('difficulty');
+    
+    difficultySelect.addEventListener('change', function() {
+        const defaultOption = this.querySelector('option[value=""]');
+        
+        // Se uma opção válida foi selecionada, desabilitar a opção padrão
+        if (this.value !== '') {
+            defaultOption.disabled = true;
+            defaultOption.style.display = 'none'; // Esconder também para melhor UX
+        }
+    });
 }
 
 function addIngredientRow() {
@@ -92,6 +121,8 @@ function addIngredientRow() {
     
     // Create quantity datalist
     const quantityDatalistId = `quantity-options-${row.dataset.ingredientId}`;
+    // Create unit datalist
+    const unitDatalistId = `unit-options-${row.dataset.ingredientId}`;
     
     row.innerHTML = `
         <div class="form-group">
@@ -102,14 +133,15 @@ function addIngredientRow() {
             </datalist>
         </div>
         <div class="form-group">
-            <label>Ingredient</label>
-            <input type="text" class="ingredient-input" placeholder="e.g., tomatoes" required>
+            <label>Unit</label>
+            <input type="text" list="${unitDatalistId}" class="unit-input" placeholder="Select or type...">
+            <datalist id="${unitDatalistId}">
+                ${unitOptions.map(option => `<option value="${option.value}">${option.text}</option>`).join('')}
+            </datalist>
         </div>
         <div class="form-group">
-            <label>Unit</label>
-            <select class="unit-input">
-                ${unitOptions.map(option => `<option value="${option.value}">${option.text}</option>`).join('')}
-            </select>
+            <label>Ingredient</label>
+            <input type="text" class="ingredient-input" placeholder="e.g., tomatoes" required>
         </div>
         <button type="button" class="remove-ingredient" onclick="removeIngredientRow(this)">×</button>
     `;
@@ -118,14 +150,16 @@ function addIngredientRow() {
     
     // Add event listener to quantity input to handle "to taste" selection
     const quantityInput = row.querySelector('.quantity-input');
-    const unitSelect = row.querySelector('.unit-input');
+    const unitInput = row.querySelector('.unit-input');
     
     quantityInput.addEventListener('input', function() {
         if (this.value === 'to taste') {
-            unitSelect.disabled = true;
-            unitSelect.value = '';
+            unitInput.disabled = true;
+            unitInput.value = '';
+            unitInput.placeholder = 'Not needed';
         } else {
-            unitSelect.disabled = false;
+            unitInput.disabled = false;
+            unitInput.placeholder = 'Select or type...';
         }
     });
 }
@@ -205,11 +239,10 @@ function addChangeImageButton(preview) {
     changeButton.className = 'change-image-btn';
     changeButton.innerHTML = `
         <div class="change-overlay">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 <circle cx="12" cy="13" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span>Change Image</span>
         </div>
         <button type="button" class="remove-image-btn" title="Remove image">×</button>
     `;
@@ -254,6 +287,8 @@ function collectFormData() {
     const name = document.getElementById('recipe-name').value.trim();
     const source = document.getElementById('source').value.trim() || '';
     const difficulty = document.getElementById('difficulty').value;
+    
+    // Handle serves - default to 1 if empty
     const servesValue = document.getElementById('serves').value;
     const serves = servesValue ? parseInt(servesValue) : 1;
     
@@ -273,13 +308,13 @@ function collectFormData() {
     ingredientRows.forEach(row => {
         const quantity = row.querySelector('.quantity-input').value.trim();
         const item = row.querySelector('.ingredient-input').value.trim();
-        const unit = row.querySelector('.unit-input').value;
+        const unit = row.querySelector('.unit-input').value.trim(); // Now it's an input, not select
         
         if (quantity && item) {
             ingredients.push({
                 item: item,
                 quantity: quantity === 'to taste' ? 'to taste' : parseFloat(quantity) || quantity,
-                unit: quantity === 'to taste' ? null : unit || null
+                unit: quantity === 'to taste' ? null : (unit || null)
             });
         }
     });

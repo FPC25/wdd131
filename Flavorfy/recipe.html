@@ -62,7 +62,7 @@
 							</div>
 							<div class="form-group">
 								<label for="serves">Serves</label>
-								<input type="number" id="serves" min="1" max="1000" value="1" placeholder="1">
+								<input type="number" id="serves" min="1" value="1" placeholder="1">
 							</div>
 						</div>
 
@@ -74,7 +74,7 @@
 							<div class="form-group">
 								<label for="difficulty">Difficulty *</label>
 								<select id="difficulty" required>
-									<option value="">Select difficulty</option>
+									<option value="" disabled selected>Select difficulty</option>
 									<option value="very easy">Very Easy</option>
 									<option value="easy">Easy</option>
 									<option value="medium">Medium</option>
@@ -88,7 +88,7 @@
 							<div class="form-group">
 								<label>Cook Time *</label>
 								<div class="time-inputs">
-									<input type="number" id="cook-time" min="1" required>
+									<input type="number" id="cook-time" min="1" required placeholder="e.g., 30">
 									<select id="time-unit" required>
 										<option value="minutes">minutes</option>
 										<option value="hours">hour(s)</option>

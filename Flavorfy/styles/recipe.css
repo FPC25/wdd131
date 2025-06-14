@@ -190,13 +190,6 @@
     filter: invert(1);
 }
 
-.change-overlay span {
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
 .remove-image-btn {
     position: absolute;
     top: 8px;
