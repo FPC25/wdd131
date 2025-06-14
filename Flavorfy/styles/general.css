@@ -306,18 +306,17 @@ h1, h2, h3 {
 
 .favorite-btn.active img,
 .favorite-btn:hover img {
-    /* Filtro para aplicar a cor --star (#FFAE42) */
-    filter: invert(0.6) sepia(1) saturate(2) hue-rotate(25deg) brightness(1.1);
+    filter: none;
 }
 
 /* Efeito especial para botão favorito ativo */
 .favorite-btn.active {
-    background: rgba(255, 174, 66, 0.15);
+    background: rgba(255, 174, 66, 0.10); /* Mais suave, menos amarelo */
     border: 1px solid var(--star);
 }
 
 .favorite-btn.active:hover {
-    background: rgba(255, 174, 66, 0.25);
+    background: rgba(255, 174, 66, 0.18);
     transform: scale(1.15);
 }
 

@@ -104,7 +104,7 @@ function createRecipeCard(recipe) {
                             data-recipe-id="${recipe.id}" 
                             data-action="favorite" 
                             aria-label="Toggle favorite">
-                        <img src="./images/favorite.svg" alt="Favorite">
+                        <img src="./images/star.svg" alt="Favorite">
                     </button>
                 </div>
             </div>
