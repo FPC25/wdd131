@@ -25,9 +25,12 @@ async function loadRecipes() {
         
         console.log('Recipes loaded:', recipesData.length);
         
-        // 4. Aplicar dados do usuário (favoritos/salvos)
+        // 4. SEMPRE aplicar dados do usuário (favoritos/salvos) mais recentes
         initializeUserDataFromServer();
         applyLocalStorageChanges();
+        
+        // ✅ ADICIONAR: Salvar dados atualizados de volta ao localStorage
+        localStorage.setItem('recipesData', JSON.stringify(recipesData));
         
     } catch (error) {
         console.error('Error loading recipes:', error);
@@ -85,9 +88,9 @@ function applyLocalStorageChanges() {
         const isFavorite = favorites.includes(recipe.id);
         const isSaved = saved.includes(recipe.id);
         
-        // Update recipe state with user data
-        recipe.favorite = isFavorite;
-        recipe.saved = isSaved || isFavorite; // Business rule: favorite implies saved
+        // CORREÇÃO: Usar as chaves corretas do JSON
+        recipe.isFavorite = isFavorite;
+        recipe.isSaved = isSaved || isFavorite;
     });
 }
 
@@ -182,16 +185,17 @@ function notifyFavoritesChange() {
 
 // Create recipe card HTML
 function createRecipeCard(recipe) {
-    const favoriteClass = recipe.favorite ? 'active' : '';
-    const savedClass = recipe.saved ? 'active' : '';
+    // CORREÇÃO: Usar chaves corretas do JSON
+    const favoriteClass = recipe.isFavorite ? 'active' : '';
+    const savedClass = recipe.isSaved ? 'active' : '';
     const cookTime = `${recipe.cookTime.time} ${recipe.cookTime.unit}`;
     const difficulty = recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1);
     
     // Choose the correct icon based on saved status
-    const saveIcon = recipe.saved ? 'check.svg' : 'plus.svg';
-    const saveAlt = recipe.saved ? 'Saved' : 'Save';
+    const saveIcon = recipe.isSaved ? 'check.svg' : 'plus.svg';
+    const saveAlt = recipe.isSaved ? 'Saved' : 'Save';
     
-    // CORREÇÃO: Verificar se tem imagem real e aplicar classes diferentes
+    // Verificar se tem imagem real e aplicar classes diferentes
     const hasImage = recipe.cover && recipe.cover !== "image" && !recipe.cover.includes('placeholder.svg');
     const imageSrc = hasImage ? recipe.cover : './images/placeholder.svg';
     const imageClass = hasImage ? 'has-photo' : 'no-photo';
@@ -223,10 +227,12 @@ function filterRecipes(criteria, searchTerm = '') {
     
     switch (criteria) {
         case 'favorites':
-            filtered = recipesData.filter(recipe => recipe.favorite === true);
+            // CORREÇÃO: Usar chave correta
+            filtered = recipesData.filter(recipe => recipe.isFavorite === true);
             break;
         case 'saved':
-            filtered = recipesData.filter(recipe => recipe.saved === true);
+            // CORREÇÃO: Usar chave correta
+            filtered = recipesData.filter(recipe => recipe.isSaved === true);
             break;
         case 'all':
         default:
@@ -309,13 +315,14 @@ function toggleFavorite(recipeId) {
     const recipe = recipesData.find(r => r.id === recipeId);
     
     if (recipe) {
-        recipe.favorite = !recipe.favorite;
+        // CORREÇÃO: Usar chaves corretas
+        recipe.isFavorite = !recipe.isFavorite;
         
         // Update localStorage
         const favorites = getFavoritesFromStorage();
         const saved = getSavedFromStorage();
         
-        if (recipe.favorite) {
+        if (recipe.isFavorite) {
             // Add to favorites
             if (!favorites.includes(recipeId)) {
                 favorites.push(recipeId);
@@ -324,7 +331,7 @@ function toggleFavorite(recipeId) {
             if (!saved.includes(recipeId)) {
                 saved.push(recipeId);
             }
-            recipe.saved = true;
+            recipe.isSaved = true;
         } else {
             // Remove from favorites
             const favIndex = favorites.indexOf(recipeId);
@@ -337,14 +344,21 @@ function toggleFavorite(recipeId) {
         saveFavoritesToStorage(favorites);
         saveSavedToStorage(saved);
         
+        // ✅ ADICIONAR: Atualizar localStorage com dados completos das receitas
+        localStorage.setItem('recipesData', JSON.stringify(recipesData));
+        
+        // CORREÇÃO: Manter compatibilidade
+        recipe.favorite = recipe.isFavorite;
+        recipe.saved = recipe.isSaved;
+        
         // Update all buttons for this recipe across all pages
-        updateAllButtons(recipeId, recipe.favorite, recipe.saved);
+        updateAllButtons(recipeId, recipe.isFavorite, recipe.isSaved);
         
         // Notify all callbacks that data changed
         notifyFavoritesChange();
         
-        console.log(`Recipe ${recipe.name} favorite: ${recipe.favorite}, saved: ${recipe.saved}`);
-        return recipe.favorite;
+        console.log(`Recipe ${recipe.name} isFavorite: ${recipe.isFavorite}, isSaved: ${recipe.isSaved}`);
+        return recipe.isFavorite;
     }
     return false;
 }
@@ -355,14 +369,14 @@ function toggleSaved(recipeId) {
     const recipe = recipesData.find(r => r.id === recipeId);
     
     if (recipe) {
-        const wasOriginallyFavorite = recipe.favorite;
+        const wasOriginallyFavorite = recipe.isFavorite;
         
         // Toggle saved status
-        recipe.saved = !recipe.saved;
+        recipe.isSaved = !recipe.isSaved;
         
         // If removing from saved and it was favorited, also remove from favorites
-        if (!recipe.saved && wasOriginallyFavorite) {
-            recipe.favorite = false;
+        if (!recipe.isSaved && wasOriginallyFavorite) {
+            recipe.isFavorite = false;
             console.log(`Recipe ${recipe.name} removed from both favorites and saved`);
         }
         
@@ -370,7 +384,7 @@ function toggleSaved(recipeId) {
         const favorites = getFavoritesFromStorage();
         const saved = getSavedFromStorage();
         
-        if (recipe.saved) {
+        if (recipe.isSaved) {
             // Adding to saved
             if (!saved.includes(recipeId)) {
                 saved.push(recipeId);
@@ -394,14 +408,17 @@ function toggleSaved(recipeId) {
         saveFavoritesToStorage(favorites);
         saveSavedToStorage(saved);
         
+        // ✅ ADICIONAR: Atualizar localStorage com dados completos das receitas
+        localStorage.setItem('recipesData', JSON.stringify(recipesData));
+        
         // Update all buttons for this recipe across all pages
-        updateAllButtons(recipeId, recipe.favorite, recipe.saved);
+        updateAllButtons(recipeId, recipe.isFavorite, recipe.isSaved);
         
         // Notify all callbacks that data changed
         notifyFavoritesChange();
         
-        console.log(`Recipe ${recipe.name} favorite: ${recipe.favorite}, saved: ${recipe.saved}`);
-        return recipe.saved;
+        console.log(`Recipe ${recipe.name} isFavorite: ${recipe.isFavorite}, isSaved: ${recipe.isSaved}`);
+        return recipe.isSaved;
     }
     return false;
 }
@@ -507,10 +524,12 @@ function addButtonListeners(container) {
 
 // Adicionar função para obter dados atualizados
 function getRecipesData() {
-    // Sempre carregar dados mais recentes do localStorage
+    // ✅ SEMPRE carregar dados mais recentes do localStorage
     const localStorageRecipes = localStorage.getItem('recipesData');
     if (localStorageRecipes) {
         recipesData = JSON.parse(localStorageRecipes);
+        // ✅ APLICAR mudanças do usuário aos dados carregados
+        applyLocalStorageChanges();
     }
     return recipesData;
 }

@@ -26,6 +26,30 @@ document.addEventListener('DOMContentLoaded', async function() {
         renderSavedSection(); // Update saved section too
     });
     
+    // ✅ ADICIONAR: Listen for storage changes from other pages
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'flavorfy_favorites' || e.key === 'flavorfy_saved' || e.key === 'recipesData') {
+            console.log('Index.js: Storage changed from another page, refreshing data...'); // Debug
+            // Reload data and re-render
+            RecipeUtils.loadRecipes().then(() => {
+                renderFavoritesSection();
+                renderSavedSection();
+            });
+        }
+    });
+    
+    // ✅ ADICIONAR: Listen for when page becomes visible again (user returns from another page)
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+            console.log('Index.js: Page became visible, refreshing data...'); // Debug
+            // Reload data and re-render when page becomes visible
+            RecipeUtils.loadRecipes().then(() => {
+                renderFavoritesSection();
+                renderSavedSection();
+            });
+        }
+    });
+    
     // Search functionality
     function performSearch() {
         currentSearch = searchInput ? searchInput.value.toLowerCase().trim() : '';

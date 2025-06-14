@@ -364,10 +364,10 @@ function collectFormData() {
         .map(line => line.trim())
         .filter(line => line.length > 0);
     
-    // Collect favorite status
+    // ✅ CORREÇÃO: Usar as chaves corretas
     const isFavorite = document.getElementById('mark-favorite').checked;
     
-    // CORREÇÃO: Handle cover image - declarar a variável corretamente
+    // Handle cover image
     let cover = "image"; // Default placeholder
     
     // Verificar se há imagem carregada
@@ -379,11 +379,11 @@ function collectFormData() {
         console.log('No cover image, using default'); // Debug
     }
     
-    // Create recipe object
+    // ✅ CORREÇÃO: Create recipe object com as chaves corretas
     const recipe = {
         id: nextId,
         name: name,
-        cover: cover, // Agora a variável está declarada corretamente
+        cover: cover,
         source: source,
         difficulty: difficulty,
         cookTime: cookTime,
@@ -392,7 +392,7 @@ function collectFormData() {
         instructions: instructions,
         isSaved: true,
         isFavorite: isFavorite,
-        serves: serves
+        serves: serves,
     };
     
     return recipe;
@@ -508,7 +508,9 @@ function populateForm(recipeData) {
     document.getElementById('serves').value = recipeData.serves;
     document.getElementById('cook-time').value = recipeData.cookTime.time;
     document.getElementById('time-unit').value = recipeData.cookTime.unit;
-    document.getElementById('mark-favorite').checked = recipeData.favorite;
+    
+    // ✅ CORREÇÃO: Usar as chaves corretas para carregar o estado do checkbox
+    document.getElementById('mark-favorite').checked = recipeData.isFavorite || recipeData.favorite || false;
     
     // Set filters
     recipeData.filters.forEach(filter => {
