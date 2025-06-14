@@ -187,10 +187,33 @@ function displayRecipe(recipe) {
         `Difficulty: ${recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1)}`;
     
     const imageElement = document.getElementById('recipe-image-calc');
-    const hasImage = recipe.cover && recipe.cover !== "image" && !recipe.cover.includes('placeholder.svg');
     
-    imageElement.src = hasImage ? recipe.cover : './images/placeholder.svg';
-    imageElement.alt = hasImage ? recipe.name : 'No image available';
+    // Verificar se é placeholder ou imagem real
+    const isPlaceholder = !recipe.cover || 
+                         recipe.cover === "image" || 
+                         recipe.cover.includes('placeholder.svg');
+    
+    if (isPlaceholder) {
+        // É placeholder - altura 60%
+        imageElement.src = './images/placeholder.svg';
+        imageElement.alt = 'No image available';
+        imageElement.style.height = '60%';
+        imageElement.style.width = 'auto';
+        imageElement.style.objectFit = 'contain';
+        imageElement.style.filter = 'invert(0.4)';
+        
+        console.log('Displaying placeholder with 60% height');
+    } else {
+        // É imagem real - altura 100%
+        imageElement.src = recipe.cover;
+        imageElement.alt = recipe.name;
+        imageElement.style.height = '100%';
+        imageElement.style.width = '100%';
+        imageElement.style.objectFit = 'cover';
+        imageElement.style.filter = 'none';
+        
+        console.log('Displaying real image with 100% height');
+    }
 }
 
 function setupCostInputs(recipe) {
