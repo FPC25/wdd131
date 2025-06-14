@@ -40,7 +40,7 @@
     "name": "Simple Crepioca",
     "cover": "image",
     "source": "Papinhas da Xica",
-    "difficulty": "very easy",
+    "difficulty": "easy",
     "cookTime": {"time": 5, "unit": "minutes"},
     "filters": ["Snack", "Breakfast", "Dessert"],
     "ingredients": [
@@ -160,7 +160,7 @@
     "instructions": [
       "Desalt the dried beef for 12 hours, changing water several times",
       "Pressure cook the desalted beef until tender, then shred",
-      "Cook cassava until very tender, mash with milk and butter",
+      "Cook cassava until tender, mash with milk and butter",
       "Sauté onion and garlic, add shredded beef and seasonings",
       "Layer cassava puree, beef filling, and more puree in baking dish",
       "Top with cheese and bake until golden",
@@ -222,7 +222,7 @@
       {"item": "chopped chives", "quantity": "to taste", "unit": null}
     ],
     "instructions": [
-      "Cook arracacha in boiling salted water until very tender",
+      "Cook arracacha in boiling salted water until tender",
       "Drain and blend with milk and bouillon cube until smooth",
       "Sauté onion in butter, add dried beef and cook for 3 minutes",
       "Add arracacha cream and cook until boiling",
@@ -318,7 +318,7 @@
       "Add the grated cheese and mix well to incorporate it into the dough. Then, add the egg and mix again. Adjust the salt if necessary, remembering that the cheese is already salty.",
       "With oiled hands, shape small balls",
       "Arrange the cheese breads on a baking sheet (no need to grease) and bake in the preheated medium oven until they are well-browned.",
-      "Tip: For a flawless result, don't be afraid to bake the cheese breads until they are very golden—the ideal color is more bronze than yellow. The perfect texture depends on balance: if the dough is too sticky, it may have too much liquid; if it's dry, it may lack fat. Feel the dough and adjust if necessary."
+      "Tip: For a flawless result, don't be afraid to bake the cheese breads until they are golden—the ideal color is more bronze than yellow. The perfect texture depends on balance: if the dough is too sticky, it may have too much liquid; if it's dry, it may lack fat. Feel the dough and adjust if necessary."
     ],
     "isSaved": false,
     "isFavorite": false,
