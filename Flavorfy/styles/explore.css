@@ -5,7 +5,7 @@
 .header-top h1 {
     font-size: 2.5rem;
     font-weight: 600;
-    color: var(--secondary-color);
+    color: var(--text-color);
     font-family: 'Lora', serif;
 }
 
@@ -14,15 +14,15 @@
     justify-content: center;
     width: 100%;
     padding: 1rem 0;
-    background: var(--light-gray);
+    background: var(--background-color);
 }
 
 .categories {
     display: flex;
-    flex-wrap: wrap; /* Permite quebra de linha */
+    flex-wrap: wrap;
     gap: 0.5rem;
     padding: 0.5rem 1rem;
-    justify-content: center; /* Centraliza os botões */
+    justify-content: center;
     align-items: center;
     max-width: 800px;
 }
