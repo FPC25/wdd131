@@ -254,7 +254,9 @@ function collectFormData() {
     const name = document.getElementById('recipe-name').value.trim();
     const source = document.getElementById('source').value.trim() || '';
     const difficulty = document.getElementById('difficulty').value;
-    const serves = parseInt(document.getElementById('serves').value);
+    const servesValue = document.getElementById('serves').value;
+    const serves = servesValue ? parseInt(servesValue) : 1;
+    
     const cookTime = {
         time: parseInt(document.getElementById('cook-time').value),
         unit: document.getElementById('time-unit').value
