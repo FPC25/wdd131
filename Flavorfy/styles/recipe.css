@@ -1,9 +1,9 @@
 /* Recipe Form Styles */
 .recipe-form-container {
-    max-width: 600px;
+    max-width: 900px; /* Aumentado de 600px para 900px */
     margin: 0 auto;
     padding: 1rem;
-    background: white;
+    background: var(--secondary-color);
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     margin-top: 2rem;
@@ -60,6 +60,8 @@
     margin-bottom: 1rem;
     border-bottom: 2px solid var(--accent-color);
     padding-bottom: 0.5rem;
+    /* Remover sublinhado da regra geral */
+    text-decoration: none;
 }
 
 /* Image Upload */
@@ -293,7 +295,7 @@
 .checkbox-group label {
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Align to the right */
+    justify-content: flex-start; /* Mudado para align à esquerda */
     gap: 6px; /* 6px gap between checkbox and label */
     margin-bottom: 0;
     cursor: pointer;
@@ -307,15 +309,20 @@
 }
 
 .checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
     min-width: 20px;
     min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
     appearance: none;
     border: 2px solid var(--text-color);
     border-radius: 5px;
     background-color: var(--secondary-color);
-    order: 2; /* Put checkbox after the text */
-    margin: 0; /* Remove default margins */
+    order: 0; /* Checkbox vem primeiro (antes do texto) */
+    margin: 0;
     flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 .checkbox-group input[type="checkbox"]:checked {
@@ -325,13 +332,14 @@
 
 .checkbox-label {
     display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Align to the right */
-    gap: 6px; /* 6px gap between checkbox and label */
+    align-items: center; /* Centralizar verticalmente */
+    justify-content: flex-start;
+    gap: 6px;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
     font-weight: normal;
     font-size: 0.9rem;
+    margin-bottom: 0;
 }
 
 .checkbox-label:hover {
@@ -339,15 +347,20 @@
 }
 
 .checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
     min-width: 20px;
     min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
     appearance: none;
     border: 2px solid var(--text-color);
     border-radius: 5px;
     background-color: var(--secondary-color);
-    order: 2; /* Put checkbox after the text */
-    margin: 0; /* Remove default margins */
+    order: 0; /* Checkbox vem primeiro (antes do texto) */
+    margin: 0;
     flex-shrink: 0;
+    box-sizing: border-box;
 }
 
 .checkbox-label input[type="checkbox"]:checked {
@@ -358,9 +371,9 @@
 /* Ingredients - Keep multi-column layout */
 .ingredient-row {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr auto;
+    grid-template-columns: 1fr 1fr 2fr auto;
     gap: 0.5rem;
-    align-items: end;
+    align-items: center; /* Mudado de 'end' para 'center' */
     margin-bottom: 0.75rem;
     padding: 0.75rem;
     background: #f9f9f9;
@@ -380,14 +393,21 @@
 }
 
 .remove-ingredient {
-    background: #ff4757;
-    color: white;
+    background: var(--accent-color);
+    color: var(--secondary-color);
     border: none;
-    border-radius: 4px;
-    padding: 0.5rem;
+    border-radius: 50%; /* Tornar circular */
+    width: 30px; /* Tamanho fixo */
+    height: 30px; /* Tamanho fixo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    align-self: center; /* Centralizar verticalmente */
 }
 
 .remove-ingredient:hover {
@@ -396,7 +416,7 @@
 
 #add-ingredient-btn {
     background: var(--accent-color);
-    color: white;
+    color: var(--secondary-color);
     border: none;
     padding: 0.75rem 1.5rem;
     border-radius: 6px;
@@ -455,10 +475,24 @@
     color: white;
 }
 
+/* Style for disabled unit input when quantity is "to taste" */
+.unit-input.disabled-gray {
+    background-color: #f5f5f5;
+    color: #999;
+    border-color: #ddd;
+    cursor: not-allowed;
+}
+
+.unit-input.disabled-gray:focus {
+    outline: none;
+    border-color: #ddd; /* Manter borda cinza mesmo no focus */
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .recipe-form-container {
-        margin: 1rem;
+        max-width: 100%; /* Usar 95% da largura em tablet */
+        margin: 1rem auto;
         padding: 1rem;
     }
     
@@ -467,14 +501,18 @@
         gap: 0.5rem;
     }
     
+    /* Manter Cook Time lado a lado mesmo em mobile */
     .time-inputs {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1.5fr 1fr;
         gap: 0.5rem;
     }
     
+    /* Manter ingredientes em múltiplas colunas, mas ajustar proporções */
     .ingredient-row {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
+        grid-template-columns: 0.8fr 0.8fr 1.5fr auto;
+        gap: 0.4rem;
+        padding: 0.5rem;
+        align-items: center; /* Manter centralização */
     }
     
     .form-actions {
@@ -483,12 +521,94 @@
 }
 
 @media (max-width: 480px) {
+    .recipe-form-container {
+        max-width: 95%; /* Usar 95% da largura em mobile */
+        margin: 0.5rem auto; /* Margem menor em mobile */
+        padding: 0.75rem; /* Padding um pouco menor */
+    }
+    
     .form-header h1 {
         font-size: 1.5rem;
     }
     
-    .image-preview {
-        width: 150px;
-        height: 120px;
+    /* Para telas muito pequenas, manter proporção equilibrada */
+    .time-inputs {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
     }
+    
+    /* Ingredientes em telas muito pequenas - proporções mais equilibradas */
+    .ingredient-row {
+        grid-template-columns: 1fr 1fr 2fr auto;
+        gap: 0.3rem;
+        padding: 0.5rem;
+        align-items: center; /* Manter centralização */
+    }
+    
+    /* Fonte menor nos labels dos ingredientes em mobile */
+    .ingredient-row label {
+        font-size: 0.85rem;
+    }
+}
+
+/* Para telas extra pequenas, se necessário quebrar ingredientes */
+@media (max-width: 360px) {
+    .recipe-form-container {
+        max-width: 98%; /* Quase toda a largura em telas muito pequenas */
+        margin: 0.25rem auto;
+        padding: 0.5rem;
+    }
+    
+    .ingredient-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        text-align: left;
+        align-items: center; /* Manter centralização */
+    }
+    
+    .ingredient-row .remove-ingredient {
+        justify-self: end;
+        width: 32px;
+        height: 32px;
+        align-self: center; /* Manter centralização mesmo quando quebra para uma coluna */
+    }
+}
+
+/* Mark as Favorite - Centralizar verticalmente - regra mais específica */
+.form-section .form-group .checkbox-label {
+    display: flex;
+    align-items: center; /* Centralizar verticalmente */
+    justify-content: flex-start;
+    gap: 6px;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.form-section .form-group .checkbox-label:hover {
+    color: var(--accent-color);
+}
+
+.form-section .form-group .checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    min-height: 20px;
+    max-width: 20px;
+    max-height: 20px;
+    appearance: none;
+    border: 2px solid var(--text-color);
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    order: 0; /* Checkbox vem primeiro (antes do texto) */
+    margin: 0;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.form-section .form-group .checkbox-label input[type="checkbox"]:checked {
+    background-color: var(--accent-color);
+    border-color: var(--text-color);
 }

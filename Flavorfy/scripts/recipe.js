@@ -127,14 +127,14 @@ function addIngredientRow() {
     row.innerHTML = `
         <div class="form-group">
             <label>Quantity</label>
-            <input type="text" list="${quantityDatalistId}" class="quantity-input" placeholder="Select..." required>
+            <input type="text" list="${quantityDatalistId}" class="quantity-input" placeholder="Select" required>
             <datalist id="${quantityDatalistId}">
                 ${quantityOptions.map(option => `<option value="${option}">`).join('')}
             </datalist>
         </div>
         <div class="form-group">
             <label>Unit</label>
-            <input type="text" list="${unitDatalistId}" class="unit-input" placeholder="Select or type...">
+            <input type="text" list="${unitDatalistId}" class="unit-input" placeholder="Select">
             <datalist id="${unitDatalistId}">
                 ${unitOptions.map(option => `<option value="${option.value}">${option.text}</option>`).join('')}
             </datalist>
@@ -156,10 +156,12 @@ function addIngredientRow() {
         if (this.value === 'to taste') {
             unitInput.disabled = true;
             unitInput.value = '';
-            unitInput.placeholder = 'Not needed';
+            unitInput.placeholder = ''; // Remove placeholder
+            unitInput.classList.add('disabled-gray'); // Add gray class
         } else {
             unitInput.disabled = false;
-            unitInput.placeholder = 'Select or type...';
+            unitInput.placeholder = 'Select'; // Restore placeholder
+            unitInput.classList.remove('disabled-gray'); // Remove gray class
         }
     });
 }
