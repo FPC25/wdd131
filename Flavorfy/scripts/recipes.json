@@ -141,7 +141,7 @@
     "source": "Panelinha",
     "difficulty": "hard",
     "cookTime": {"time": 120, "unit": "minutes"},
-    "Filters": ["Lunch", "Dinner"],
+    "Filters": ["Lunch"],
     "ingredients": [
       {"item": "dried beef (carne-seca)", "quantity": 1, "unit": "kg"},
       {"item": "cassava", "quantity": 1, "unit": "kg"},
@@ -172,7 +172,7 @@
     "source": "Estadão Paladar",
     "difficulty": "easy",
     "cookTime": {"time": 90, "unit": "minutes"},
-    "Filters": ["Lunch", "Dinner"],
+    "Filters": ["Lunch"],
     "ingredients": [
       {"item": "dried beef (carne-seca)", "quantity": 600, "unit": "g"},
       {"item": "cassava", "quantity": 1.2, "unit": "kg"},
