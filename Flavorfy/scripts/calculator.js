@@ -346,7 +346,7 @@ function createUnitOptions() {
         .map(unit => `<option value="${unit}">${unit}</option>`).join('');
     const weightOptions = ['g', 'kg', 'lb', 'oz']
         .map(unit => `<option value="${unit}">${unit}</option>`).join('');
-    const volumeOptions = ['ml', 'l', 'cup', 'tbsp', 'tsp', 'fl oz', 'pint', 'quart', 'gallon']
+    const volumeOptions = ['ml', 'L', 'cup', 'tbsp', 'tsp', 'fl oz', 'pint', 'quart', 'gallon']
         .map(unit => `<option value="${unit}">${unit}</option>`).join('');
     
     return `
