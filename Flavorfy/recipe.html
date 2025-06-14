@@ -3,22 +3,17 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Flavorfy - Your go-to site for recipes, meal planning, and cooking tips. This page allows you to add or edit recipes easily.">
-        <meta name="keywords" content="recipes, meal planning, cooking tips, food, culinary, Flavorfy">
-        <meta name="author" content="Felipe Proença Corral">
+		<meta name="description" content="Add new recipe to Flavorfy">
+		<meta name="keywords" content="recipes, add recipe, cooking, Flavorfy">
+		<meta name="author" content="Felipe Proença Corral">
 
-		<title>Flavorfy - Add/Edit recipe</title>
+		<title>Flavorfy - Add Recipe</title>
 
         <link rel="stylesheet" href="styles/general.css">
 		<link rel="stylesheet" href="styles/recipe.css">
-
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Lora&family=Roboto&display=swap"
-			rel="stylesheet">
-
         <script src="scripts/general.js" defer></script>
+        <script src="scripts/recipe-utils.js" defer></script>
+        <script src="scripts/recipe.js" defer></script>
 	</head>
 	<body>
 		<header>
@@ -33,42 +28,130 @@
 				</nav>
 				<a href="./index.html"><img src="./images/Logo.svg" alt="Logo of Flavorfy" id="logo"></a>
 			</div>
-			<div class="welcome-container">
-				<div id="welcome-message">
-					<h1>Welcome to</h1>
-					<h1><span class="brand">Flavorfy</span></h1>
-				</div>
-			</div>
 		</header>
 
 		<main>
-			
+			<div class="recipe-form-container">
+				<div class="form-header">
+					<button id="back-btn" aria-label="Go back">
+						<a href="./index.html"><img src="./images/arrow-left.svg" alt="back arrow" id="back"></a>
+					</button>
+					<h1>Add Recipe</h1>
+				</div>
+
+				<form id="recipe-form">
+					<!-- Cover Image -->
+					<div class="form-section">
+						<div class="image-upload-container">
+							<div class="image-preview" id="image-preview">
+								<img src="./images/camera.svg" alt="camera icon" id="camera-icon">
+								<span>Upload Cover Image</span>
+								<input type="file" id="cover-image" accept="image/*">
+							</div>
+						</div>
+					</div>
+
+					<!-- Recipe Details -->
+					<div class="form-section">
+						<h2>Recipe Details</h2>
+						
+						<div class="form-row">
+							<div class="form-group">
+								<label for="recipe-name">Recipe Name *</label>
+								<input type="text" id="recipe-name" required>
+							</div>
+							<div class="form-group">
+								<label for="serves">Serves *</label>
+								<input type="number" id="serves" min="1" max="50" value="1 required">
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group">
+								<label for="source">Source</label>
+								<input type="text" id="source" placeholder="e.g., Mom's Kitchen">
+							</div>
+							<div class="form-group">
+								<label for="difficulty">Difficulty *</label>
+								<select id="difficulty" required>
+									<option value="">Select difficulty</option>
+									<option value="very easy">Very Easy</option>
+									<option value="easy">Easy</option>
+									<option value="medium">Medium</option>
+									<option value="hard">Hard</option>
+									<option value="very hard">Very Hard</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-row">
+							<div class="form-group">
+								<label>Cook Time *</label>
+								<div class="time-inputs">
+									<input type="number" id="cook-time" min="1" required>
+									<select id="time-unit" required>
+										<option value="minutes">minutes</option>
+										<option value="hours">hour(s)</option>
+										<option value="days">day(s)</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label>Category (Select all that applies)</label>
+							<div class="checkbox-group" id="filters-group">
+								<label><input type="checkbox" value="Breakfast">Breakfast</label>
+								<label><input type="checkbox" value="Lunch">Lunch</label>
+								<label><input type="checkbox" value="Dinner">Dinner</label>
+								<label><input type="checkbox" value="Snack">Snack</label>
+								<label><input type="checkbox" value="Dessert">Dessert</label>
+							</div>
+						</div>
+					</div>
+
+					<!-- Ingredients -->
+					<div class="form-section">
+						<h2>Ingredients</h2>
+						<div id="ingredients-container">
+							<!-- Ingredient rows will be added here -->
+						</div>
+						<button type="button" id="add-ingredient-btn">Add Ingredient</button>
+					</div>
+
+					<!-- Instructions -->
+					<div class="form-section">
+						<h2>Instructions</h2>
+						<div class="form-group">
+							<textarea id="instructions" placeholder="Enter each step on a new line..." rows="8"></textarea>
+						</div>
+					</div>
+
+					<!-- Save Options -->
+					<div class="form-section">
+						<div class="form-group">
+							<label class="checkbox-label">
+								<input type="checkbox" id="mark-favorite">
+								Mark as favorite?
+							</label>
+						</div>
+					</div>
+
+					<!-- Submit Buttons -->
+					<div class="form-actions">
+						<button type="submit" class="btn-primary">Save Recipe</button>
+						<button type="button" class="btn-secondary" id="save-draft-btn">Save Draft</button>
+					</div>
+				</form>
+			</div>
 		</main>
 
 		<footer>
-			<div class="footer-content"></div>
+			<div class="footer-content">
 				<p>
 					&copy; <span id="currentYear"></span> &#128187; Felipe Proença Corral
-					&#128187; Brazil
 				</p>
-				<p id="lastModified"></p>
 			</div>
-
-			<nav class="sociallinks">
-				<a href="mailto:felipepcorral@gmail.com">
-					<img src="./images/email.svg" alt="Emails logo">
-				</a>
-
-				<a href="https://instagram.com">
-					<img src="./images/instagram.svg" alt="Instagrams logo">
-				</a>
-				<a href="https://facebook.com">
-					<img src="./images/facebook.svg" alt="Facebooks logo">
-				</a>
-				<a href="https://x.com/">
-					<img src="./images/x_twitter.svg" alt="Xs logo">
-				</a>
-			</nav>
 		</footer>
 	</body>
 </html>
