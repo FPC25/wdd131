@@ -9,6 +9,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Get DOM elements
     const favoritesGrid = document.querySelector('.favorites .recipe-grid');
     const savedGrid = document.querySelector('.recent .recipe-grid');
+    const searchInput = document.querySelector('.search-input');
+    const searchButton = document.querySelector('.search-button');
+    
+    // State management for search
+    let currentSearch = '';
     
     // Initial render
     renderFavoritesSection();
@@ -20,6 +25,41 @@ document.addEventListener('DOMContentLoaded', async function() {
         renderFavoritesSection();
         renderSavedSection(); // Update saved section too
     });
+    
+    // Search functionality
+    function performSearch() {
+        currentSearch = searchInput ? searchInput.value.toLowerCase().trim() : '';
+        
+        if (currentSearch) {
+            // Redirect to explore page with search term
+            window.location.href = `./explore.html?search=${encodeURIComponent(currentSearch)}`;
+        } else {
+            // If no search term, just go to explore
+            window.location.href = './explore.html';
+        }
+    }
+    
+    // Add search event listeners
+    if (searchButton) {
+        searchButton.addEventListener('click', performSearch);
+    }
+    
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // Add visual feedback when typing
+        searchInput.addEventListener('input', function() {
+            if (this.value.trim()) {
+                this.style.backgroundColor = '#e8f5e8';
+            } else {
+                this.style.backgroundColor = '';
+            }
+        });
+    }
     
     function renderFavoritesSection() {
         const favoriteRecipes = RecipeUtils.filterRecipes('favorites');

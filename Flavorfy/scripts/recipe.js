@@ -301,7 +301,8 @@ function removeImage(preview) {
 
 function collectFormData() {
     const existingRecipes = RecipeUtils.getRecipesData();
-    const nextId = Math.max(...existingRecipes.map(r => r.id)) + 1;
+    // CORREÇÃO: Garantir ID único correto
+    const nextId = existingRecipes.length > 0 ? Math.max(...existingRecipes.map(r => r.id || 0)) + 1 : 1;
     
     // Collect basic info
     const name = document.getElementById('recipe-name').value.trim();
@@ -328,7 +329,7 @@ function collectFormData() {
     ingredientRows.forEach(row => {
         const quantity = row.querySelector('.quantity-input').value.trim();
         const item = row.querySelector('.ingredient-input').value.trim();
-        const unit = row.querySelector('.unit-input').value.trim(); // Now it's an input, not select
+        const unit = row.querySelector('.unit-input').value.trim();
         
         if (quantity && item) {
             ingredients.push({
@@ -349,18 +350,18 @@ function collectFormData() {
     // Collect favorite status
     const isFavorite = document.getElementById('mark-favorite').checked;
     
-    // Create recipe object
+    // CORREÇÃO: Usar estrutura correta compatível com o sistema
     const recipe = {
         id: nextId,
         name: name,
-        cover: "image",
+        cover: "image", // Default placeholder
         source: source,
         difficulty: difficulty,
         cookTime: cookTime,
         filters: filters,
         ingredients: ingredients,
         instructions: instructions,
-        saved: true, // Always saved when created
+        saved: true, // Sempre salva quando criada
         favorite: isFavorite,
         serves: serves
     };
@@ -424,22 +425,29 @@ function handleFormSubmit(event) {
     
     const recipeData = collectFormData();
     
-    // Add to recipes data
+    // CORREÇÃO: Usar o sistema RecipeUtils para salvar
+    // Em vez de manipular localStorage diretamente
+    
+    // 1. Adicionar receita aos dados
     const existingRecipes = RecipeUtils.getRecipesData();
     existingRecipes.push(recipeData);
     
-    // Update localStorage
+    // 2. Salvar no localStorage usando a chave correta
+    localStorage.setItem('recipesData', JSON.stringify(existingRecipes));
+    
+    // 3. Se marcada como favorita, adicionar aos favoritos
     if (recipeData.favorite) {
-        const favorites = RecipeUtils.getFavoritesFromStorage();
-        favorites.push(recipeData.id);
-        localStorage.setItem('flavorfy_favorites', JSON.stringify(favorites));
+        RecipeUtils.toggleFavorite(recipeData.id);
     }
     
-    const saved = RecipeUtils.getSavedFromStorage();
-    saved.push(recipeData.id);
-    localStorage.setItem('flavorfy_saved', JSON.stringify(saved));
+    // 4. Adicionar aos salvos (sempre é salva quando criada)
+    RecipeUtils.toggleSaved(recipeData.id);
+    
+    // 5. Limpar draft se existir
+    localStorage.removeItem('flavorfy_draft_recipe');
     
     console.log('Recipe saved:', recipeData);
+    console.log('All recipes:', RecipeUtils.getRecipesData());
     
     // Show success message
     alert('Recipe saved successfully!');

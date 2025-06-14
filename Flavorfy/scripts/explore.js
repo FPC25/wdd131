@@ -16,7 +16,33 @@ document.addEventListener('DOMContentLoaded', async function() {
     let currentFilter = 'all';
     let currentSearch = '';
 
-    // Initial render - show all recipes
+    // Check URL parameters for search and filters
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchParam = urlParams.get('search');
+    const filterParam = urlParams.get('filter');
+    
+    console.log('URL search param:', searchParam); // Debug
+    console.log('URL filter param:', filterParam); // Debug
+    
+    // Set initial search and filter from URL
+    if (searchParam) {
+        currentSearch = searchParam.toLowerCase().trim();
+        if (searchInput) {
+            searchInput.value = searchParam;
+            searchInput.style.backgroundColor = '#e8f5e8';
+        }
+        console.log('Search set from URL:', currentSearch); // Debug
+    }
+    
+    if (filterParam === 'favorites') {
+        currentFilter = 'favorites';
+        categoryButtons.forEach(btn => btn.classList.remove('active'));
+        // Encontrar e ativar o botão de favoritos se existir
+        const favButton = document.querySelector('[data-category="favorites"]');
+        if (favButton) favButton.classList.add('active');
+    }
+
+    // Initial render with URL parameters
     renderCurrentView();
 
     // Auto-hide bottom navigation on scroll
@@ -63,6 +89,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     function renderCurrentView() {
         let recipes;
         
+        console.log('Rendering with search:', currentSearch, 'and filter:', currentFilter); // Debug
+        
         if (currentFilter === 'favorites') {
             recipes = RecipeUtils.filterRecipes('favorites', currentSearch);
         } else if (currentFilter === 'all') {
@@ -71,7 +99,25 @@ document.addEventListener('DOMContentLoaded', async function() {
             recipes = RecipeUtils.filterRecipesByCategory(currentFilter, currentSearch);
         }
         
-        RecipeUtils.renderRecipes(recipes, recipesGrid);
+        console.log('Found recipes:', recipes.length); // Debug
+        console.log('Recipes data:', recipes); // Debug
+        
+        // Custom message based on search/filter state
+        let emptyMessage = 'No recipes found.';
+        if (currentSearch && currentFilter !== 'all') {
+            emptyMessage = `No recipes found in "${currentFilter}" for "${currentSearch}".`;
+        } else if (currentSearch) {
+            emptyMessage = `No recipes found for "${currentSearch}".`;
+        } else if (currentFilter === 'favorites') {
+            emptyMessage = 'No favorite recipes yet. Start exploring and add some favorites!';
+        }
+        
+        RecipeUtils.renderRecipes(recipes, recipesGrid, emptyMessage);
+        
+        // Se há busca ativa, remover seleção de categoria
+        if (currentSearch) {
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+        }
     }
 
     // Category button functionality
@@ -81,6 +127,14 @@ document.addEventListener('DOMContentLoaded', async function() {
             this.classList.add('active');
             
             currentFilter = this.dataset.category;
+            
+            // Limpar busca quando selecionar categoria
+            currentSearch = '';
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.style.backgroundColor = '';
+            }
+            
             renderCurrentView();
         });
     });
@@ -92,18 +146,39 @@ document.addEventListener('DOMContentLoaded', async function() {
             e.preventDefault();
             categoryButtons.forEach(btn => btn.classList.remove('active'));
             currentFilter = 'favorites';
+            
+            // Limpar busca quando clicar em favoritos
+            currentSearch = '';
+            if (searchInput) {
+                searchInput.value = '';
+                searchInput.style.backgroundColor = '';
+            }
+            
             renderCurrentView();
         });
     }
 
     // Search functionality
     function performSearch() {
-        currentSearch = searchInput ? searchInput.value.toLowerCase().trim() : '';
-        renderCurrentView();
+        const searchValue = searchInput ? searchInput.value.trim() : '';
+        currentSearch = searchValue.toLowerCase();
         
+        console.log('Performing search for:', currentSearch); // Debug
+        
+        // Visual feedback
         if (currentSearch) {
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            searchInput.style.backgroundColor = '#e8f5e8';
+        } else {
+            searchInput.style.backgroundColor = '';
         }
+        
+        // Reset filter to 'all' when searching
+        currentFilter = 'all';
+        categoryButtons.forEach(btn => btn.classList.remove('active'));
+        const allButton = document.querySelector('[data-category="all"]');
+        if (allButton) allButton.classList.add('active');
+        
+        renderCurrentView();
     }
     
     if (searchButton) {
@@ -116,13 +191,31 @@ document.addEventListener('DOMContentLoaded', async function() {
                 performSearch();
             }
         });
+        
+        // Add visual feedback when typing
+        searchInput.addEventListener('input', function() {
+            if (this.value.trim()) {
+                this.style.backgroundColor = '#e8f5e8';
+            } else {
+                this.style.backgroundColor = '';
+            }
+        });
     }
 
-    // Check URL parameters for filters
-    const urlParams = new URLSearchParams(window.location.search);
-    const filterParam = urlParams.get('filter');
-    if (filterParam === 'favorites') {
-        currentFilter = 'favorites';
+    // Clear search function
+    function clearSearch() {
+        if (searchInput) {
+            searchInput.value = '';
+            searchInput.style.backgroundColor = '';
+        }
+        currentSearch = '';
+        currentFilter = 'all';
+        
+        // Reset to show all recipes
+        categoryButtons.forEach(btn => btn.classList.remove('active'));
+        const allButton = document.querySelector('[data-category="all"]');
+        if (allButton) allButton.classList.add('active');
+        
         renderCurrentView();
     }
 });

@@ -218,15 +218,28 @@ function filterRecipes(criteria, searchTerm = '') {
     // Apply search filter if provided
     if (searchTerm) {
         const searchLower = searchTerm.toLowerCase();
-        filtered = filtered.filter(recipe => 
-            recipe.name.toLowerCase().includes(searchLower) ||
-            recipe.ingredients.some(ingredient => 
-                ingredient.item.toLowerCase().includes(searchLower)
-            ) ||
-            recipe.Filters.some(filter => 
-                filter.toLowerCase().includes(searchLower)
-            )
-        );
+        filtered = filtered.filter(recipe => {
+            // Search in recipe name
+            const nameMatch = recipe.name.toLowerCase().includes(searchLower);
+            
+            // Search in ingredients
+            const ingredientMatch = recipe.ingredients && recipe.ingredients.some(ingredient => 
+                ingredient.item && ingredient.item.toLowerCase().includes(searchLower)
+            );
+            
+            // Search in filters/categories - usar tanto 'filters' quanto 'Filters' para compatibilidade
+            const filterMatch = (recipe.filters || recipe.Filters || []).some(filter => 
+                filter && filter.toLowerCase().includes(searchLower)
+            );
+            
+            // Search in source
+            const sourceMatch = recipe.source && recipe.source.toLowerCase().includes(searchLower);
+            
+            // Search in difficulty
+            const difficultyMatch = recipe.difficulty && recipe.difficulty.toLowerCase().includes(searchLower);
+            
+            return nameMatch || ingredientMatch || filterMatch || sourceMatch || difficultyMatch;
+        });
     }
     
     return filtered;
@@ -235,24 +248,38 @@ function filterRecipes(criteria, searchTerm = '') {
 // Filter recipes by category
 function filterRecipesByCategory(category, searchTerm = '') {
     let filtered = category === 'all' ? recipesData : 
-        recipesData.filter(recipe => 
-            recipe.Filters.some(filter => 
-                filter.toLowerCase() === category.toLowerCase()
-            )
-        );
+        recipesData.filter(recipe => {
+            const recipeFilters = recipe.filters || recipe.Filters || [];
+            return recipeFilters.some(filter => 
+                filter && filter.toLowerCase() === category.toLowerCase()
+            );
+        });
     
     // Apply search filter if provided
     if (searchTerm) {
         const searchLower = searchTerm.toLowerCase();
-        filtered = filtered.filter(recipe => 
-            recipe.name.toLowerCase().includes(searchLower) ||
-            recipe.ingredients.some(ingredient => 
-                ingredient.item.toLowerCase().includes(searchLower)
-            ) ||
-            recipe.Filters.some(filter => 
-                filter.toLowerCase().includes(searchLower)
-            )
-        );
+        filtered = filtered.filter(recipe => {
+            // Search in recipe name
+            const nameMatch = recipe.name.toLowerCase().includes(searchLower);
+            
+            // Search in ingredients
+            const ingredientMatch = recipe.ingredients && recipe.ingredients.some(ingredient => 
+                ingredient.item && ingredient.item.toLowerCase().includes(searchLower)
+            );
+            
+            // Search in filters/categories
+            const filterMatch = (recipe.filters || recipe.Filters || []).some(filter => 
+                filter && filter.toLowerCase().includes(searchLower)
+            );
+            
+            // Search in source
+            const sourceMatch = recipe.source && recipe.source.toLowerCase().includes(searchLower);
+            
+            // Search in difficulty
+            const difficultyMatch = recipe.difficulty && recipe.difficulty.toLowerCase().includes(searchLower);
+            
+            return nameMatch || ingredientMatch || filterMatch || sourceMatch || difficultyMatch;
+        });
     }
     
     return filtered;
