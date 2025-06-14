@@ -6,7 +6,7 @@
     "source": "Mother",
     "difficulty": "hard",
     "cookTime": {"time": 30, "unit": "minutes"},
-    "Filters": ["Lunch", "Dinner"],
+    "filters": ["Lunch", "Dinner"],
     "ingredients": [
       {"item": "zucchini", "quantity": 2, "unit": "unit"},
       {"item": "eggplants", "quantity": 2, "unit": "unit"},
@@ -31,8 +31,8 @@
       "Drizzle with a little olive oil and cover with parchment paper or aluminum foil",
       "Bake in the oven for 40 minutes at a temperature of 180° C to 200° C (350° F to 400° F)"
     ], 
-    "saved": true,
-    "favorite": true,
+    "isSaved": true,
+    "isFavorite": true,
     "serves": 10
   }, 
   {
@@ -42,7 +42,7 @@
     "source": "Papinhas da Xica",
     "difficulty": "very easy",
     "cookTime": {"time": 5, "unit": "minutes"},
-    "Filters": ["Snack", "Breakfast", "Dessert"],
+    "filters": ["Snack", "Breakfast", "Dessert"],
     "ingredients": [
       {"item": "Egg", "quantity": 1, "unit": "unit"},
       {"item": "Hydrated tapioca starch", "quantity": 1, "unit": "tbsp"},
@@ -61,8 +61,8 @@
       "Transfer to a plate and serve.",
       "Be creative with fillings: cheese, shredded chicken, banana with cinnamon"
     ],
-    "saved": false,
-    "favorite": false,
+    "isSaved": false,
+    "isFavorite": false,
     "serves": 1
   },
   {
@@ -72,7 +72,7 @@
     "source": "Estadão Paladar",
     "difficulty": "medium",
     "cookTime": {"time": 120, "unit": "minutes"},
-    "Filters": ["Snack"],
+    "filters": ["Snack"],
     "ingredients": [
       {"item": "Water", "quantity": 1.5, "unit": "L"},
       {"item": "chicken bouillon powder", "quantity": 30, "unit": "g"},
@@ -101,8 +101,8 @@
       "Dip in water-salt-flour mixture, then coat with breadcrumbs",
       "Fry in hot oil until golden brown"
     ],
-    "saved": false,
-    "favorite": false,
+    "isSaved": false,
+    "isFavorite": false,
     "serves": 10
   },
   {
@@ -112,7 +112,7 @@
     "source": "TudoGostoso",
     "difficulty": "easy",
     "cookTime": {"time": 120, "unit": "minutes"},
-    "Filters": ["Lunch", "Dinner"],
+    "filters": ["Lunch", "Dinner"],
     "ingredients": [
       {"item": "chicken breast fillets", "quantity": 2, "unit": "kg"},
       {"item": "medium carrots", "quantity": 3, "unit": "unit"},
@@ -135,8 +135,8 @@
       "Heat olive oil and margarine in non-stick pan, grill chicken until golden",
       "Serve chicken with steamed vegetables, drizzle vegetables with olive oil"
     ],
-    "saved": true,
-    "favorite": false,
+    "isSaved": true,
+    "isFavorite": false,
     "serves": 6
   },
   {
@@ -146,7 +146,7 @@
     "source": "Panelinha",
     "difficulty": "hard",
     "cookTime": {"time": 120, "unit": "minutes"},
-    "Filters": ["Lunch"],
+    "filters": ["Lunch"],
     "ingredients": [
       {"item": "dried beef (carne-seca)", "quantity": 1, "unit": "kg"},
       {"item": "cassava", "quantity": 1, "unit": "kg"},
@@ -167,8 +167,8 @@
       "The desalting process is crucial for the final flavor",
       "This dish can be assembled in advance and baked just before serving"
     ],
-    "saved": false,
-    "favorite": false,
+    "isSaved": false,
+    "isFavorite": false,
     "serves": 8
   },
   {
@@ -178,7 +178,7 @@
     "source": "Estadão Paladar",
     "difficulty": "easy",
     "cookTime": {"time": 90, "unit": "minutes"},
-    "Filters": ["Lunch"],
+    "filters": ["Lunch"],
     "ingredients": [
       {"item": "dried beef (carne-seca)", "quantity": 600, "unit": "g"},
       {"item": "cassava", "quantity": 1.2, "unit": "kg"},
@@ -196,8 +196,8 @@
       "Assemble in a baking dish with a layer of puree, the filling, and another layer of puree",
       "Cover with grated cheese and bake to gratinate"
     ],
-    "saved": false,
-    "favorite": false,
+    "isSaved": false,
+    "isFavorite": false,
     "serves": 4
   },
   {
@@ -207,7 +207,7 @@
     "source": "Terra",
     "difficulty": "easy",
     "cookTime": {"time": 60, "unit": "minutes"},
-    "Filters": ["Lunch", "Dinner"],
+    "filters": ["Lunch", "Dinner"],
     "ingredients": [
       {"item": "arracacha, in pieces", "quantity": 1, "unit": "kg"},
       {"item": "salt", "quantity": "to taste", "unit": null},
@@ -231,8 +231,8 @@
       "For a special presentation, serve the soup inside a hollowed-out round Italian bread loaf",
       "Do not let the soup boil after adding the cream to prevent curdling"
     ],
-    "saved": false,
-    "favorite": false,
+    "isSaved": false,
+    "isFavorite": false,
     "serves": 6
   },
   {
@@ -242,7 +242,7 @@
     "source": "TudoGostoso",
     "difficulty": "medium",
     "cookTime": {"time": 50, "unit": "minutes"},
-    "Filters": ["Dessert"],
+    "filters": ["Dessert"],
     "ingredients": [
       {"item": "condensed milk", "quantity": 1, "unit": "can"},
       {"item": "milk", "quantity": 1, "unit": "can"},
@@ -260,8 +260,8 @@
       "Test doneness with toothpick - should come out clean",
       "Cool completely and refrigerate before unmolding"
     ],
-    "saved": false,
-    "favorite": false,
+    "isSaved": false,
+    "isFavorite": false,
     "serves": 8
   },
   {
@@ -271,7 +271,7 @@
     "source": "Estadão Paladar",
     "difficulty": "easy",
     "cookTime": {"time": 40, "unit": "minutes"},
-    "Filters": ["Snack"],
+    "filters": ["Snack"],
     "ingredients": [
       {"item": "finely grated Parmesan cheese", "quantity": 200, "unit": "g"},
       {"item": "sour cassava starch", "quantity": 200, "unit": "g"},
@@ -291,8 +291,8 @@
       "The intense flavor of Parmesan makes this cheese bread an excellent pairing for wine and cocktails",
       "Adjust the salt carefully, as Parmesan is already quite salty"
     ],
-    "saved": false,
-    "favorite": false,
+    "isSaved": false,
+    "isFavorite": false,
     "serves": 10
   }, 
   {
@@ -302,7 +302,7 @@
     "source": "Estadão Paladar",
     "difficulty": "easy",
     "cookTime": {"time": 40, "unit": "minutes"},
-    "Filters": ["Snack"],
+    "filters": ["Snack"],
     "ingredients": [
       {"item": "meia cura cheese", "quantity": 200, "unit": "g"},
       {"item": "sour cassava starch", "quantity": 200, "unit": "g"},
@@ -320,8 +320,8 @@
       "Arrange the cheese breads on a baking sheet (no need to grease) and bake in the preheated medium oven until they are well-browned.",
       "Tip: For a flawless result, don't be afraid to bake the cheese breads until they are very golden—the ideal color is more bronze than yellow. The perfect texture depends on balance: if the dough is too sticky, it may have too much liquid; if it's dry, it may lack fat. Feel the dough and adjust if necessary."
     ],
-    "saved": false,
-    "favorite": false,
+    "isSaved": false,
+    "isFavorite": false,
     "serves": 5
   }
 ]
