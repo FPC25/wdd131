@@ -6,19 +6,32 @@ let updateCallbacks = [];
 // Load recipes data and apply localStorage changes
 async function loadRecipes() {
     try {
-        const response = await fetch('./scripts/recipes.json');
-        recipesData = await response.json();
+        // 1. Primeiro, tentar carregar receitas do localStorage
+        const localStorageRecipes = localStorage.getItem('recipesData');
         
-        // Check if this is first time on this device
+        if (localStorageRecipes) {
+            console.log('Loading recipes from localStorage...');
+            recipesData = JSON.parse(localStorageRecipes);
+        } else {
+            // 2. Se não há no localStorage, carregar do JSON
+            console.log('Loading recipes from JSON file...');
+            const response = await fetch('./scripts/recipes.json');
+            if (!response.ok) throw new Error('Failed to load recipes');
+            recipesData = await response.json();
+            
+            // 3. Salvar no localStorage pela primeira vez
+            localStorage.setItem('recipesData', JSON.stringify(recipesData));
+        }
+        
+        console.log('Recipes loaded:', recipesData.length);
+        
+        // 4. Aplicar dados do usuário (favoritos/salvos)
         initializeUserDataFromServer();
-        
-        // Apply localStorage changes AFTER getting user data
         applyLocalStorageChanges();
         
-        return recipesData;
     } catch (error) {
         console.error('Error loading recipes:', error);
-        return [];
+        recipesData = [];
     }
 }
 
@@ -178,10 +191,15 @@ function createRecipeCard(recipe) {
     const saveIcon = recipe.saved ? 'check.svg' : 'plus.svg';
     const saveAlt = recipe.saved ? 'Saved' : 'Save';
     
+    // CORREÇÃO: Verificar se tem imagem real e aplicar classes diferentes
+    const hasImage = recipe.cover && recipe.cover !== "image" && !recipe.cover.includes('placeholder.svg');
+    const imageSrc = hasImage ? recipe.cover : './images/placeholder.svg';
+    const imageClass = hasImage ? 'has-photo' : 'no-photo';
+    
     return `
         <div class="recipe-card" data-recipe-id="${recipe.id}">
-            <div class="recipe-image">
-                <img src="./images/placeholder.svg" alt="${recipe.name}">
+            <div class="recipe-image ${imageClass}">
+                <img src="${imageSrc}" alt="${recipe.name}">
             </div>
             <div class="recipe-info">
                 <div class="recipe-header">
@@ -487,7 +505,33 @@ function addButtonListeners(container) {
     });
 }
 
-// Export functions for use in other files
+// Adicionar função para obter dados atualizados
+function getRecipesData() {
+    // Sempre carregar dados mais recentes do localStorage
+    const localStorageRecipes = localStorage.getItem('recipesData');
+    if (localStorageRecipes) {
+        recipesData = JSON.parse(localStorageRecipes);
+    }
+    return recipesData;
+}
+
+// ADICIONAR a função refreshAllData que estava faltando
+function refreshAllData() {
+    // Aplicar mudanças e salvar
+    applyLocalStorageChanges();
+    localStorage.setItem('recipesData', JSON.stringify(recipesData));
+    
+    // Notificar callbacks
+    notifyFavoritesChange();
+    
+    console.log('Data refreshed:', {
+        totalRecipes: recipesData.length,
+        favorites: recipesData.filter(r => r.favorite).length,
+        saved: recipesData.filter(r => r.saved).length
+    });
+}
+
+// Export functions for use in other files - ADICIONAR refreshAllData
 window.RecipeUtils = {
     loadRecipes,
     createRecipeCard,
@@ -498,9 +542,12 @@ window.RecipeUtils = {
     renderRecipes,
     addButtonListeners,
     onFavoritesChange,
-    getRecipesData: () => recipesData,
+    getRecipesData,
     getFavoritesFromStorage,
     getSavedFromStorage,
+    saveFavoritesToStorage,
+    saveSavedToStorage,
+    refreshAllData,  // ✅ ADICIONAR esta linha
     syncUserDataToServer,
     resetUserData,
     getUserStats

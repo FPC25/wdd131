@@ -173,20 +173,86 @@ main {
     width: 100%;
 }
 
-/* Recipe Card - Default styling */
+/* Recipe Card - Layout padrão mantido */
 .recipe-card {
     background: white;
-    border-radius: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .recipe-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* COMPORTAMENTO DIFERENTE APENAS PARA A IMAGEM */
+
+/* Quando TEM foto: ocupa todo o espaço da área de imagem */
+.recipe-image.has-photo {
+    height: 200px;
+    overflow: hidden;
+}
+
+.recipe-image.has-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Quando NÃO TEM foto: placeholder menor e centralizado */
+.recipe-image.no-photo {
+    height: 200px; /* Mesma altura */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8f9fa;
+}
+
+.recipe-image.no-photo img {
+    width: auto;
+    height: 70%; /* 70% da altura da área de imagem */
+    object-fit: contain;
+    filter: invert(0.4); /* Deixar o placeholder mais sutil */
+}
+
+/* Resto do card mantém o mesmo layout */
+.recipe-info {
+    padding: 1rem;
+    flex: 1;
+}
+
+.recipe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.recipe-header h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin: 0;
+    flex: 1;
+}
+
+.recipe-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-left: 1rem;
+}
+
+.recipe-info p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin: 0;
 }
 
 /* Recipe Image - Adjusted back to original dimensions */
@@ -205,35 +271,6 @@ main {
     height: 70%;
     object-fit: cover;
     display: block;
-}
-
-/* Recipe Info - Base Styles */
-.recipe-info {
-    padding: 1rem;
-}
-
-.recipe-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.5rem;
-    gap: 0.5rem;
-}
-
-.recipe-header h3 {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-color);
-    line-height: 1.3;
-    flex-grow: 1;
-}
-
-.recipe-info p {
-    margin: 0;
-    font-size: 0.85rem;
-    color: var(--text-light);
-    line-height: 1.4;
 }
 
 /* Recipe Actions Container */

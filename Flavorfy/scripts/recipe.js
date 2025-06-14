@@ -80,6 +80,8 @@ function initializeForm() {
     
     // Make image preview area clickable
     setupImagePreviewClick();
+    
+    // NÃO CHAMAR setupImageUpload() aqui para evitar loop
 }
 
 function setupImagePreviewClick() {
@@ -110,7 +112,7 @@ function addEventListeners() {
     // Save draft
     document.getElementById('save-draft-btn').addEventListener('click', saveDraft);
     
-    // Image upload preview
+    // Image upload preview - USAR APENAS handleImageUpload
     document.getElementById('cover-image').addEventListener('change', handleImageUpload);
     
     // Difficulty select behavior
@@ -191,6 +193,7 @@ function removeIngredientRow(button) {
     }
 }
 
+// MANTER APENAS esta função de upload (mais simples e funcional)
 function handleImageUpload(event) {
     const file = event.target.files[0];
     const preview = document.getElementById('image-preview');
@@ -201,50 +204,73 @@ function handleImageUpload(event) {
         
         if (!validFormats.includes(file.type)) {
             alert('Please upload a valid image format (JPG, PNG, or WebP)');
-            event.target.value = ''; // Limpar o input
+            event.target.value = '';
             return;
         }
         
-        // Verificar tamanho do arquivo (opcional - máximo 5MB)
-        const maxSize = 5 * 1024 * 1024; // 5MB em bytes
+        // Verificar tamanho do arquivo (máximo 5MB)
+        const maxSize = 5 * 1024 * 1024;
         if (file.size > maxSize) {
             alert('Image size must be less than 5MB');
-            event.target.value = ''; // Limpar o input
+            event.target.value = '';
             return;
         }
         
         const reader = new FileReader();
         reader.onload = function(e) {
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            img.alt = 'Recipe preview';
+            // MÉTODO SIMPLES: apenas substituir o conteúdo
+            preview.innerHTML = `
+                <img src="${e.target.result}" alt="Recipe preview" style="
+                    width: 100%; 
+                    height: 100%; 
+                    object-fit: cover; 
+                    border-radius: 8px;
+                ">
+                <button type="button" onclick="removeImageSimple()" style="
+                    position: absolute;
+                    top: 8px;
+                    right: 8px;
+                    background: red;
+                    color: white;
+                    border: none;
+                    border-radius: 50%;
+                    width: 24px;
+                    height: 24px;
+                    cursor: pointer;
+                    z-index: 3;
+                ">×</button>
+            `;
             
-            // Adicionar classe para esconder ícone e texto
-            preview.classList.add('has-image');
-            
-            // Remover imagem anterior se existir
-            const existingImg = preview.querySelector('img:not(#camera-icon)');
-            if (existingImg) {
-                existingImg.remove();
-            }
-            
-            // Adicionar nova imagem
-            preview.appendChild(img);
-            
-            // Adicionar botão de troca/remoção
-            addChangeImageButton(preview);
+            console.log('Image uploaded successfully');
         };
         
         reader.onerror = function() {
             alert('Error reading the image file');
-            event.target.value = ''; // Limpar o input
+            event.target.value = '';
         };
         
         reader.readAsDataURL(file);
     } else {
-        // Remover imagem e classe quando nenhum arquivo está selecionado
-        removeImage(preview);
+        removeImageSimple();
     }
+}
+
+// REMOVER a função setupImageUpload() completamente para evitar conflitos
+function removeImageSimple() {
+    const imagePreview = document.querySelector('.image-preview');
+    const imageInput = document.getElementById('cover-image');
+    
+    // Restaurar conteúdo original
+    imagePreview.innerHTML = `
+        <img src="./images/camera.svg" alt="camera icon" id="camera-icon">
+        <span>Upload cover image</span>
+        <small>JPG, PNG up to 5MB</small>
+    `;
+    
+    // Limpar input
+    imageInput.value = '';
+    
+    console.log('Image removed'); // Debug
 }
 
 function addChangeImageButton(preview) {
@@ -259,10 +285,8 @@ function addChangeImageButton(preview) {
     changeButton.className = 'change-image-btn';
     changeButton.innerHTML = `
         <div class="change-overlay">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <circle cx="12" cy="13" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <img src="./images/camera.svg" alt="camera icon" class="change-camera-icon">
+            <span>Change Image</span>
         </div>
         <button type="button" class="remove-image-btn" title="Remove image">×</button>
     `;
@@ -284,24 +308,17 @@ function addChangeImageButton(preview) {
 }
 
 function removeImage(preview) {
+    // CORREÇÃO: Restaurar estado original e remover classe
     preview.classList.remove('has-image');
-    
-    // Remover imagem
-    const existingImg = preview.querySelector('img:not(#camera-icon)');
-    if (existingImg) {
-        existingImg.remove();
-    }
-    
-    // Remover botão de troca
-    const changeButton = preview.querySelector('.change-image-btn');
-    if (changeButton) {
-        changeButton.remove();
-    }
+    preview.innerHTML = `
+        <img src="./images/camera.svg" alt="camera icon" id="camera-icon">
+        <span>Upload cover image</span>
+        <small>JPG, PNG up to 5MB</small>
+    `;
 }
 
 function collectFormData() {
     const existingRecipes = RecipeUtils.getRecipesData();
-    // CORREÇÃO: Garantir ID único correto
     const nextId = existingRecipes.length > 0 ? Math.max(...existingRecipes.map(r => r.id || 0)) + 1 : 1;
     
     // Collect basic info
@@ -350,19 +367,31 @@ function collectFormData() {
     // Collect favorite status
     const isFavorite = document.getElementById('mark-favorite').checked;
     
-    // CORREÇÃO: Usar estrutura correta compatível com o sistema
+    // CORREÇÃO: Handle cover image - declarar a variável corretamente
+    let cover = "image"; // Default placeholder
+    
+    // Verificar se há imagem carregada
+    const uploadedImage = document.querySelector('.image-preview img[src^="data:"]');
+    if (uploadedImage) {
+        cover = uploadedImage.src;
+        console.log('Cover image found:', cover.substring(0, 50) + '...'); // Debug
+    } else {
+        console.log('No cover image, using default'); // Debug
+    }
+    
+    // Create recipe object
     const recipe = {
         id: nextId,
         name: name,
-        cover: "image", // Default placeholder
+        cover: cover, // Agora a variável está declarada corretamente
         source: source,
         difficulty: difficulty,
         cookTime: cookTime,
         filters: filters,
         ingredients: ingredients,
         instructions: instructions,
-        saved: true, // Sempre salva quando criada
-        favorite: isFavorite,
+        isSaved: true,
+        isFavorite: isFavorite,
         serves: serves
     };
     
@@ -425,34 +454,25 @@ function handleFormSubmit(event) {
     
     const recipeData = collectFormData();
     
-    // CORREÇÃO: Usar o sistema RecipeUtils para salvar
-    // Em vez de manipular localStorage diretamente
-    
-    // 1. Adicionar receita aos dados
+    // Obter dados atualizados
     const existingRecipes = RecipeUtils.getRecipesData();
     existingRecipes.push(recipeData);
     
-    // 2. Salvar no localStorage usando a chave correta
+    // Salvar o array atualizado
     localStorage.setItem('recipesData', JSON.stringify(existingRecipes));
     
-    // 3. Se marcada como favorita, adicionar aos favoritos
-    if (recipeData.favorite) {
+    // SIMPLIFICAR: Usar apenas toggleSaved que já cuida de tudo
+    if (recipeData.isFavorite) {
         RecipeUtils.toggleFavorite(recipeData.id);
     }
-    
-    // 4. Adicionar aos salvos (sempre é salva quando criada)
     RecipeUtils.toggleSaved(recipeData.id);
     
-    // 5. Limpar draft se existir
-    localStorage.removeItem('flavorfy_draft_recipe');
+    // Limpar draft se existir
+    localStorage.removeItem('recipeDraft');
     
     console.log('Recipe saved:', recipeData);
-    console.log('All recipes:', RecipeUtils.getRecipesData());
     
-    // Show success message
     alert('Recipe saved successfully!');
-    
-    // Redirect to home page
     window.location.href = './index.html';
 }
 
