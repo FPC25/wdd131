@@ -174,6 +174,10 @@ function createRecipeCard(recipe) {
     const cookTime = `${recipe.cookTime.time} ${recipe.cookTime.unit}`;
     const difficulty = recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1);
     
+    // Choose the correct icon based on saved status
+    const saveIcon = recipe.saved ? 'check.svg' : 'plus.svg';
+    const saveAlt = recipe.saved ? 'Saved' : 'Save';
+    
     return `
         <div class="recipe-card" data-recipe-id="${recipe.id}">
             <div class="recipe-image">
@@ -183,8 +187,8 @@ function createRecipeCard(recipe) {
                 <div class="recipe-header">
                     <h3>${recipe.name}</h3>
                     <div class="recipe-actions">
-                        <button class="save-btn ${savedClass}" aria-label="Save recipe" data-recipe="${recipe.id}">
-                            <img src="./images/plus.svg" alt="Save">
+                        <button class="save-btn ${savedClass}" aria-label="${saveAlt} recipe" data-recipe="${recipe.id}">
+                            <img src="./images/${saveIcon}" alt="Save">
                         </button>
                         <button class="favorite-btn ${favoriteClass}" aria-label="Add to favorites" data-recipe="${recipe.id}"></button>
                     </div>
@@ -306,28 +310,43 @@ function toggleSaved(recipeId) {
     const recipe = recipesData.find(r => r.id === recipeId);
     
     if (recipe) {
-        // Cannot unsave a favorited recipe
-        if (recipe.favorite && recipe.saved) {
-            console.log('Cannot unsave a favorited recipe');
-            return recipe.saved;
-        }
+        const wasOriginallyFavorite = recipe.favorite;
         
+        // Toggle saved status
         recipe.saved = !recipe.saved;
         
+        // If removing from saved and it was favorited, also remove from favorites
+        if (!recipe.saved && wasOriginallyFavorite) {
+            recipe.favorite = false;
+            console.log(`Recipe ${recipe.name} removed from both favorites and saved`);
+        }
+        
         // Update localStorage
+        const favorites = getFavoritesFromStorage();
         const saved = getSavedFromStorage();
         
         if (recipe.saved) {
+            // Adding to saved
             if (!saved.includes(recipeId)) {
                 saved.push(recipeId);
             }
         } else {
-            const index = saved.indexOf(recipeId);
-            if (index > -1) {
-                saved.splice(index, 1);
+            // Removing from saved
+            const savedIndex = saved.indexOf(recipeId);
+            if (savedIndex > -1) {
+                saved.splice(savedIndex, 1);
+            }
+            
+            // If it was favorited, also remove from favorites
+            if (wasOriginallyFavorite) {
+                const favIndex = favorites.indexOf(recipeId);
+                if (favIndex > -1) {
+                    favorites.splice(favIndex, 1);
+                }
             }
         }
         
+        saveFavoritesToStorage(favorites);
         saveSavedToStorage(saved);
         
         // Update all buttons for this recipe across all pages
@@ -336,7 +355,7 @@ function toggleSaved(recipeId) {
         // Notify all callbacks that data changed
         notifyFavoritesChange();
         
-        console.log(`Recipe ${recipe.name} saved: ${recipe.saved}`);
+        console.log(`Recipe ${recipe.name} favorite: ${recipe.favorite}, saved: ${recipe.saved}`);
         return recipe.saved;
     }
     return false;
@@ -347,12 +366,38 @@ function updateAllButtons(recipeId, isFavorite, isSaved) {
     const allFavoriteButtons = document.querySelectorAll(`[data-recipe="${recipeId}"].favorite-btn`);
     const allSaveButtons = document.querySelectorAll(`[data-recipe="${recipeId}"].save-btn`);
     
+    // Update favorite buttons
     allFavoriteButtons.forEach(button => {
         button.classList.toggle('active', isFavorite);
     });
     
+    // Update save buttons
     allSaveButtons.forEach(button => {
-        button.classList.toggle('active', isSaved);
+        // Add animation class
+        button.classList.add('changing');
+        
+        setTimeout(() => {
+            // Update the button state
+            button.classList.toggle('active', isSaved);
+            
+            // Update the icon with smooth transition
+            const img = button.querySelector('img');
+            if (img) {
+                const newIcon = isSaved ? 'check.svg' : 'plus.svg';
+                const newAlt = isSaved ? 'Saved' : 'Save';
+                
+                img.src = `./images/${newIcon}`;
+                img.alt = newAlt;
+                button.setAttribute('aria-label', `${newAlt} recipe`);
+            }
+            
+            // Remove disabled state since we can now unsave favorited recipes
+            button.classList.remove('disabled');
+            button.removeAttribute('title');
+            
+            // Remove animation class
+            button.classList.remove('changing');
+        }, 200);
     });
 }
 
@@ -396,15 +441,21 @@ function addButtonListeners(container) {
         button.addEventListener('click', function(e) {
             e.stopPropagation();
             const recipeId = parseInt(this.dataset.recipe);
-            const recipe = recipesData.find(r => r.id === recipeId);
             
-            // Cannot unsave a favorited recipe
-            if (recipe && recipe.favorite && recipe.saved) {
-                console.log('Cannot unsave a favorited recipe');
-                return;
+            // Add immediate visual feedback
+            this.classList.add('changing');
+            
+            // Toggle saved state (now works for favorited recipes too)
+            const isNowSaved = toggleSaved(recipeId);
+            
+            // If we're in favorites section and recipe was unsaved (which removes favorite too)
+            const favoritesSection = container.closest('.favorites');
+            if (!isNowSaved && favoritesSection) {
+                this.closest('.recipe-card').remove();
+                if (container.children.length === 0) {
+                    container.innerHTML = '<p>No favorite recipes yet. Start exploring and add some favorites!</p>';
+                }
             }
-            
-            toggleSaved(recipeId);
         });
     });
 }
