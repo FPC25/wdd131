@@ -23,39 +23,58 @@
     font-size: 3rem;
 }
 
-/* Recipe Grid - Index specific (Horizontal Scroll) */
-.recipe-grid {
+/* Recipe Grid - Favorites Section (Horizontal Scroll) */
+.favorites .recipe-grid {
+    display: flex;
     overflow-x: auto;
-    gap: 0.75rem; /* Keep default from general.css */
+    gap: 0.75rem;
     padding-bottom: 1rem;
     scroll-behavior: smooth;
 }
 
-.recipe-grid::-webkit-scrollbar {
+.favorites .recipe-grid::-webkit-scrollbar {
     height: 10px;
 }
 
-.recipe-grid::-webkit-scrollbar-track {
+.favorites .recipe-grid::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.recipe-grid::-webkit-scrollbar-thumb {
+.favorites .recipe-grid::-webkit-scrollbar-thumb {
     background: var(--accent-color);
     border-radius: 3px;
 }
 
-.recipe-grid::-webkit-scrollbar-thumb:hover {
+.favorites .recipe-grid::-webkit-scrollbar-thumb:hover {
     background: var(--text-color);
 }
 
-/* Recipe Card - Index specific (Fixed Width) */
-.recipe-card {
-    min-width: 170px;
-    max-width: 170px;
-    flex-shrink: 0;
+/* Recipe Grid - Recent/Saved Section (Grid Layout like explore) */
+.recent .recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 1rem;
+    width: 100%;
 }
 
-.recipe-info h3 {
+/* Recipe Card - Favorites Section (Fixed Width for horizontal scroll) */
+.favorites .recipe-card {
+    width: 200px; /* Largura fixa e específica */
+    min-width: 200px; /* Garante largura mínima */
+    max-width: 200px; /* Garante largura máxima */
+    flex-shrink: 0; /* Impede que encolha */
+    flex-grow: 0; /* Impede que cresça */
+}
+
+/* Recipe Card - Recent/Saved Section (Responsive width for grid) */
+.recent .recipe-card {
+    width: 100%;
+    min-width: 170px;
+    max-width: none;
+}
+
+/* Common recipe card styling */
+.recipe-card .recipe-info h3 {
     font-size: 1rem;
     font-weight: 600;
 }
@@ -70,41 +89,75 @@
 
 .section-header h2 {
     font-family: 'Lora', serif;
-    font-size: 1.75rem;
-    color: var(--text-color, #4D403D);
-    margin: 0;
-    font-weight: 600;
 }
 
 .add-recipe-link {
-    color: var(--text-color, #4D403D);
+    color: var(--accent-color);
     text-decoration: none;
-    font-size: 1rem;
     font-weight: 500;
-    font-family: 'Roboto', sans-serif;
     transition: color 0.3s ease;
 }
 
 .add-recipe-link:hover {
-    color: var(--accent-color, #A95C32);
+    color: var(--text-color);
 }
 
 /* Sections */
 .favorites, 
 .recent {
-    margin: 3rem 0;
-    padding: 0 2rem;
+    margin-bottom: 2rem;
 }
 
 .favorites h2 {
-    font-family: 'Lora', serif;
-    font-size: 1.75rem;
-    color: var(--text-color, #4D403D);
-    margin-bottom: 1.5rem;
-    font-weight: 600;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.recent h2 {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 section h2 a {
-    text-decoration: none;
     color: inherit;
+    text-decoration: none;
+}
+
+/* Responsive adjustments - mantendo largura fixa para favoritos */
+@media (max-width: 768px) {
+    .recent .recipe-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 0.75rem;
+    }
+    
+    /* Favoritos mantêm largura fixa mesmo em mobile */
+    .favorites .recipe-card {
+        width: 180px;
+        min-width: 180px;
+        max-width: 180px;
+    }
+    
+    .recent .recipe-card {
+        min-width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .recent .recipe-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.5rem;
+    }
+    
+    /* Favoritos mantêm largura fixa mesmo em telas pequenas */
+    .favorites .recipe-card {
+        width: 160px;
+        min-width: 160px;
+        max-width: 160px;
+    }
+    
+    .recent .recipe-card {
+        min-width: 140px;
+    }
 }
