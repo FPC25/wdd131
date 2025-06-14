@@ -2,12 +2,30 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Load existing recipes to get the next ID
     await RecipeUtils.loadRecipes();
     
-    // Initialize form
+    // Initialize form (vai adicionar 2 ingredientes)
     initializeForm();
     
     // Add event listeners
     addEventListeners();
+    
+    // Check for draft data (movido para cá)
+    const draftData = localStorage.getItem('recipeDraft');
+    if (draftData) {
+        try {
+            const draft = JSON.parse(draftData);
+            if (confirm('You have a saved draft. Would you like to continue editing it?')) {
+                populateForm(draft);
+            } else {
+                localStorage.removeItem('recipeDraft');
+            }
+        } catch (error) {
+            console.error('Error loading draft:', error);
+            localStorage.removeItem('recipeDraft');
+        }
+    }
 });
+
+// Remove todas as múltiplas chamadas de DOMContentLoaded e deixe apenas uma
 
 let ingredientCount = 0;
 
@@ -483,8 +501,3 @@ function populateForm(recipeData) {
         lastRow.querySelector('.unit-input').value = ingredient.unit || '';
     });
 }
-
-// Check for draft on page load
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(loadDraft, 1000); // Check after form initialization
-});
