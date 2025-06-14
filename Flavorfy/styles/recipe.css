@@ -1,21 +1,20 @@
-/* Recipe Form Styles */
+/* Container do formulário - fundo branco */
 .recipe-form-container {
-    max-width: 900px; /* Aumentado de 600px para 900px */
-    margin: 0 auto;
-    padding: 1rem;
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
     background: var(--secondary-color);
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    margin-top: 2rem;
-    margin-bottom: 2rem;
 }
 
+/* Header do formulário */
 .form-header {
     display: flex;
     align-items: center;
     gap: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid var(--border-color);
     margin-bottom: 2rem;
 }
 
@@ -24,31 +23,31 @@
     border: none;
     cursor: pointer;
     padding: 0.5rem;
-    width: 2.5rem; /* Increase width */
-    height: 2.5rem; /* Add height for square shape */
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 8px;
     color: var(--text-color);
-    transition: background-color 0.3s ease;
-    font-size: 1.5rem; /* Increase icon/text size if needed */
+    font-size: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.3s ease;
 }
 
 #back-btn:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: var(--light-gray);
 }
 
 .form-header h1 {
-    margin: 0;
+    flex: 1;
+    text-align: center;
     font-family: 'Lora', serif;
     font-size: 1.8rem;
     color: var(--text-color);
-    flex-grow: 1;
-    text-align: center;
+    margin: 0;
 }
 
-/* Form Sections */
+/* Seções do formulário */
 .form-section {
     margin-bottom: 2rem;
 }
@@ -60,19 +59,16 @@
     margin-bottom: 1rem;
     border-bottom: 2px solid var(--accent-color);
     padding-bottom: 0.5rem;
-    /* Remover sublinhado da regra geral */
-    text-decoration: none;
 }
 
-/* Image Upload */
+/* Upload de imagem - usando accent-color para bordas */
 .image-upload-container {
-    width: 100%;
     margin-bottom: 1rem;
 }
 
 .image-preview {
     width: 100%;
-    height: 120px;
+    height: 150px;
     border: 2px dashed var(--accent-color);
     border-radius: 8px;
     display: flex;
@@ -83,7 +79,7 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    background-color: #f9f9f9;
+    background-color: var(--light-gray);
     gap: 0.5rem;
 }
 
@@ -92,85 +88,25 @@
     background-color: #f0f0f0;
 }
 
-/* Ícone da câmera padrão */
 .image-preview #camera-icon {
     width: 32px;
     height: 32px;
     filter: invert(0.4);
 }
 
-/* Texto do upload */
-.image-preview span,
-.image-preview small {
-    font-family: 'Roboto', sans-serif;
-    color: var(--text-color);
-    text-align: center;
-    opacity: 0.7;
-}
-
 .image-preview span {
     font-size: 0.9rem;
+    color: var(--text-color);
 }
 
 .image-preview small {
     font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.7;
 }
 
-.image-preview:hover span,
-.image-preview:hover small {
-    opacity: 1;
-}
-
-/* Botão de troca de imagem */
-.change-image-btn {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.image-preview.has-image:hover .change-image-btn {
-    opacity: 1;
-}
-
-.change-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.change-overlay:hover {
-    background: rgba(0, 0, 0, 0.8);
-}
-
-.change-overlay .change-camera-icon {
-    width: 20px !important;
-    height: 20px !important;
-    filter: brightness(0) invert(1);
-}
-
-.change-overlay span {
-    color: white;
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
-    text-align: center;
-    white-space: nowrap;
+.image-preview.has-image {
+    border: none;
 }
 
 .remove-image-btn {
@@ -178,75 +114,51 @@
     top: 8px;
     right: 8px;
     background: rgba(255, 0, 0, 0.8);
-    color: white;
+    color: var(--secondary-color);
     border: none;
     border-radius: 50%;
     width: 24px;
     height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     cursor: pointer;
-    font-size: 16px;
     font-weight: bold;
     z-index: 3;
 }
 
-.remove-image-btn:hover {
-    background: rgba(255, 0, 0, 1);
-}
-
-/* Form Layout - Each input on its own line by default */
+/* Layout de formulário */
 .form-row {
-    display: block;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
     margin-bottom: 1rem;
 }
 
 .form-row.two-columns {
-    display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
     font-family: 'Lora', serif;
-    font-weight: bold;
+    font-weight: 600;
     color: var(--text-color);
+    font-size: 0.95rem;
 }
 
 .form-group input,
-.form-group select {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--accent-color);
-    border-radius: 6px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-    transition: border-color 0.3s ease;
-    box-sizing: border-box;
-    min-height: 44px;
-}
-
+.form-group select,
 .form-group textarea {
-    width: 100%;
     padding: 0.75rem;
-    border: 1px solid var(--accent-color);
+    border: 1px solid var(--border-color);
     border-radius: 6px;
     font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    background-color: var(--secondary-color);
-    color: var(--text-color);
+    font-size: 0.95rem;
     transition: border-color 0.3s ease;
-    box-sizing: border-box;
-    resize: vertical;
+    background-color: var(--secondary-color);
 }
 
 .form-group input:focus,
@@ -254,72 +166,33 @@
 .form-group textarea:focus {
     outline: none;
     border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(169, 92, 50, 0.2);
 }
 
-/* Time Inputs - Keep side by side */
+/* Inputs de tempo */
 .time-inputs {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 2fr 1fr;
     gap: 0.5rem;
 }
 
-/* Checkbox Groups - Stack vertically for better readability */
+/* Grupos de checkbox - usando cores corretas */
 .checkbox-group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 0.25rem;
-    margin-bottom: 1rem;
-}
-
-.checkbox-group label {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Mudado para align à esquerda */
-    gap: 6px; /* 6px gap between checkbox and label */
-    margin-bottom: 0;
-    cursor: pointer;
-    font-family: 'Roboto', sans-serif;
-    font-weight: normal;
-    font-size: 0.9rem;
-}
-
-.checkbox-group label:hover {
-    color: var(--accent-color);
-}
-
-.checkbox-group input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    min-height: 20px;
-    max-width: 20px;
-    max-height: 20px;
-    appearance: none;
-    border: 2px solid var(--text-color);
-    border-radius: 5px;
-    background-color: var(--secondary-color);
-    order: 0; /* Checkbox vem primeiro (antes do texto) */
-    margin: 0;
-    flex-shrink: 0;
-    box-sizing: border-box;
-}
-
-.checkbox-group input[type="checkbox"]:checked {
-    background-color: var(--accent-color);
-    border-color: var(--text-color);
+    gap: 0.75rem;
+    margin-top: 0.5rem;
 }
 
 .checkbox-label {
     display: flex;
-    align-items: center; /* Centralizar verticalmente */
-    justify-content: flex-start;
-    gap: 6px;
+    align-items: center;
+    gap: 0.5rem;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
-    font-weight: normal;
     font-size: 0.9rem;
-    margin-bottom: 0;
+    color: var(--text-color);
+    transition: color 0.3s ease;
 }
 
 .checkbox-label:hover {
@@ -327,48 +200,29 @@
 }
 
 .checkbox-label input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    min-height: 20px;
-    max-width: 20px;
-    max-height: 20px;
-    appearance: none;
-    border: 2px solid var(--text-color);
-    border-radius: 5px;
-    background-color: var(--secondary-color);
-    order: 0; /* Checkbox vem primeiro (antes do texto) */
-    margin: 0;
-    flex-shrink: 0;
-    box-sizing: border-box;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-color);
+    cursor: pointer;
 }
 
-.checkbox-label input[type="checkbox"]:checked {
-    background-color: var(--accent-color);
-    border-color: var(--text-color);
-}
-
-/* Ingredients - Keep multi-column layout */
+/* Ingredientes */
 .ingredient-row {
     display: grid;
     grid-template-columns: 1fr 1fr 2fr auto;
     gap: 0.5rem;
-    align-items: center; /* Mudado de 'end' para 'center' */
-    margin-bottom: 0.75rem;
-    padding: 0.75rem;
-    background: #f9f9f9;
+    align-items: end;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: var(--light-gray);
     border-radius: 8px;
-}
-
-.ingredient-row input,
-.ingredient-row select {
-    margin-bottom: 0;
 }
 
 .ingredient-row label {
     font-family: 'Lora', serif;
-    font-weight: bold;
+    font-weight: 600;
     color: var(--text-color);
+    font-size: 0.85rem;
     margin-bottom: 0.25rem;
 }
 
@@ -376,22 +230,20 @@
     background: var(--accent-color);
     color: var(--secondary-color);
     border: none;
-    border-radius: 50%; /* Tornar circular */
-    width: 30px; /* Tamanho fixo */
-    height: 30px; /* Tamanho fixo */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-family: 'Roboto', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-    align-self: center; /* Centralizar verticalmente */
 }
 
 .remove-ingredient:hover {
-    background: #ff3742;
+    background: #8B4A28;
 }
 
 #add-ingredient-btn {
@@ -404,58 +256,61 @@
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     transition: background-color 0.3s ease;
+    margin-top: 1rem;
 }
 
 #add-ingredient-btn:hover {
     background: var(--primary-color);
 }
 
-/* Form Actions */
+/* Ações do formulário - usando cores do site plan */
 .form-actions {
     display: flex;
     gap: 1rem;
-    justify-content: center;
+    justify-content: flex-end;
     margin-top: 2rem;
     padding-top: 1rem;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid var(--border-color);
 }
 
 .btn-primary {
-    background: var(--primary-color);
-    color: white;
+    background: var(--accent-color);
+    color: var(--secondary-color);
     border: none;
-    padding: 1rem 2rem;
-    border-radius: 8px;
+    padding: 0.875rem 2rem;
+    border-radius: 6px;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-    background: #7a9b73;
+    background: var(--primary-color);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary {
     background: transparent;
     color: var(--text-color);
-    border: 2px solid var(--text-color);
-    padding: 1rem 2rem;
-    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    padding: 0.875rem 2rem;
+    border-radius: 6px;
     font-family: 'Roboto', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .btn-secondary:hover {
     background: var(--text-color);
-    color: white;
+    color: var(--secondary-color);
 }
 
-/* Style for disabled unit input when quantity is "to taste" */
+/* Input desabilitado */
 .unit-input.disabled-gray {
     background-color: #f5f5f5;
     color: #999;
@@ -463,36 +318,21 @@
     cursor: not-allowed;
 }
 
-.unit-input.disabled-gray:focus {
-    outline: none;
-    border-color: #ddd; /* Manter borda cinza mesmo no focus */
-}
-
-/* Responsive Design */
+/* Responsividade */
 @media (max-width: 768px) {
     .recipe-form-container {
-        max-width: 100%; /* Usar 95% da largura em tablet */
-        margin: 1rem auto;
-        padding: 1rem;
+        margin: 1rem;
+        padding: 1.5rem;
     }
     
     .form-row.two-columns {
         grid-template-columns: 1fr;
-        gap: 0.5rem;
     }
     
-    /* Manter Cook Time lado a lado mesmo em mobile */
-    .time-inputs {
-        grid-template-columns: 1.5fr 1fr;
-        gap: 0.5rem;
-    }
-    
-    /* Manter ingredientes em múltiplas colunas, mas ajustar proporções */
     .ingredient-row {
-        grid-template-columns: 0.8fr 0.8fr 1.5fr auto;
+        grid-template-columns: 1fr 1fr 1.5fr auto;
         gap: 0.4rem;
-        padding: 0.5rem;
-        align-items: center; /* Manter centralização */
+        padding: 0.75rem;
     }
     
     .form-actions {
@@ -502,32 +342,18 @@
 
 @media (max-width: 480px) {
     .recipe-form-container {
-        max-width: 95%; /* Usar 95% da largura em mobile */
-        margin: 0.5rem auto; /* Margem menor em mobile */
-        padding: 0.75rem; /* Padding um pouco menor */
+        margin: 0.5rem;
+        padding: 1rem;
     }
     
     .form-header h1 {
         font-size: 1.5rem;
     }
     
-    /* Para telas muito pequenas, manter proporção equilibrada */
-    .time-inputs {
-        grid-template-columns: 1fr 1fr;
-        gap: 0.5rem;
-    }
-    
-    /* Ingredientes em telas muito pequenas - proporções mais equilibradas */
     .ingredient-row {
-        grid-template-columns: 1fr 1fr 2fr auto;
-        gap: 0.3rem;
-        padding: 0.5rem;
-        align-items: center; /* Manter centralização */
-    }
-    
-    /* Fonte menor nos labels dos ingredientes em mobile */
-    .ingredient-row label {
-        font-size: 0.85rem;
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        text-align: left;
     }
 }
 

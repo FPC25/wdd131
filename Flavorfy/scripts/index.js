@@ -1,36 +1,29 @@
 document.addEventListener('DOMContentLoaded', async function() {
-    console.log('Index.js: DOM loaded, starting recipe loading...'); // Debug
-    
-    // Load recipes data
+    // Carregar dados das receitas
     await RecipeUtils.loadRecipes();
     
-    console.log('Index.js: Recipes loaded:', RecipeUtils.getRecipesData()); // Debug
-    
-    // Get DOM elements
+    // Obter elementos DOM que existem no index.html
     const favoritesGrid = document.querySelector('.favorites .recipe-grid');
     const savedGrid = document.querySelector('.recent .recipe-grid');
     const searchInput = document.querySelector('.search-input');
     const searchButton = document.querySelector('.search-button');
     
-    // State management for search
+    // Estado da busca
     let currentSearch = '';
     
-    // Initial render
+    // Renderização inicial
     renderFavoritesSection();
     renderSavedSection();
     
-    // Register callback to update sections when data changes
+    // Registrar callback para mudanças nos dados
     RecipeUtils.onFavoritesChange(() => {
-        console.log('Index.js: Favorites changed, re-rendering...'); // Debug
         renderFavoritesSection();
-        renderSavedSection(); // Update saved section too
+        renderSavedSection();
     });
     
-    // ✅ ADICIONAR: Listen for storage changes from other pages
+    // Escutar mudanças no localStorage de outras páginas
     window.addEventListener('storage', function(e) {
         if (e.key === 'flavorfy_favorites' || e.key === 'flavorfy_saved' || e.key === 'recipesData') {
-            console.log('Index.js: Storage changed from another page, refreshing data...'); // Debug
-            // Reload data and re-render
             RecipeUtils.loadRecipes().then(() => {
                 renderFavoritesSection();
                 renderSavedSection();
@@ -38,11 +31,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     });
     
-    // ✅ ADICIONAR: Listen for when page becomes visible again (user returns from another page)
+    // Atualizar quando a página ficar visível
     document.addEventListener('visibilitychange', function() {
         if (!document.hidden) {
-            console.log('Index.js: Page became visible, refreshing data...'); // Debug
-            // Reload data and re-render when page becomes visible
             RecipeUtils.loadRecipes().then(() => {
                 renderFavoritesSection();
                 renderSavedSection();
@@ -50,20 +41,16 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
     });
     
-    // Search functionality
+    // Função de busca
     function performSearch() {
-        currentSearch = searchInput ? searchInput.value.toLowerCase().trim() : '';
-        
-        if (currentSearch) {
-            // Redirect to explore page with search term
-            window.location.href = `./explore.html?search=${encodeURIComponent(currentSearch)}`;
-        } else {
-            // If no search term, just go to explore
-            window.location.href = './explore.html';
+        const searchTerm = searchInput.value.trim();
+        if (searchTerm) {
+            // Redirecionar para explore com parâmetro de busca
+            window.location.href = `./explore.html?search=${encodeURIComponent(searchTerm)}`;
         }
     }
     
-    // Add search event listeners
+    // Event listeners para busca
     if (searchButton) {
         searchButton.addEventListener('click', performSearch);
     }
@@ -75,7 +62,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         });
         
-        // Add visual feedback when typing
+        // Feedback visual durante digitação
         searchInput.addEventListener('input', function() {
             if (this.value.trim()) {
                 this.style.backgroundColor = '#e8f5e8';
@@ -85,23 +72,17 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
     
+    // Renderizar seção de favoritos
     function renderFavoritesSection() {
-        const favoriteRecipes = RecipeUtils.filterRecipes('favorites');
-        console.log('Index.js: Rendering favorites:', favoriteRecipes); // Debug
-        RecipeUtils.renderRecipes(
-            favoriteRecipes, 
-            favoritesGrid, 
-            'No favorite recipes yet. Start exploring and add some favorites!'
-        );
+        const favoriteRecipes = RecipeUtils.filterRecipes('favorites', currentSearch);
+        const emptyMessage = 'No favorite recipes yet. Start exploring and add some favorites!';
+        RecipeUtils.renderRecipes(favoriteRecipes, favoritesGrid, emptyMessage);
     }
     
+    // Renderizar seção de receitas salvas
     function renderSavedSection() {
-        const savedRecipes = RecipeUtils.filterRecipes('saved');
-        console.log('Index.js: Rendering saved:', savedRecipes); // Debug
-        RecipeUtils.renderRecipes(
-            savedRecipes, 
-            savedGrid, 
-            'No saved recipes yet. <a href="./recipe.html">Add your first recipe!</a>'
-        );
+        const savedRecipes = RecipeUtils.filterRecipes('saved', currentSearch);
+        const emptyMessage = 'No saved recipes yet. Create your first recipe or save some from explore!';
+        RecipeUtils.renderRecipes(savedRecipes, savedGrid, emptyMessage);
     }
 });

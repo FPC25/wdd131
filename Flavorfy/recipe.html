@@ -1,158 +1,203 @@
 <!DOCTYPE html>
 <html lang="en-US">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="description" content="Add new recipe to Flavorfy">
-		<meta name="keywords" content="recipes, add recipe, cooking, Flavorfy">
-		<meta name="author" content="Felipe Proença Corral">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta
+            name="description"
+            content="Flavorfy - Create and save your own recipes. Add ingredients, instructions, and photos.">
+        <meta
+            name="keywords"
+            content="recipe creation, add recipe, cooking, Flavorfy">
+        <meta name="author" content="Felipe Proença Corral">
 
-		<title>Flavorfy - Add Recipe</title>
+        <title>Flavorfy - Add Recipe</title>
 
         <link rel="stylesheet" href="styles/general.css">
-		<link rel="stylesheet" href="styles/recipe.css">
-        <script src="scripts/general.js" defer></script>
-        <script src="scripts/recipe-utils.js" defer></script>
-        <script src="scripts/recipe.js" defer></script>
-	</head>
-	<body>
-		<header>
-			<div class="header-top">
-				<button id="hamburger" aria-label="Toggle navigation">☰</button>
-				<nav class="hamburger-menu">
-					<ul>
-						<li><a href="./index.html" id="home">Home</a></li>
-						<li><a href="./explore.html" id="explore">Explore</a></li>
-						<li><a href="./calculator.html" id="calculator">Calculator</a></li>
-					</ul>
-				</nav>
-				<a href="./index.html"><img src="./images/Logo.svg" alt="Logo of Flavorfy" id="logo"></a>
-			</div>
-		</header>
+        <link rel="stylesheet" href="styles/recipe.css">
 
-		<main>
-			<div class="recipe-form-container">
-				<div class="form-header">
-					<button id="back-btn" aria-label="Go back">
-						<a href="./index.html"><img src="./images/arrow-left.svg" alt="back arrow" id="back"></a>
-					</button>
-					<h1>Add Recipe</h1>
-				</div>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lora&family=Roboto&display=swap"
+            rel="stylesheet">
 
-				<form id="recipe-form">
-					<!-- Cover Image -->
-					<div class="form-section">
-						<div class="image-upload-container">
-							<div class="image-preview" id="image-preview">
-								<img src="./images/camera.svg" alt="camera icon" id="camera-icon">
-								<span>Upload Cover Image (.jpg, .png or .webp) </span>
-								<input type="file" id="cover-image" accept="image/*">
-							</div>
-						</div>
-					</div>
+        <script src="./scripts/recipe-utils.js"></script>
+        <script src="./scripts/general.js" defer></script>
+        <script src="./scripts/recipe.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <div class="header-top">
+                <button id="hamburger" aria-label="Toggle navigation">☰</button>
+                <nav class="hamburger-menu">
+                    <ul>
+                        <li><a href="./index.html" id="home">Home</a></li>
+                        <li><a href="./explore.html" id="explore">Explore</a></li>
+                        <li><a href="./calculator.html" id="calculator">Calculator</a></li>
+                    </ul>
+                </nav>
+                <a href="./index.html"><img src="./images/Logo.svg" alt="Logo of Flavorfy" id="logo"></a>
+            </div>
+        </header>
 
-					<!-- Recipe Details -->
-					<div class="form-section">
-						<h2>Recipe Details</h2>
-						
-						<div class="form-row">
-							<div class="form-group">
-								<label for="recipe-name">Recipe Name *</label>
-								<input type="text" id="recipe-name" required>
-							</div>
-							<div class="form-group">
-								<label for="serves">Serves</label>
-								<input type="number" id="serves" min="1" value="1" placeholder="1">
-							</div>
-						</div>
+        <main>
+            <div class="recipe-form-container">
+                <div class="form-header">
+                    <button type="button" id="back-btn" aria-label="Go back">←</button>
+                    <h1>Add New Recipe</h1>
+                </div>
 
-						<div class="form-row">
-							<div class="form-group">
-								<label for="source">Source</label>
-								<input type="text" id="source" placeholder="e.g., Mom's Kitchen">
-							</div>
-							<div class="form-group">
-								<label for="difficulty">Difficulty *</label>
-								<select id="difficulty" required>
-									<option value="" disabled selected>Select difficulty</option>
-									<option value="very easy">Very Easy</option>
-									<option value="easy">Easy</option>
-									<option value="medium">Medium</option>
-									<option value="hard">Hard</option>
-									<option value="very hard">Very Hard</option>
-								</select>
-							</div>
-						</div>
+                <form id="recipe-form">
+                    <!-- Basic Information -->
+                    <div class="form-section">
+                        <h2>Basic Information</h2>
+                        
+                        <div class="form-group">
+                            <label for="recipe-name">Recipe Name *</label>
+                            <input type="text" id="recipe-name" name="recipe-name" required>
+                        </div>
 
-						<div class="form-row">
-							<div class="form-group">
-								<label>Cook Time *</label>
-								<div class="time-inputs">
-									<input type="number" id="cook-time" min="1" required placeholder="e.g., 30">
-									<select id="time-unit" required>
-										<option value="minutes">minutes</option>
-										<option value="hours">hour(s)</option>
-										<option value="days">day(s)</option>
-									</select>
-								</div>
-							</div>
-						</div>
+                        <div class="image-upload-container">
+                            <label for="cover-image">Cover Image</label>
+                            <div class="image-preview" id="image-preview">
+                                <img src="./images/camera.svg" alt="camera icon" id="camera-icon">
+                                <span>Upload cover image</span>
+                                <small>JPG, PNG up to 5MB</small>
+                            </div>
+                            <input type="file" id="cover-image" name="cover-image" accept="image/*" hidden>
+                        </div>
 
-						<div class="form-group">
-							<label>Category (Select all that applies)</label>
-							<div class="checkbox-group" id="filters-group">
-								<label><input type="checkbox" value="Breakfast">Breakfast</label>
-								<label><input type="checkbox" value="Lunch">Lunch</label>
-								<label><input type="checkbox" value="Dinner">Dinner</label>
-								<label><input type="checkbox" value="Snack">Snack</label>
-								<label><input type="checkbox" value="Dessert">Dessert</label>
-							</div>
-						</div>
-					</div>
+                        <div class="form-row two-columns">
+                            <div class="form-group">
+                                <label for="source">Source</label>
+                                <input type="text" id="source" name="source" placeholder="e.g., Grandma's recipe">
+                            </div>
 
-					<!-- Ingredients -->
-					<div class="form-section">
-						<h2>Ingredients</h2>
-						<div id="ingredients-container">
-							<!-- Ingredient rows will be added here -->
-						</div>
-						<button type="button" id="add-ingredient-btn">Add Ingredient</button>
-					</div>
+                            <div class="form-group">
+                                <label for="difficulty">Difficulty *</label>
+                                <select id="difficulty" name="difficulty" required>
+                                    <option value="">Select difficulty</option>
+                                    <option value="easy">Easy</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="hard">Hard</option>
+                                </select>
+                            </div>
+                        </div>
 
-					<!-- Instructions -->
-					<div class="form-section">
-						<h2>Instructions</h2>
-						<div class="form-group">
-							<textarea id="instructions" placeholder="Enter each step on a new line..." rows="8"></textarea>
-						</div>
-					</div>
+                        <div class="form-row two-columns">
+                            <div class="form-group">
+                                <label for="serves">Serves</label>
+                                <input type="number" id="serves" name="serves" min="1" max="50" placeholder="4">
+                            </div>
 
-					<!-- Save Options -->
-					<div class="form-section">
-						<div class="form-group">
-							<label class="checkbox-label">
-								<input type="checkbox" id="mark-favorite">
-								Mark as favorite?
-							</label>
-						</div>
-					</div>
+                            <div class="form-group">
+                                <label>Cook Time *</label>
+                                <div class="time-inputs">
+                                    <input type="number" id="cook-time" name="cook-time" min="1" max="1440" required placeholder="30">
+                                    <select id="time-unit" name="time-unit">
+                                        <option value="minutes">Minutes</option>
+                                        <option value="hours">Hours</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-					<!-- Submit Buttons -->
-					<div class="form-actions">
-						<button type="submit" class="btn-primary">Save Recipe</button>
-						<button type="button" class="btn-secondary" id="save-draft-btn">Save Draft</button>
-					</div>
-				</form>
-			</div>
-		</main>
+                    <!-- Filters/Categories -->
+                    <div class="form-section">
+                        <h2>Categories</h2>
+                        <div class="checkbox-group" id="filters-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="filters" value="Breakfast">
+                                Breakfast
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="filters" value="Lunch">
+                                Lunch
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="filters" value="Dinner">
+                                Dinner
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="filters" value="Dessert">
+                                Dessert
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="filters" value="Snack">
+                                Snack
+                            </label>
+                        </div>
+                    </div>
 
-		<footer>
-			<div class="footer-content">
-				<p>
-					&copy; <span id="currentYear"></span> &#128187; Felipe Proença Corral
-				</p>
-			</div>
-		</footer>
-	</body>
+                    <!-- Ingredients -->
+                    <div class="form-section">
+                        <h2>Ingredients</h2>
+                        <div id="ingredients-container">
+                            <!-- Ingredient rows will be added here by JavaScript -->
+                        </div>
+                        <button type="button" id="add-ingredient-btn">+ Add Ingredient</button>
+                    </div>
+
+                    <!-- Instructions -->
+                    <div class="form-section">
+                        <h2>Instructions</h2>
+                        <div class="form-group">
+                            <label for="instructions">Cooking Instructions *</label>
+                            <textarea 
+                                id="instructions" 
+                                name="instructions" 
+                                rows="6" 
+                                placeholder="Enter each step on a new line..."
+                                required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Mark as Favorite -->
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="mark-favorite" name="mark-favorite">
+                                Mark as favorite
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" id="save-draft-btn" class="btn-secondary">Save Draft</button>
+                        <button type="submit" class="btn-primary">Save Recipe</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>
+                    &copy; <span id="currentYear"></span> &#128187; Felipe Proença Corral
+                    &#128187; Brazil
+                </p>
+                <p id="lastModified"></p>
+            </div>
+
+            <nav class="sociallinks">
+                <a href="mailto:felipepcorral@gmail.com">
+                    <img src="./images/email.svg" alt="Emails logo">
+                </a>
+
+                <a href="https://instagram.com">
+                    <img src="./images/instagram.svg" alt="Instagrams logo">
+                </a>
+                <a href="https://facebook.com">
+                    <img src="./images/facebook.svg" alt="Facebooks logo">
+                </a>
+                <a href="https://x.com/">
+                    <img src="./images/x_twitter.svg" alt="Xs logo">
+                </a>
+            </nav>
+        </footer>
+    </body>
 </html>
 

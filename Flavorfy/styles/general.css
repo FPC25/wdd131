@@ -5,59 +5,55 @@
 }
 
 :root {
-    --background-color: #F5EFE6; /* Eggshell/Off-White */
-    --text-color: #4D403D; /* Dark Chocolate Brown */
-    --primary-color: #5A7454; /* Earthy Green */
-    --accent-color: #A95C32; /* Terracotta/Rust */
-    --secondary-color: #FFFFFF; /* Pure White */
-    --star: #FFAE42; /* Star Color */
-    --star-hover: #FF8C00; /* Star Hover Color */
-    --auxiliary-color: #F0F0F0; /* Auxiliary Whitish Color */
+    /* Paleta de cores conforme site plan */
+    --background-color: #F5EFE6; /* Eggshell/Off-White - Background principal */
+    --text-color: #4D403D; /* Dark Chocolate Brown - Texto principal */
+    --primary-color: #5A7454; /* Earthy Green - Navegação e estrutura */
+    --accent-color: #A95C32; /* Terracotta/Rust - Botões e ações */
+    --secondary-color: #FFFFFF; /* Pure White - Cards e campos */
+    --light-gray: #f8f9fa; /* Para placeholders e fundos sutis */
+    --border-color: #e0e0e0; /* Para bordas */
 }
 
-/* General Styles */
+/* Estilos gerais do body */
 body {
     font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
+    line-height: 1.6;
     color: var(--text-color);
+    background-color: var(--background-color);
+    overflow-x: hidden;
 }
 
+/* Header principal - usando primary-color conforme site plan */
 header {
-    font-family: 'Lora', serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     padding: 1rem 2rem;
+    position: relative;
 }
 
 .header-top {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
+/* Hamburger menu */
 #hamburger {
-    font-size: 2rem;
     background: none;
     border: none;
     color: var(--secondary-color);
+    font-size: 1.8rem;
     cursor: pointer;
-    padding: 0 15px;
-    display: block
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
 }
 
-/* Hamburger Menu */
-#hamburger {
-    background: none;
-    border: none;
-    cursor: pointer;
-    flex-direction: column;
-    gap: 4px;
-    padding: 8px;
-    z-index: 1000;
-    color: var(--text-color);
+#hamburger:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* Logo */
@@ -66,39 +62,24 @@ header {
     width: auto;
 }
 
-/* Navigation */
-#hamburger {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 2rem;
-    color: var(--text-color);
-    padding: 8px;
-    z-index: 1001;
-    position: relative;
-    transition: all 0.3s ease;
-}
-
-/* Navigation Menu - Sliding from left */
+/* Menu de navegação - fundo branco conforme site plan */
 .hamburger-menu {
     position: fixed;
     top: 0;
-    left: -250px; /* Hide menu off-screen to the left */
+    left: -100%;
     width: 250px;
     height: 100vh;
     background-color: var(--secondary-color);
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     transition: left 0.3s ease;
     z-index: 1000;
-    padding-top: 80px;
+    padding-top: 2rem;
 }
 
-/* Menu active state - slides in from left */
 .hamburger-menu.open {
-    left: 0; /* Slide in to position */
+    left: 0;
 }
 
-/* Menu list styling */
 .hamburger-menu ul {
     list-style: none;
     padding: 0;
@@ -106,24 +87,26 @@ header {
 }
 
 .hamburger-menu ul li {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .hamburger-menu ul li a {
     display: block;
     padding: 1rem 2rem;
-    text-decoration: none;
     color: var(--text-color);
-    font-family: 'Roboto', sans-serif;
-    transition: background-color 0.3s ease;
+    text-decoration: none;
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
 }
 
 .hamburger-menu ul li a:hover {
-    background-color: var(--accent-color);
-    color: var(--secondary-color);
+    background-color: var(--light-gray);
+    color: var(--accent-color);
+    transform: translateX(10px);
 }
 
-/* Overlay for mobile menu */
+/* Overlay para menu mobile */
 .menu-overlay {
     position: fixed;
     top: 0;
@@ -134,7 +117,7 @@ header {
     z-index: 999;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .menu-overlay.active {
@@ -142,40 +125,53 @@ header {
     visibility: visible;
 }
 
-/* Prevent body scroll when menu is open */
 body.menu-open {
     overflow: hidden;
 }
 
-/* body */
-
-body h2 {
-    font-family: 'Lora', serif;
-    font-size: 1.5rem;
-    color: var(--text-color);
-    margin-bottom: 1rem;
-    text-decoration: underline;
-    text-underline-offset: 12.5%;
-    text-decoration-thickness: 2.5%;
+/* Welcome container - texto usando text-color */
+.welcome-container {
+    text-align: center;
+    margin-top: 1rem;
 }
 
+#welcome-message h1 {
+    font-family: 'Lora', serif;
+    font-size: 2.5rem;
+    margin: 0.5rem 0;
+    color: var(--secondary-color);
+}
+
+.brand {
+    color: var(--accent-color);
+}
+
+/* Main content - fundo background-color */
 main {
     padding: 2rem;
-    max-width: 767px;
+    max-width: 1200px;
     margin: 0 auto;
+    min-height: calc(100vh - 200px);
+    background-color: var(--background-color);
 }
 
-/* Recipe Grid - Default (can be overridden by specific pages) */
+/* Títulos usando Lora conforme site plan */
+h1, h2, h3 {
+    font-family: 'Lora', serif;
+    color: var(--text-color);
+}
+
+/* Grid padrão para receitas */
 .recipe-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
     width: 100%;
 }
 
-/* Recipe Card - Layout padrão mantido */
+/* Recipe Card - Estilos base com cores corretas */
 .recipe-card {
-    background: white;
+    background: var(--secondary-color);
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
@@ -183,242 +179,224 @@ main {
     cursor: pointer;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .recipe-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* COMPORTAMENTO DIFERENTE APENAS PARA A IMAGEM */
-
-/* Quando TEM foto: ocupa todo o espaço da área de imagem */
-.recipe-image.has-photo {
+/* Container da imagem da receita */
+.recipe-image {
+    position: relative;
+    width: 100%;
     height: 200px;
     overflow: hidden;
 }
 
-.recipe-image.has-photo img {
+.recipe-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Quando NÃO TEM foto: placeholder menor e centralizado */
+/* Placeholder para receitas sem imagem */
 .recipe-image.no-photo {
-    height: 200px; /* Mesma altura */
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f8f9fa;
+    background: var(--light-gray);
 }
 
 .recipe-image.no-photo img {
     width: auto;
-    height: 70%; /* 70% da altura da área de imagem */
+    height: 60%;
     object-fit: contain;
-    filter: invert(0.4); /* Deixar o placeholder mais sutil */
+    filter: invert(0.4);
 }
 
-/* Resto do card mantém o mesmo layout */
-.recipe-info {
-    padding: 1rem;
-    flex: 1;
-}
-
-.recipe-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.5rem;
-}
-
-.recipe-header h3 {
-    font-family: 'Lora', serif;
-    font-size: 1.1rem;
-    color: var(--text-color);
-    margin: 0;
-    flex: 1;
-}
-
+/* Actions dos recipe cards */
 .recipe-actions {
+    position: absolute;
+    top: 8px;
+    right: 8px;
     display: flex;
     gap: 0.5rem;
-    margin-left: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.recipe-info p {
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.9rem;
-    color: var(--text-color);
-    opacity: 0.8;
-    margin: 0;
+.recipe-card:hover .recipe-actions {
+    opacity: 1;
 }
 
-/* Recipe Image - Adjusted back to original dimensions */
-.recipe-image {
-    width: 100%;
-    height: 150px;
-    overflow: hidden;
-    background-color: var(--light-gray);
+.action-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.recipe-image img {
-    width: auto;
-    height: 70%;
-    object-fit: cover;
-    display: block;
-}
-
-/* Recipe Actions Container */
-.recipe-actions {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    flex-shrink: 0;
-}
-
-/* Save Button */
-.save-btn {
-    background: none;
-    border: none;
     cursor: pointer;
-    padding: 4px;
-    line-height: 1;
-    opacity: 0.7;
     transition: all 0.3s ease;
-    position: relative;
-    border-radius: 50%;
+    backdrop-filter: blur(10px);
 }
 
-.save-btn img {
+.action-btn:hover {
+    background: var(--secondary-color);
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.action-btn img {
     width: 18px;
     height: 18px;
-    transition: all 0.3s ease;
-    display: block;
+    transition: filter 0.3s ease;
 }
 
-.save-btn:hover {
-    opacity: 1;
-    transform: scale(1.1);
-    background-color: rgba(90, 116, 84, 0.1);
+/* Botão de favorito - usando accent-color */
+.favorite-btn:not(.active) img {
+    filter: invert(0.5);
 }
 
+.favorite-btn.active img,
+.favorite-btn:hover img {
+    filter: invert(0.31) sepia(1) saturate(2) hue-rotate(15deg) brightness(0.9);
+}
+
+/* Botão de salvar - usando primary-color */
 .save-btn:not(.active) img {
     filter: invert(0.5);
 }
 
-.save-btn:not(.active):hover img {
-    filter: invert(0.3);
+.save-btn.active img,
+.save-btn:hover img {
+    filter: invert(0.35) sepia(1) saturate(2) hue-rotate(90deg) brightness(0.8);
 }
 
-.save-btn.active {
-    opacity: 1;
-    background-color: rgba(90, 116, 84, 0.15);
-}
-
-.save-btn.active img {
-    filter: invert(0.2) sepia(1) saturate(3) hue-rotate(90deg) brightness(1.1);
-}
-
-.save-btn.active:hover {
-    background-color: rgba(90, 116, 84, 0.2);
-}
-
-.save-btn.changing {
-    transform: scale(0.85) rotate(180deg);
-    transition: transform 0.2s ease;
-}
-
-/* Favorite Button */
-.favorite-btn {
-    background: none;
-    border: none;
-    font-size: 1.2rem;
-    cursor: pointer;
-    color: black;
-    transition: color 0.3s ease;
-    padding: 0;
-    line-height: 1;
-}
-
-.favorite-btn::before {
-    content: "\2606";
-    color: black;
-    transition: color 0.3s ease;
-}
-
-.favorite-btn:hover::before {
-    color: var(--star-hover);
-}
-
-.favorite-btn.active::before {
-    content: "\2605";
-    color: var(--star);
-}
-
-/* Footer */
-footer {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
+/* Info da receita */
+.recipe-info {
     padding: 1rem;
-    margin-top: 2rem;
-    font-family: 'Roboto', sans-serif;
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    width: 100%;
-    box-sizing: border-box;
 }
 
-/* Footer paragraphs */
-footer p {
+.recipe-name {
+    font-family: 'Lora', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
     margin: 0;
-    font-size: 1rem;
-    color: var(--secondary-color);
-    text-align: center;
+    line-height: 1.3;
 }
 
-/* Email link styling */
-footer p a {
-    color: var(--secondary-color);
-    text-decoration: underline;
+.recipe-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
-footer p a:hover {
+.recipe-meta span {
+    font-size: 0.85rem;
+    color: var(--text-color);
     opacity: 0.8;
 }
 
-/* Social Links - positioned at bottom right */
+.cook-time::before {
+    content: "⏱️ ";
+}
+
+.difficulty::before {
+    content: "📊 ";
+}
+
+.serves::before {
+    content: "👥 ";
+}
+
+/* Mensagem vazia */
+.empty-message {
+    text-align: center;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-style: italic;
+    grid-column: 1 / -1;
+    padding: 2rem;
+}
+
+/* Footer - usando primary-color conforme site plan */
+footer {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+}
+
+.footer-content p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
 .sociallinks {
     display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: center; /* This centers the images horizontally */
-    margin-top: 0.5rem; /* Add some space above the icons */
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .sociallinks a {
-    text-decoration: none;
     display: inline-block;
-    border-radius: 4px;
-    padding: 6px;
-    transition: opacity 0.3s ease;
-}
-
-.sociallinks a img {
-    width: 40px;
-    height: auto;
-    display: block;
-    border-radius: 4px;
-    padding: 5px;
-    transition: opacity 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
 }
 
 .sociallinks a:hover {
-    opacity: 0.8;
+    background-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.sociallinks img {
+    width: 24px;
+    height: 24px;
+    filter: invert(1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header {
+        padding: 1rem;
+    }
+    
+    main {
+        padding: 1rem;
+    }
+    
+    .recipe-grid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 0.75rem;
+    }
+    
+    #welcome-message h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .recipe-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 0.5rem;
+    }
+    
+    #welcome-message h1 {
+        font-size: 1.5rem;
+    }
 }
 

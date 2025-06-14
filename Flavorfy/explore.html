@@ -3,15 +3,18 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Flavorfy - Your go-to site for recipes, meal planning, and cooking tips.">
-        <meta name="keywords" content="recipes, meal planning, cooking tips, food, culinary, Flavorfy">
+        <meta
+            name="description"
+            content="Flavorfy - Explore recipes by category, difficulty, and cooking time. Find your next favorite dish!">
+        <meta
+            name="keywords"
+            content="recipes, explore, categories, cooking, Flavorfy">
         <meta name="author" content="Felipe Proença Corral">
 
-		<title>Flavorfy - Home</title>
+		<title>Flavorfy - Explore</title>
 
         <link rel="stylesheet" href="styles/general.css">
 		<link rel="stylesheet" href="styles/explore.css">
-        <link rel="stylesheet" href="styles/components/recipe-card.css">
 		<link rel="stylesheet" href="styles/components/search-bar.css">
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,32 +48,27 @@
 					<img
 						src="./images/search.svg"
 						alt="Search icon"
-						class="search-icon" />
+						class="search-icon">
 					<input
-						type="search"
-						placeholder="Search recipes..."
-						class="search-input" />
-					<button type="button" class="search-button">
-						<img
-							src="./images/arrow-right.svg"
-							alt="Search"
-							class="arrow-icon" />
-					</button>
-				</div>
-			</div>
-			
-			<div id="categories-container">
-				<div class="categories">
-					<button class="category-btn active" data-category="all">All</button>
-					<button class="category-btn" data-category="breakfast">Breakfast</button>
-					<button class="category-btn" data-category="lunch">Lunch</button>
-					<button class="category-btn" data-category="dinner">Dinner</button>
-					<button class="category-btn" data-category="dessert">Dessert</button>
-					<button class="category-btn" data-category="snack">Snack</button>
+						type="text"
+						placeholder="Search for recipes..."
+						class="search-input">
+					<button class="search-button" aria-label="Search">Search</button>
 				</div>
 			</div>
 
-			<section class="recipes">
+			<div id="categories-container">
+				<div class="categories">
+					<button class="category-btn active" data-category="all">All</button>
+					<button class="category-btn" data-category="Breakfast">Breakfast</button>
+					<button class="category-btn" data-category="Lunch">Lunch</button>
+					<button class="category-btn" data-category="Dinner">Dinner</button>
+					<button class="category-btn" data-category="Dessert">Dessert</button>
+					<button class="category-btn" data-category="Snack">Snack</button>
+				</div>
+			</div>
+
+			<section class="recipes-section">
 				<div class="recipe-grid">
                     <!-- Recipes will be loaded here by JavaScript -->
                 </div>
@@ -93,7 +91,7 @@
 		</main>
 
 		<footer>
-			<div class="footer-content"></div>
+			<div class="footer-content">
 				<p>
 					&copy; <span id="currentYear"></span> &#128187; Felipe Proença Corral
 					&#128187; Brazil
