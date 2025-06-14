@@ -23,7 +23,9 @@
 			href="https://fonts.googleapis.com/css2?family=Lora&family=Roboto&display=swap"
 			rel="stylesheet">
 
-		<script src="scripts/general.js" defer></script>
+		<script src="./scripts/recipe-utils.js"></script>
+		<script src="./scripts/general.js" defer></script>
+		<script src="./scripts/index.js" defer></script>
 	</head>
 	<body>
 		<header>
@@ -67,83 +69,20 @@
 			</div>
 
             <section class="favorites">
-                <h2><a href="./cookbook.html?filter=favorites">Favorites</a></h2>
-
-				<div class="recipe-grid">
-                    <div class="recipe-card">
-                        <div class="recipe-image">
-                            <img src="./images/placeholder.svg" alt="Dish placeholder">
-                        </div>
-                        <div class="recipe-info">
-                            <div class="recipe-header">
-                               <h3>Ratatouille</h3>
-                                <button class="favorite-btn active" aria-label="Add to favorites"></button> 
-                            </div>
-                            <p>Lorem ipsum</p>
-                        </div>
-                    </div>
-
-                    <div class="recipe-card">
-                        <div class="recipe-image">
-                            <img src="./images/placeholder.svg" alt="Dish placeholder">
-                        </div>
-                        <div class="recipe-info">
-                            <div class="recipe-header">
-                               <h3>Ratatouille</h3>
-                                <button class="favorite-btn active" aria-label="Add to favorites"></button> 
-                            </div>
-                            <p>Lorem ipsum</p>
-                        </div>
-                    </div>
+                <h2><a href="./explore.html?filter=favorites">Favorites</a></h2>
+                <div class="recipe-grid">
+                    <!-- Recipes will be loaded here by JavaScript -->
                 </div>
-                            
             </section>
 
             <section class="recent">
                 <div class="section-header">
-                    <h2><a href="./cookbook.html">Your Recipes</a></h2>
+                    <h2><a href="./explore.html">Your Recipes</a></h2>
                     <a href="./recipe.html" class="add-recipe-link">Add your recipe +</a>
                 </div>
                 
                 <div class="recipe-grid">
-                    <div class="recipe-card">
-                        <div class="recipe-image">
-                            <img src="./images/placeholder.svg" alt="Dish placeholder">
-                        </div>
-                        <div class="recipe-info">
-                            <div class="recipe-header">
-                               <h3>Ratatouille</h3>
-                                <button class="favorite-btn" aria-label="Add to favorites"></button> 
-                            </div>
-                            <p>Lorem ipsum</p>
-                        </div>
-                    </div>
-
-                    <div class="recipe-card">
-                        <div class="recipe-image">
-                            <img src="./images/placeholder.svg" alt="Dish placeholder">
-                        </div>
-                        <div class="recipe-info">
-                            <div class="recipe-header">
-                               <h3>Ratatouille</h3>
-                                <button class="favorite-btn" aria-label="Add to favorites"></button> 
-                            </div>
-                            <p>Lorem ipsum</p>
-                        </div>
-                    </div>
-
-					<div class="recipe-card">
-                        <div class="recipe-image">
-                            <img src="./images/placeholder.svg" alt="Dish placeholder">
-                        </div>
-                        <div class="recipe-info">
-                            <div class="recipe-header">
-                               <h3>Ratatouille</h3>
-                                <button class="favorite-btn" aria-label="Add to favorites"></button> 
-                            </div>
-                            <p>Lorem ipsum</p>
-                        </div>
-                    </div>
+                    <!-- Recipes will be loaded here by JavaScript -->
                 </div>
             </section>
 		</main>

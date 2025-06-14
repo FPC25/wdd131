@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "name": "Ratatouille",
     "cover": "image",
     "source": "Mother",
@@ -35,6 +36,7 @@
     "serves": 10
   }, 
   {
+    "id": 2,
     "name": "Simple Crepioca",
     "cover": "image",
     "source": "Papinhas da Xica",
@@ -59,11 +61,12 @@
       "Transfer to a plate and serve.",
       "Be creative with fillings: cheese, shredded chicken, banana with cinnamon"
     ],
-    "saved": true,
-    "favorite": true,
+    "saved": false,
+    "favorite": false,
     "serves": 1
   },
   {
+    "id": 3,
     "name": "Traditional Chicken Coxinha",
     "cover": "image",
     "source": "Estadão Paladar",
@@ -103,6 +106,7 @@
     "serves": 10
   },
   {
+    "id": 4,
     "name": "Grilled Chicken with Vegetables",
     "cover": "image",
     "source": "TudoGostoso",
@@ -136,6 +140,7 @@
     "serves": 6
   },
   {
+    "id": 5,
     "name": "Dried Beef Escondidinho (Traditional Version)",
     "cover": "image",
     "source": "Panelinha",
@@ -167,6 +172,7 @@
     "serves": 8
   },
   {
+    "id": 6,
     "name": "Dried Beef Escondidinho (Creamy Version)",
     "cover": "image",
     "source": "Estadão Paladar",
@@ -195,6 +201,7 @@
     "serves": 4
   },
   {
+    "id": 7,
     "name": "Arracacha Soup with Dried Beef",
     "cover": "image",
     "source": "Terra",
@@ -229,6 +236,7 @@
     "serves": 6
   },
   {
+    "id": 8,
     "name": "Condensed Milk Pudding",
     "cover": "image",
     "source": "TudoGostoso",
@@ -257,6 +265,7 @@
     "serves": 8
   },
   {
+    "id": 9,
     "name": "Cheese Bread with Parmesan",
     "cover": "image",
     "source": "Estadão Paladar",
@@ -287,6 +296,7 @@
     "serves": 10
   }, 
   {
+    "id": 10,
     "name": "Traditional Cheese Bread",
     "cover": "image",
     "source": "Estadão Paladar",

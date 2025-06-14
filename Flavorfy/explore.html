@@ -20,8 +20,9 @@
 			href="https://fonts.googleapis.com/css2?family=Lora&family=Roboto&display=swap"
 			rel="stylesheet">
 
-        <script src="scripts/general.js" defer></script>
-		<script src="scripts/explore.js" defer></script>
+        <script src="./scripts/general.js" defer></script>
+		<script src="./scripts/recipe-utils.js"></script>
+		<script src="./scripts/explore.js" defer></script>
 	</head>
 	<body>
 		<header>
@@ -60,41 +61,18 @@
 			
 			<div id="categories-container">
 				<div class="categories">
+					<button class="category-btn active" data-category="all">All</button>
 					<button class="category-btn" data-category="breakfast">Breakfast</button>
 					<button class="category-btn" data-category="lunch">Lunch</button>
 					<button class="category-btn" data-category="dinner">Dinner</button>
-					<button class="category-btn" data-category="desserts">Desserts</button>
-					<button class="category-btn" data-category="snacks">Snacks</button>
+					<button class="category-btn" data-category="dessert">Dessert</button>
+					<button class="category-btn" data-category="snack">Snack</button>
 				</div>
 			</div>
 
 			<section class="recipes">
 				<div class="recipe-grid">
-                    <div class="recipe-card">
-                        <div class="recipe-image">
-                            <img src="./images/placeholder.svg" alt="Dish placeholder">
-                        </div>
-                        <div class="recipe-info">
-                            <div class="recipe-header">
-                               <h3>Ratatouille</h3>
-                                <button class="favorite-btn" aria-label="Add to favorites"></button> 
-                            </div>
-                            <p>Lorem ipsum</p>
-                        </div>
-                    </div>
-
-                    <div class="recipe-card">
-                        <div class="recipe-image">
-                            <img src="./images/placeholder.svg" alt="Dish placeholder">
-                        </div>
-                        <div class="recipe-info">
-                            <div class="recipe-header">
-                               <h3>Ratatouille</h3>
-                                <button class="favorite-btn active" aria-label="Add to favorites"></button> 
-                            </div>
-                            <p>Lorem ipsum</p>
-                        </div>
-                    </div>
+                    <!-- Recipes will be loaded here by JavaScript -->
                 </div>
 			</section>
 
@@ -103,7 +81,7 @@
 					<img src="./images/home.svg" alt="Home" class="nav-icon">
 					<span class="nav-label">Home</span>
 				</a>
-				<a href="./cookbook.html" class="nav-item">
+				<a href="./explore.html" class="nav-item">
 					<img src="./images/explore.svg" alt="Explore" class="nav-icon">
 					<span class="nav-label">Explore</span>
 				</a>
