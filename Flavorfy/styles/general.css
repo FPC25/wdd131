@@ -6,14 +6,14 @@
 
 :root {
     /* Paleta de cores conforme site plan */
-    --background-color: #F5EFE6; /* Eggshell/Off-White - Background principal */
-    --text-color: #4D403D; /* Dark Chocolate Brown - Texto principal */
-    --primary-color: #5A7454; /* Earthy Green - Navegação e estrutura */
-    --accent-color: #A95C32; /* Terracotta/Rust - Botões e ações */
-    --secondary-color: #FFFFFF; /* Pure White - Cards e campos */
-    --light-gray: #f8f9fa; /* Para placeholders e fundos sutis */
-    --border-color: #e0e0e0; /* Para bordas */
-    --star: #FFAE42; /* Star Color */
+    --background-color: #F5EFE6;
+    --text-color: #4D403D;
+    --primary-color: #5A7454;
+    --accent-color: #A95C32;
+    --secondary-color: #FFFFFF;
+    --light-gray: #f8f9fa;
+    --border-color: #e0e0e0;
+    --star: #FFAE42; 
 }
 
 /* Estilos gerais do body */
@@ -25,11 +25,11 @@ body {
     overflow-x: hidden;
 }
 
-/* Header principal - usando primary-color conforme site plan */
+/* Header principal - usando background-color conforme mudança solicitada */
 header {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: 1rem 2rem;
+    background-color: var(--background-color); 
+    color: var(--text-color);
+    padding: 1rem;
     position: relative;
 }
 
@@ -41,11 +41,11 @@ header {
     margin: 0 auto;
 }
 
-/* Hamburger menu */
+/* Hamburger menu - ajustar cor para contrastar com novo fundo */
 #hamburger {
     background: none;
     border: none;
-    color: var(--secondary-color);
+    color: var(--text-color); 
     font-size: 1.8rem;
     cursor: pointer;
     padding: 0.5rem;
@@ -54,7 +54,7 @@ header {
 }
 
 #hamburger:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(77, 64, 61, 0.1); /* Usar text-color com transparência */
 }
 
 /* Logo */
@@ -79,6 +79,46 @@ header {
 
 .hamburger-menu.open {
     left: 0;
+}
+
+/* Header do menu com botão fechar */
+.menu-header {
+    position: relative;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-title {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+.menu-close-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.menu-close-btn:hover {
+    background-color: var(--light-gray);
+    color: var(--accent-color);
+    transform: rotate(90deg);
 }
 
 .hamburger-menu ul {
@@ -140,11 +180,11 @@ body.menu-open {
     font-family: 'Lora', serif;
     font-size: 2.5rem;
     margin: 0.5rem 0;
-    color: var(--secondary-color);
+    color: var(--text-color); /* Mudou de --secondary-color para --text-color */
 }
 
 .brand {
-    color: var(--accent-color);
+    color: var(--accent-color); /* Mantém a cor accent para destaque */
 }
 
 /* Main content - fundo background-color */

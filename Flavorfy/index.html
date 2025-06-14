@@ -3,35 +3,33 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta
-			name="description"
-			content="Flavorfy - Your go-to site for recipes, meal planning, and cooking tips. This is the home page where you can explore various culinary delights and find inspiration for your next meal.">
-		<meta
-			name="keywords"
-			content="recipes, meal planning, cooking tips, food, culinary, Flavorfy">
+		<meta name="description" content="Flavorfy - Your go-to site for recipes, meal planning, and cooking tips.">
+		<meta name="keywords" content="recipes, meal planning, cooking tips, food, culinary, Flavorfy">
 		<meta name="author" content="Felipe Proença Corral">
-
 		<title>Flavorfy - Home</title>
 
-		<link rel="stylesheet" href="styles/general.css">
-        <link rel="stylesheet" href="styles/index.css">
+		<!-- CSS -->
 		<link rel="stylesheet" href="styles/components/search-bar.css">
+		<link rel="stylesheet" href="styles/general.css">
+		<link rel="stylesheet" href="styles/index.css">
 
+		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Lora&family=Roboto&display=swap"
-			rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
 
+		<!-- Scripts -->
 		<script src="./scripts/recipe-utils.js"></script>
 		<script src="./scripts/general.js" defer></script>
 		<script src="./scripts/index.js" defer></script>
 	</head>
 	<body>
+		<!-- Header -->
 		<header>
 			<div class="header-top">
 				<button id="hamburger" aria-label="Toggle navigation">☰</button>
 				<nav class="hamburger-menu">
+					<!-- Header será adicionado dinamicamente pelo JavaScript -->
 					<ul>
 						<li><a href="./index.html" id="home">Home</a></li>
 						<li><a href="./explore.html" id="explore">Explore</a></li>
@@ -40,6 +38,7 @@
 				</nav>
 				<a href="./index.html"><img src="./images/Logo.svg" alt="Logo of Flavorfy" id="logo"></a>
 			</div>
+
 			<div class="welcome-container">
 				<div id="welcome-message">
 					<h1>Welcome to</h1>
@@ -48,41 +47,41 @@
 			</div>
 		</header>
 
+		<!-- Menu Overlay -->
+		<div class="menu-overlay"></div>
+
 		<main>
+			<!-- Search bar -->
 			<div class="search-container">
 				<div class="search-box">
-					<img
-						src="./images/search.svg"
-						alt="Search icon"
-						class="search-icon">
-					<input
-						type="text"
-						placeholder="Search for recipes..."
-						class="search-input">
+					<img src="./images/search.svg" alt="Search icon" class="search-icon">
+					<input type="text" placeholder="Search for recipes..." class="search-input">
 					<button class="search-button" aria-label="Search">Search</button>
 				</div>
 			</div>
 
-            <section class="favorites">
-                <div class="section-header">
-                    <h2>Favorites</h2>
-                </div>
-                
-                <div class="recipe-grid">
-                    <!-- Favorite recipes will be loaded here by JavaScript -->
-                </div>
-            </section>
+			<!-- Favorites section -->
+			<section class="favorites">
+				<div class="section-header">
+					<h2>Favorites</h2>
+				</div>
+				
+				<div class="recipe-grid">
+					<!-- Favorite recipes will be loaded here by JavaScript -->
+				</div>
+			</section>
 
-            <section class="recent">
-                <div class="section-header">
-                    <h2>Saved Recipes</h2>
-                    <a href="./recipe.html" class="add-recipe-link">Add your recipe +</a>
-                </div>
-                
-                <div class="recipe-grid">
-                    <!-- Recipes will be loaded here by JavaScript -->
-                </div>
-            </section>
+			<!-- Recent section -->
+			<section class="recent">
+				<div class="section-header">
+					<h2>Saved Recipes</h2>
+					<a href="./recipe.html" class="add-recipe-link">Add your recipe +</a>
+				</div>
+				
+				<div class="recipe-grid">
+					<!-- Recipes will be loaded here by JavaScript -->
+				</div>
+			</section>
 		</main>
 
 		<footer>
