@@ -24,9 +24,15 @@
     border: none;
     cursor: pointer;
     padding: 0.5rem;
+    width: 2.5rem; /* Increase width */
+    height: 2.5rem; /* Add height for square shape */
     border-radius: 8px;
     color: var(--text-color);
     transition: background-color 0.3s ease;
+    font-size: 1.5rem; /* Increase icon/text size if needed */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #back-btn:hover {
@@ -58,17 +64,17 @@
 
 /* Image Upload */
 .image-upload-container {
-    display: flex;
-    justify-content: center;
+    width: 100%;
     margin-bottom: 1rem;
 }
 
 .image-preview {
-    width: 200px;
-    height: 150px;
+    width: 100%;
+    height: 120px;
     border: 2px dashed var(--accent-color);
     border-radius: 8px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -76,6 +82,7 @@
     position: relative;
     overflow: hidden;
     background-color: #f9f9f9;
+    gap: 0.5rem;
 }
 
 .image-preview:hover {
@@ -83,6 +90,7 @@
     background-color: #f0f0f0;
 }
 
+/* Esconder completamente o input file */
 .image-preview input[type="file"] {
     position: absolute;
     top: 0;
@@ -91,21 +99,134 @@
     height: 100%;
     opacity: 0;
     cursor: pointer;
+    z-index: 0;
+    /* Adicionar estas propriedades para esconder completamente */
+    visibility: hidden;
+    pointer-events: none;
 }
 
-.image-preview img {
+/* Ícone da câmera */
+.image-preview #camera-icon {
+    width: 32px;
+    height: 32px;
+    filter: invert(0.4);
+    transition: filter 0.3s ease;
+    pointer-events: none; /* Evitar conflitos de clique */
+}
+
+.image-preview:hover #camera-icon {
+    filter: invert(0.2);
+}
+
+/* Texto do upload */
+.image-preview span {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    text-align: center;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Evitar conflitos de clique */
+}
+
+.image-preview:hover span {
+    opacity: 1;
+}
+
+/* Quando uma imagem é carregada */
+.image-preview img:not(#camera-icon) {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    z-index: 1;
+}
+
+/* Esconder ícone e texto quando imagem está carregada */
+.image-preview.has-image #camera-icon,
+.image-preview.has-image span {
+    display: none;
+}
+
+/* Botão de troca de imagem */
+.change-image-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.image-preview.has-image:hover .change-image-btn {
+    opacity: 1;
+}
+
+.change-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.change-overlay:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.change-overlay svg {
+    filter: invert(1);
+}
+
+.change-overlay span {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.remove-image-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 0, 0, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    z-index: 3;
+}
+
+.remove-image-btn:hover {
+    background: rgba(255, 0, 0, 1);
 }
 
 /* Form Layout - Each input on its own line by default */
 .form-row {
-    display: block; /* Changed from grid to block for single column */
+    display: block;
     margin-bottom: 1rem;
 }
 
-/* Special layout for serves and other fields that should be side by side */
 .form-row.two-columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -119,20 +240,38 @@
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
-    font-weight: 500;
+    font-family: 'Lora', serif;
+    font-weight: bold;
     color: var(--text-color);
 }
 
 .form-group input,
-.form-group select,
+.form-group select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--accent-color);
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+    box-sizing: border-box;
+    min-height: 44px;
+}
+
 .form-group textarea {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--accent-color);
     border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
     font-size: 1rem;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
     transition: border-color 0.3s ease;
-    box-sizing: border-box; /* Ensure padding doesn't affect width */
+    box-sizing: border-box;
+    resize: vertical;
 }
 
 .form-group input:focus,
@@ -154,21 +293,73 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
 }
 
 .checkbox-group label {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: flex-end; /* Align to the right */
+    gap: 6px; /* 6px gap between checkbox and label */
     margin-bottom: 0;
     cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-size: 0.9rem;
+}
+
+.checkbox-group label:hover {
+    color: var(--accent-color);
+}
+
+.checkbox-group input[type="checkbox"] {
+    min-width: 20px;
+    min-height: 20px;
+    appearance: none;
+    border: 2px solid var(--text-color);
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    order: 2; /* Put checkbox after the text */
+    margin: 0; /* Remove default margins */
+    flex-shrink: 0;
+}
+
+.checkbox-group input[type="checkbox"]:checked {
+    background-color: var(--accent-color);
+    border-color: var(--text-color);
 }
 
 .checkbox-label {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: flex-end; /* Align to the right */
+    gap: 6px; /* 6px gap between checkbox and label */
     cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-size: 0.9rem;
+}
+
+.checkbox-label:hover {
+    color: var(--accent-color);
+}
+
+.checkbox-label input[type="checkbox"] {
+    min-width: 20px;
+    min-height: 20px;
+    appearance: none;
+    border: 2px solid var(--text-color);
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    order: 2; /* Put checkbox after the text */
+    margin: 0; /* Remove default margins */
+    flex-shrink: 0;
+}
+
+.checkbox-label input[type="checkbox"]:checked {
+    background-color: var(--accent-color);
+    border-color: var(--text-color);
 }
 
 /* Ingredients - Keep multi-column layout */
@@ -188,6 +379,13 @@
     margin-bottom: 0;
 }
 
+.ingredient-row label {
+    font-family: 'Lora', serif;
+    font-weight: bold;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
 .remove-ingredient {
     background: #ff4757;
     color: white;
@@ -196,6 +394,7 @@
     padding: 0.5rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: 'Roboto', sans-serif;
 }
 
 .remove-ingredient:hover {
@@ -209,6 +408,7 @@
     padding: 0.75rem 1.5rem;
     border-radius: 6px;
     cursor: pointer;
+    font-family: 'Roboto', sans-serif;
     font-weight: 500;
     transition: background-color 0.3s ease;
 }
@@ -233,6 +433,7 @@
     border: none;
     padding: 1rem 2rem;
     border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
@@ -249,6 +450,7 @@
     border: 2px solid var(--text-color);
     padding: 1rem 2rem;
     border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
@@ -267,7 +469,6 @@
         padding: 1rem;
     }
     
-    /* Remove two-column layout on mobile */
     .form-row.two-columns {
         grid-template-columns: 1fr;
         gap: 0.5rem;

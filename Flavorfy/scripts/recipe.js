@@ -47,6 +47,22 @@ function initializeForm() {
     document.getElementById('serves').value = 4;
     document.getElementById('cook-time').value = 30;
     document.getElementById('time-unit').value = 'minutes';
+    
+    // Make image preview area clickable
+    setupImagePreviewClick();
+}
+
+function setupImagePreviewClick() {
+    const preview = document.getElementById('image-preview');
+    const fileInput = document.getElementById('cover-image');
+    
+    // Adicionar evento de clique na área de preview
+    preview.addEventListener('click', function(e) {
+        // Só abrir seletor se não tem imagem ou se clicou fora dos botões de controle
+        if (!preview.classList.contains('has-image')) {
+            fileInput.click();
+        }
+    });
 }
 
 function addEventListeners() {
@@ -126,13 +142,107 @@ function handleImageUpload(event) {
     const preview = document.getElementById('image-preview');
     
     if (file) {
+        // Verificar se o formato é válido
+        const validFormats = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+        
+        if (!validFormats.includes(file.type)) {
+            alert('Please upload a valid image format (JPG, PNG, or WebP)');
+            event.target.value = ''; // Limpar o input
+            return;
+        }
+        
+        // Verificar tamanho do arquivo (opcional - máximo 5MB)
+        const maxSize = 5 * 1024 * 1024; // 5MB em bytes
+        if (file.size > maxSize) {
+            alert('Image size must be less than 5MB');
+            event.target.value = ''; // Limpar o input
+            return;
+        }
+        
         const reader = new FileReader();
         reader.onload = function(e) {
-            preview.innerHTML = `<img src="${e.target.result}" alt="Recipe preview">`;
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.alt = 'Recipe preview';
+            
+            // Adicionar classe para esconder ícone e texto
+            preview.classList.add('has-image');
+            
+            // Remover imagem anterior se existir
+            const existingImg = preview.querySelector('img:not(#camera-icon)');
+            if (existingImg) {
+                existingImg.remove();
+            }
+            
+            // Adicionar nova imagem
+            preview.appendChild(img);
+            
+            // Adicionar botão de troca/remoção
+            addChangeImageButton(preview);
         };
+        
+        reader.onerror = function() {
+            alert('Error reading the image file');
+            event.target.value = ''; // Limpar o input
+        };
+        
         reader.readAsDataURL(file);
     } else {
-        preview.innerHTML = '<span>Upload Cover Image</span>';
+        // Remover imagem e classe quando nenhum arquivo está selecionado
+        removeImage(preview);
+    }
+}
+
+function addChangeImageButton(preview) {
+    // Remover botão anterior se existir
+    const existingButton = preview.querySelector('.change-image-btn');
+    if (existingButton) {
+        existingButton.remove();
+    }
+    
+    // Criar botão de troca
+    const changeButton = document.createElement('div');
+    changeButton.className = 'change-image-btn';
+    changeButton.innerHTML = `
+        <div class="change-overlay">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="12" cy="13" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Change Image</span>
+        </div>
+        <button type="button" class="remove-image-btn" title="Remove image">×</button>
+    `;
+    
+    preview.appendChild(changeButton);
+    
+    // Event listener para trocar imagem
+    changeButton.querySelector('.change-overlay').addEventListener('click', function(e) {
+        e.stopPropagation();
+        document.getElementById('cover-image').click();
+    });
+    
+    // Event listener para remover imagem
+    changeButton.querySelector('.remove-image-btn').addEventListener('click', function(e) {
+        e.stopPropagation();
+        removeImage(preview);
+        document.getElementById('cover-image').value = ''; // Limpar input
+    });
+}
+
+function removeImage(preview) {
+    preview.classList.remove('has-image');
+    
+    // Remover imagem
+    const existingImg = preview.querySelector('img:not(#camera-icon)');
+    if (existingImg) {
+        existingImg.remove();
+    }
+    
+    // Remover botão de troca
+    const changeButton = preview.querySelector('.change-image-btn');
+    if (changeButton) {
+        changeButton.remove();
     }
 }
 
