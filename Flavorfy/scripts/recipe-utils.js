@@ -94,17 +94,17 @@ function createRecipeCard(recipe) {
             <div class="recipe-image ${imageClass}">
                 <img src="${imageSrc}" alt="${recipe.name}">
                 <div class="recipe-actions">
-                    <button class="action-btn favorite-btn ${favoriteClass}" 
-                            data-recipe-id="${recipe.id}" 
-                            data-action="favorite" 
-                            aria-label="Toggle favorite">
-                        <img src="./images/favorite.svg" alt="Favorite">
-                    </button>
                     <button class="action-btn save-btn ${savedClass}" 
                             data-recipe-id="${recipe.id}" 
                             data-action="save" 
                             aria-label="Toggle save">
                         <img src="./images/${saveIcon}" alt="${saveAlt}">
+                    </button>
+                    <button class="action-btn favorite-btn ${favoriteClass}" 
+                            data-recipe-id="${recipe.id}" 
+                            data-action="favorite" 
+                            aria-label="Toggle favorite">
+                        <img src="./images/favorite.svg" alt="Favorite">
                     </button>
                 </div>
             </div>

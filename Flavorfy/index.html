@@ -13,19 +13,16 @@
 
 		<title>Flavorfy - Home</title>
 
-		<!-- CSS na ordem correta: geral primeiro, específico depois -->
 		<link rel="stylesheet" href="styles/general.css">
-		<link rel="stylesheet" href="styles/index.css">
+        <link rel="stylesheet" href="styles/index.css">
 		<link rel="stylesheet" href="styles/components/search-bar.css">
 
-		<!-- Fonts conforme site plan -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link
-			href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Roboto:wght@400;500;600&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Lora&family=Roboto&display=swap"
 			rel="stylesheet">
 
-		<!-- Scripts na ordem correta -->
 		<script src="./scripts/recipe-utils.js"></script>
 		<script src="./scripts/general.js" defer></script>
 		<script src="./scripts/index.js" defer></script>
@@ -52,7 +49,6 @@
 		</header>
 
 		<main>
-			<!-- Search bar que conecta com search-bar.css -->
 			<div class="search-container">
 				<div class="search-box">
 					<img
@@ -67,28 +63,26 @@
 				</div>
 			</div>
 
-			<!-- Seção de favoritos que conecta com index.css e index.js -->
-			<section class="favorites">
-				<div class="section-header">
-					<h2>Favorites</h2>
-				</div>
-				
-				<div class="recipe-grid">
-					<!-- Favorite recipes carregadas por index.js -->
-				</div>
-			</section>
+            <section class="favorites">
+                <div class="section-header">
+                    <h2>Favorites</h2>
+                </div>
+                
+                <div class="recipe-grid">
+                    <!-- Favorite recipes will be loaded here by JavaScript -->
+                </div>
+            </section>
 
-			<!-- Seção de receitas salvas que conecta com index.css e index.js -->
-			<section class="recent">
-				<div class="section-header">
-					<h2>Saved Recipes</h2>
-					<a href="./recipe.html" class="add-recipe-link">Add your recipe +</a>
-				</div>
-				
-				<div class="recipe-grid">
-					<!-- Saved recipes carregadas por index.js -->
-				</div>
-			</section>
+            <section class="recent">
+                <div class="section-header">
+                    <h2>Saved Recipes</h2>
+                    <a href="./recipe.html" class="add-recipe-link">Add your recipe +</a>
+                </div>
+                
+                <div class="recipe-grid">
+                    <!-- Recipes will be loaded here by JavaScript -->
+                </div>
+            </section>
 		</main>
 
 		<footer>
