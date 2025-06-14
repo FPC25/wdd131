@@ -113,6 +113,34 @@ function displayRecipe(recipe) {
     }
 }
 
+// Configura os botões de ação (favorito, salvar e calcular)
+function setupActionButtons(recipe) {
+    const favoriteBtn = document.getElementById('favorite-btn');
+    const saveBtn = document.getElementById('save-btn');
+    const calculateBtn = document.getElementById('calculate-btn');
+    
+    // Estado inicial dos botões
+    updateButtonStates(recipe);
+    
+    // Event listeners
+    favoriteBtn.addEventListener('click', function() {
+        const newState = RecipeUtils.toggleFavorite(recipe.id);
+        recipe.isFavorite = newState;
+        updateButtonStates(recipe);
+    });
+    
+    saveBtn.addEventListener('click', function() {
+        const newState = RecipeUtils.toggleSaved(recipe.id);
+        recipe.isSaved = newState;
+        updateButtonStates(recipe);
+    });
+    
+    // Novo: botão de calcular custos
+    calculateBtn.addEventListener('click', function() {
+        window.location.href = `./calculator.html?recipe=${recipe.id}`;
+    });
+}
+
 // Configura os botões de ação (favorito e salvar)
 function setupActionButtons(recipe) {
     const favoriteBtn = document.getElementById('favorite-btn');

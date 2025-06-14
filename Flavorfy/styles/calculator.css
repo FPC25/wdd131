@@ -1,0 +1,609 @@
+/* Container principal */
+.calculator-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    margin-bottom: 100px; /* Espaço para bottom nav */
+}
+
+/* Seções gerais */
+.calculator-container section {
+    background: var(--secondary-color);
+    margin-bottom: 2rem;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.calculator-container h2 {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+}
+
+/* Recipe Selection */
+.recipe-selector {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+}
+
+#recipe-select {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    background: var(--secondary-color);
+    color: var(--text-color);
+}
+
+#recipe-select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(169, 92, 50, 0.2);
+}
+
+#load-recipe-btn {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+#load-recipe-btn:hover:not(:disabled) {
+    background: var(--primary-color);
+}
+
+#load-recipe-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* Recipe Display */
+.recipe-header-calc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.recipe-basic-info {
+    flex: 1;
+}
+
+#selected-recipe-name {
+    font-family: 'Lora', serif;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.recipe-meta-calc {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.recipe-meta-calc span {
+    color: var(--text-color);
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+.recipe-image-calc {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+#recipe-image-calc {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Cost Input */
+.instructions {
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.ingredients-cost-grid {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.ingredient-cost-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    background: var(--light-gray);
+    border-radius: 8px;
+}
+
+/* Layout especial para ingredientes "to taste" */
+.ingredient-cost-item:has(.to-taste-inputs) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.ingredient-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.ingredient-name {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.25rem;
+}
+
+.ingredient-quantity {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.to-taste-label {
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+.to-taste-note {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    font-style: italic;
+    margin-top: 0.25rem;
+}
+
+/* Inputs especiais para "to taste" */
+.to-taste-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: var(--secondary-color);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.cost-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.cost-input-group label {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.cost-input-group input,
+.cost-input-group select {
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+}
+
+.cost-input-group input:focus,
+.cost-input-group select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(169, 92, 50, 0.2);
+}
+
+.ingredient-total-cost {
+    text-align: right;
+    font-weight: 600;
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    align-self: end;
+}
+
+/* Ingrediente não incluído no breakdown */
+.breakdown-item.excluded {
+    border-left: 3px solid #ccc;
+}
+
+.calculate-button {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    display: block;
+}
+
+.calculate-button:hover:not(:disabled) {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.calculate-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Results */
+.result-card {
+    background: var(--light-gray);
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.result-header {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-header h3 {
+    font-family: 'Lora', serif;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.toggle-btn {
+    background: none;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn:hover {
+    background: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+.result-content {
+    padding: 1.5rem;
+}
+
+.cost-display {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.currency {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.cost-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    font-family: 'Lora', serif;
+}
+
+.cost-description {
+    color: var(--text-color);
+    opacity: 0.8;
+    margin: 0;
+}
+
+/* Margin Controls */
+.margin-controls {
+    margin-bottom: 1.5rem;
+}
+
+.margin-controls label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.margin-input-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 150px;
+}
+
+.margin-input-group input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.input-suffix {
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* Suggested Prices */
+.suggested-prices {
+    display: grid;
+    gap: 1rem;
+}
+
+.price-suggestion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--secondary-color);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.price-label {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.price-suggestion .cost-display .cost-value {
+    font-size: 1.5rem;
+}
+
+.profit-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.profit-amount {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* Cost Breakdown */
+.cost-breakdown {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.breakdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--secondary-color);
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.breakdown-ingredient {
+    display: flex;
+    flex-direction: column;
+}
+
+.breakdown-name {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.breakdown-quantity {
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.breakdown-cost {
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 0.875rem 2rem;
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+}
+
+.btn-primary:hover {
+    background: var(--primary-color);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--text-color);
+    color: var(--secondary-color);
+}
+
+/* Calculation History */
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.history-item {
+    background: var(--light-gray);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.history-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.history-recipe-name {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.history-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.history-cost {
+    font-weight: 600;
+    color: var(--accent-color);
+    font-size: 1.1rem;
+}
+
+.empty-history {
+    text-align: center;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-style: italic;
+    padding: 2rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .calculator-container {
+        margin: 1rem auto;
+        padding: 0 1rem;
+    }
+    
+    .calculator-container section {
+        padding: 1.5rem;
+    }
+    
+    .recipe-selector {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .recipe-header-calc {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .ingredient-cost-item {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        text-align: center;
+    }
+    
+    .to-taste-inputs {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+        text-align: left;
+    }
+    
+    .ingredient-total-cost {
+        text-align: center;
+        align-self: center;
+    }
+    
+    .price-suggestion {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .cost-value {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .calculator-container {
+        padding: 0 0.5rem;
+    }
+    
+    .calculator-container section {
+        padding: 1rem;
+    }
+    
+    .to-taste-inputs {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .history-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .breakdown-item {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+}

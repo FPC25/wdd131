@@ -1,79 +1,233 @@
 <!DOCTYPE html>
 <html lang="en-US">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta
             name="description"
-            content="Flavorfy - Recipe calculator for adjusting serving sizes and ingredient quantities.">
+            content="Flavorfy - Recipe cost calculator for determining ingredient costs, portion pricing, and profit margins.">
         <meta
             name="keywords"
-            content="recipe calculator, serving size, ingredients, Flavorfy">
+            content="recipe calculator, cost analysis, profit margin, pricing, Flavorfy">
         <meta name="author" content="Felipe Proença Corral">
 
-		<title>Flavorfy - Calculator</title>
+        <title>Flavorfy - Cost Calculator</title>
 
         <link rel="stylesheet" href="styles/general.css">
-		<link rel="stylesheet" href="styles/calculator.css">
+        <link rel="stylesheet" href="styles/calculator.css">
 
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Lora&family=Roboto&display=swap"
-			rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Roboto:wght@400;500;600&display=swap"
+            rel="stylesheet">
 
-        <script src="scripts/general.js" defer></script>
-	</head>
-	<body>
-		<header>
-			<div class="header-top">
-				<button id="hamburger" aria-label="Toggle navigation">☰</button>
-				<nav class="hamburger-menu">
-					<ul>
-						<li><a href="./index.html" id="home">Home</a></li>
-						<li><a href="./explore.html" id="explore">Explore</a></li>
-						<li><a href="./calculator.html" id="calculator">Calculator</a></li>
-					</ul>
-				</nav>
-				<a href="./index.html"><img src="./images/Logo.svg" alt="Logo of Flavorfy" id="logo"></a>
-			</div>
-			<div class="welcome-container">
-				<div id="welcome-message">
-					<h1>Welcome to</h1>
-					<h1><span class="brand">Flavorfy</span></h1>
-				</div>
-			</div>
-		</header>
+        <script src="./scripts/recipe-utils.js"></script>
+        <script src="./scripts/general.js" defer></script>
+        <script src="./scripts/calculator.js" defer></script>
+    </head>
+    <body>
+        <header>
+            <div class="header-top">
+                <button id="hamburger" aria-label="Toggle navigation">☰</button>
+                <nav class="hamburger-menu">
+                    <ul>
+                        <li><a href="./index.html" id="home">Home</a></li>
+                        <li><a href="./explore.html" id="explore">Explore</a></li>
+                        <li><a href="./calculator.html" id="calculator">Calculator</a></li>
+                    </ul>
+                </nav>
+                <a href="./index.html"><img src="./images/Logo.svg" alt="Logo of Flavorfy" id="logo"></a>
+            </div>
+            <div class="welcome-container">
+                <div id="welcome-message">
+                    <h1>Cost</h1>
+                    <h1><span class="brand">Calculator</span></h1>
+                </div>
+            </div>
+        </header>
 
-		<main>
-			<!-- Calculator content will be added here -->
-		</main>
+        <main>
+            <div class="calculator-container">
+                <!-- Recipe Selection Section -->
+                <section class="recipe-selection">
+                    <h2>Select Recipe</h2>
+                    <div class="recipe-selector">
+                        <select id="recipe-select">
+                            <option value="">Choose a saved recipe to calculate costs...</option>
+                        </select>
+                        <button type="button" id="load-recipe-btn" disabled>Load Recipe</button>
+                    </div>
+                    <p class="instructions">Only saved recipes are available for cost calculation. Save some recipes first if none appear!</p>
+                </section>
 
-		<footer>
-			<div class="footer-content">
-				<p>
-					&copy; <span id="currentYear"></span> &#128187; Felipe Proença Corral
-					&#128187; Brazil
-				</p>
-				<p id="lastModified"></p>
-			</div>
+                <!-- Recipe Display Section -->
+                <section class="recipe-display" id="recipe-display" style="display: none;">
+                    <div class="recipe-header-calc">
+                        <div class="recipe-basic-info">
+                            <h3 id="selected-recipe-name">Recipe Name</h3>
+                            <div class="recipe-meta-calc">
+                                <span id="recipe-serves">Serves: 0</span>
+                                <span id="recipe-difficulty">Difficulty: Easy</span>
+                            </div>
+                        </div>
+                        <div class="recipe-image-calc">
+                            <img id="recipe-image-calc" src="" alt="Recipe image">
+                        </div>
+                    </div>
+                </section>
 
-			<nav class="sociallinks">
-				<a href="mailto:felipepcorral@gmail.com">
-					<img src="./images/email.svg" alt="Emails logo">
-				</a>
+                <!-- Cost Input Section -->
+                <section class="cost-input" id="cost-input" style="display: none;">
+                    <h2>Ingredient Costs</h2>
+                    <p class="instructions">
+                        Enter the cost per unit for each ingredient. For "to taste" ingredients, 
+                        specify the actual amount you'll use and its cost.
+                    </p>
+                    <div class="ingredients-cost-grid" id="ingredients-cost-grid">
+                        <!-- Ingredients will be populated here -->
+                    </div>
+                    <button type="button" id="calculate-btn" class="calculate-button">Calculate Costs</button>
+                </section>
 
-				<a href="https://instagram.com">
-					<img src="./images/instagram.svg" alt="Instagrams logo">
-				</a>
-				<a href="https://facebook.com">
-					<img src="./images/facebook.svg" alt="Facebooks logo">
-				</a>
-				<a href="https://x.com/">
-					<img src="./images/x_twitter.svg" alt="Xs logo">
-				</a>
-			</nav>
-		</footer>
-	</body>
+                <!-- Results Section -->
+                <section class="results" id="results" style="display: none;">
+                    <h2>Cost Analysis</h2>
+                    
+                    <!-- Total Cost Card -->
+                    <div class="result-card">
+                        <div class="result-header">
+                            <h3>Total Recipe Cost</h3>
+                        </div>
+                        <div class="result-content">
+                            <div class="cost-display">
+                                <span class="currency">$</span>
+                                <span id="total-cost" class="cost-value">0.00</span>
+                            </div>
+                            <p class="cost-description">Total cost of all ingredients</p>
+                        </div>
+                    </div>
+
+                    <!-- Per Portion Cost Card -->
+                    <div class="result-card">
+                        <div class="result-header">
+                            <h3>Cost Per Portion</h3>
+                        </div>
+                        <div class="result-content">
+                            <div class="cost-display">
+                                <span class="currency">$</span>
+                                <span id="cost-per-portion" class="cost-value">0.00</span>
+                            </div>
+                            <p class="cost-description">Cost per serving</p>
+                        </div>
+                    </div>
+
+                    <!-- Profit Margin Calculator -->
+                    <div class="result-card">
+                        <div class="result-header">
+                            <h3>Profit Margin Calculator</h3>
+                        </div>
+                        <div class="result-content">
+                            <div class="margin-controls">
+                                <label for="profit-margin">Desired Profit Margin (%):</label>
+                                <div class="margin-input-group">
+                                    <input type="number" id="profit-margin" min="0" max="1000" value="50" step="5">
+                                    <span class="input-suffix">%</span>
+                                </div>
+                            </div>
+                            <div class="suggested-prices">
+                                <div class="price-suggestion">
+                                    <span class="price-label">Suggested Price Per Portion:</span>
+                                    <div class="cost-display">
+                                        <span class="currency">$</span>
+                                        <span id="suggested-price" class="cost-value">0.00</span>
+                                    </div>
+                                </div>
+                                <div class="price-suggestion">
+                                    <span class="price-label">Total Recipe Sale Price:</span>
+                                    <div class="cost-display">
+                                        <span class="currency">$</span>
+                                        <span id="total-sale-price" class="cost-value">0.00</span>
+                                    </div>
+                                </div>
+                                <div class="profit-info">
+                                    <span class="profit-label">Expected Profit:</span>
+                                    <span class="profit-amount">$<span id="profit-amount">0.00</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Breakdown -->
+                    <div class="result-card">
+                        <div class="result-header">
+                            <h3>Detailed Cost Breakdown</h3>
+                            <button type="button" id="toggle-breakdown" class="toggle-btn">Show Details</button>
+                        </div>
+                        <div class="result-content">
+                            <div id="cost-breakdown" class="cost-breakdown" style="display: none;">
+                                <!-- Detailed breakdown will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button type="button" id="save-calculation" class="btn-primary">Save Calculation</button>
+                        <button type="button" id="reset-calculator" class="btn-secondary">Calculate Another Recipe</button>
+                    </div>
+                </section>
+
+                <!-- Saved Calculations History -->
+                <section class="calculation-history" id="calculation-history">
+                    <h2>Calculation History</h2>
+                    <div class="history-grid" id="history-grid">
+                        <!-- History items will be populated here -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <nav class="bottom-nav">
+                <a href="./index.html" class="nav-item">
+                    <img src="./images/home.svg" alt="Home" class="nav-icon">
+                    <span class="nav-label">Home</span>
+                </a>
+                <a href="./explore.html" class="nav-item">
+                    <img src="./images/explore.svg" alt="Explore" class="nav-icon">
+                    <span class="nav-label">Explore</span>
+                </a>
+                <a href="./calculator.html" class="nav-item active">
+                    <img src="./images/list.svg" alt="Calculator" class="nav-icon">
+                    <span class="nav-label">Calculator</span>
+                </a>
+            </nav>
+        </main>
+
+        <footer>
+            <div class="footer-content">
+                <p>
+                    &copy; <span id="currentYear"></span> &#128187; Felipe Proença Corral
+                    &#128187; Brazil
+                </p>
+                <p id="lastModified"></p>
+            </div>
+
+            <nav class="sociallinks">
+                <a href="mailto:felipepcorral@gmail.com">
+                    <img src="./images/email.svg" alt="Emails logo">
+                </a>
+                <a href="https://instagram.com">
+                    <img src="./images/instagram.svg" alt="Instagrams logo">
+                </a>
+                <a href="https://facebook.com">
+                    <img src="./images/facebook.svg" alt="Facebooks logo">
+                </a>
+                <a href="https://x.com/">
+                    <img src="./images/x_twitter.svg" alt="Xs logo">
+                </a>
+            </nav>
+        </footer>
+    </body>
 </html>
 
