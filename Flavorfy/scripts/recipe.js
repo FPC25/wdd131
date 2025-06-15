@@ -44,9 +44,8 @@ const unitOptions = [
 // Inicializa o formulário com valores padrão
 function initializeForm() {
     addIngredientRow();
-    addIngredientRow();
-    
-    document.getElementById('serves').value = 4;
+
+    document.getElementById('serves').value = 1;
     document.getElementById('cook-time').value = 30;
     document.getElementById('time-unit').value = 'minutes';
     
@@ -307,7 +306,7 @@ function collectFormData() {
         filters: filters,
         ingredients: ingredients,
         instructions: instructions,
-        isSaved: true,
+        isSaved: true, // Sempre true para receitas criadas pelo usuário
         isFavorite: isFavorite,
         serves: serves,
     };
@@ -360,7 +359,7 @@ function validateForm() {
     return true;
 }
 
-// Manipula submissão do formulário
+// Manipula submissão do formulário - CORRIGIDO
 function handleFormSubmit(event) {
     event.preventDefault();
     
@@ -377,30 +376,39 @@ function handleFormSubmit(event) {
             existingRecipes = storedRecipes ? JSON.parse(storedRecipes) : [];
         }
         
+        // Adicionar receita aos dados
         existingRecipes.push(recipeData);
         localStorage.setItem('recipesData', JSON.stringify(existingRecipes));
         
+        // Gerenciar localStorage dos favoritos e salvos CORRETAMENTE
         try {
-            if (recipeData.isFavorite) {
-                RecipeUtils.toggleFavorite(recipeData.id);
+            // Usar RecipeUtils apenas se disponível
+            if (window.RecipeUtils && typeof RecipeUtils.getSavedFromStorage === 'function') {
+                const saved = RecipeUtils.getSavedFromStorage();
+                const favorites = RecipeUtils.getFavoritesFromStorage();
+                
+                // Garantir que está salvo
+                if (!saved.includes(recipeData.id)) {
+                    saved.push(recipeData.id);
+                }
+                
+                // Adicionar aos favoritos se marcado
+                if (recipeData.isFavorite && !favorites.includes(recipeData.id)) {
+                    favorites.push(recipeData.id);
+                }
+                
+                RecipeUtils.saveSavedToStorage(saved);
+                RecipeUtils.saveFavoritesToStorage(favorites);
+            } else {
+                // Fallback: gerenciar localStorage diretamente
+                manageLocalStorageDirectly(recipeData);
             }
-            RecipeUtils.toggleSaved(recipeData.id);
         } catch (error) {
-            const favorites = JSON.parse(localStorage.getItem('flavorfy_favorites') || '[]');
-            const saved = JSON.parse(localStorage.getItem('flavorfy_saved') || '[]');
-            
-            if (!saved.includes(recipeData.id)) {
-                saved.push(recipeData.id);
-            }
-            
-            if (recipeData.isFavorite && !favorites.includes(recipeData.id)) {
-                favorites.push(recipeData.id);
-            }
-            
-            localStorage.setItem('flavorfy_favorites', JSON.stringify(favorites));
-            localStorage.setItem('flavorfy_saved', JSON.stringify(saved));
+            console.error('Error with RecipeUtils, using fallback:', error);
+            manageLocalStorageDirectly(recipeData);
         }
         
+        // Remover draft após salvar com sucesso
         localStorage.removeItem('recipeDraft');
         
         alert('Recipe saved successfully!');
@@ -410,6 +418,31 @@ function handleFormSubmit(event) {
         console.error('Error saving recipe:', error);
         alert('Error saving recipe. Please try again.');
     }
+}
+
+// Função auxiliar para gerenciar localStorage diretamente
+function manageLocalStorageDirectly(recipeData) {
+    // Gerenciar favoritos
+    const favorites = JSON.parse(localStorage.getItem('flavorfy_favorites') || '[]');
+    if (recipeData.isFavorite && !favorites.includes(recipeData.id)) {
+        favorites.push(recipeData.id);
+    }
+    localStorage.setItem('flavorfy_favorites', JSON.stringify(favorites));
+    
+    // Gerenciar salvos - SEMPRE adicionar receitas criadas pelo usuário
+    const saved = JSON.parse(localStorage.getItem('flavorfy_saved') || '[]');
+    if (!saved.includes(recipeData.id)) {
+        saved.push(recipeData.id);
+    }
+    localStorage.setItem('flavorfy_saved', JSON.stringify(saved));
+    
+    console.log('Recipe saved directly to localStorage:', {
+        recipeId: recipeData.id,
+        isSaved: true,
+        isFavorite: recipeData.isFavorite,
+        savedArray: saved,
+        favoritesArray: favorites
+    });
 }
 
 // Salva rascunho da receita
