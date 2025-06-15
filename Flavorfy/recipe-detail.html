@@ -43,13 +43,15 @@
 
         <main>
             <div class="recipe-detail-container">
+                <!-- Updated header with recipe name - similar to recipe.html pattern -->
                 <div class="recipe-header">
                     <button type="button" id="back-btn" aria-label="Go back">←</button>
+                    <h1 id="recipe-header-title" class="recipe-header-name">Recipe Details</h1>
                     <div class="recipe-actions">
                         <button class="action-btn favorite-btn" 
                                 id="favorite-btn"
                                 aria-label="Toggle favorite">
-                            <img src="./images/favorite.svg" alt="Favorite">
+                            <img src="./images/star.svg" alt="Favorite">
                         </button>
                         <button class="action-btn save-btn" 
                                 id="save-btn"
@@ -65,14 +67,21 @@
                 </div>
 
                 <div class="recipe-content">
-                    <!-- Loading state -->
+                    <!-- Enhanced loading state -->
                     <div id="loading-state" class="loading-message">
+                        <div class="loading-spinner"></div>
                         <p>Loading recipe...</p>
                     </div>
 
-                    <!-- Error state -->
+                    <!-- Enhanced error state -->
                     <div id="error-state" class="error-message" style="display: none;">
-                        <p>Recipe not found. <a href="./index.html">Return to home</a></p>
+                        <div class="error-icon">⚠️</div>
+                        <h2>Recipe Not Found</h2>
+                        <p>Sorry, we couldn't find the recipe you're looking for.</p>
+                        <div class="error-actions">
+                            <a href="./index.html" class="btn-primary">Return to Home</a>
+                            <a href="./explore.html" class="btn-secondary">Browse Recipes</a>
+                        </div>
                     </div>
 
                     <!-- Recipe content -->
@@ -82,8 +91,7 @@
                         </div>
 
                         <div class="recipe-info-section">
-                            <h1 id="recipe-title">Recipe Title</h1>
-                            
+                            <!-- Remove duplicate title since it's now in header -->
                             <div class="recipe-meta-info">
                                 <div class="meta-item">
                                     <span class="meta-label">Cook Time:</span>
@@ -125,7 +133,7 @@
                 </div>
             </div>
 
-            <!-- Bottom Navigation - igual ao explore -->
+            <!-- Bottom Navigation -->
             <nav class="bottom-nav">
                 <a href="./index.html" class="nav-item">
                     <img src="./images/home.svg" alt="Home" class="nav-icon">

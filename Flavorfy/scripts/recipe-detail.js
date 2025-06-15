@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Configurar bottom navigation
     setupBottomNavigation();
     
-    // Auto-hide bottom navigation on scroll (igual ao explore)
+    // Auto-hide bottom navigation on scroll
     setupScrollBehavior();
 });
 
@@ -50,8 +50,11 @@ function loadRecipeDetail(recipeId) {
 
 // Exibe os dados da receita na página
 function displayRecipe(recipe) {
-    // Título
-    document.getElementById('recipe-title').textContent = recipe.name;
+    // Atualizar título no header - NOVO
+    const headerTitle = document.getElementById('recipe-header-title');
+    if (headerTitle) {
+        headerTitle.textContent = recipe.name;
+    }
     
     // Imagem
     const imageElement = document.getElementById('recipe-image');
@@ -135,31 +138,9 @@ function setupActionButtons(recipe) {
         updateButtonStates(recipe);
     });
     
-    // Novo: botão de calcular custos
+    // Botão de calcular custos
     calculateBtn.addEventListener('click', function() {
         window.location.href = `./calculator.html?recipe=${recipe.id}`;
-    });
-}
-
-// Configura os botões de ação (favorito e salvar)
-function setupActionButtons(recipe) {
-    const favoriteBtn = document.getElementById('favorite-btn');
-    const saveBtn = document.getElementById('save-btn');
-    
-    // Estado inicial dos botões
-    updateButtonStates(recipe);
-    
-    // Event listeners
-    favoriteBtn.addEventListener('click', function() {
-        const newState = RecipeUtils.toggleFavorite(recipe.id);
-        recipe.isFavorite = newState;
-        updateButtonStates(recipe);
-    });
-    
-    saveBtn.addEventListener('click', function() {
-        const newState = RecipeUtils.toggleSaved(recipe.id);
-        recipe.isSaved = newState;
-        updateButtonStates(recipe);
     });
 }
 
@@ -214,50 +195,24 @@ function setupBottomNavigation() {
     }
 }
 
-// Configura comportamento de scroll para o bottom nav (igual ao explore)
+// Configura comportamento de scroll para o bottom nav
 function setupScrollBehavior() {
-    const bottomNav = document.querySelector('.bottom-nav');
     let lastScrollTop = 0;
-    let scrollTimeout;
+    const bottomNav = document.querySelector('.bottom-nav');
     
-    function throttle(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-    
-    function handleScroll() {
-        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        clearTimeout(scrollTimeout);
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        if (currentScroll <= 0) {
-            bottomNav.classList.remove('hidden');
-            lastScrollTop = 0;
-            return;
-        }
-        
-        if (currentScroll > lastScrollTop) {
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Scrolling down
             bottomNav.classList.add('hidden');
-        } else if (currentScroll < lastScrollTop) {
+        } else {
+            // Scrolling up
             bottomNav.classList.remove('hidden');
         }
         
-        lastScrollTop = currentScroll;
-        
-        if (bottomNav.classList.contains('hidden')) {
-            scrollTimeout = setTimeout(() => {
-                bottomNav.classList.remove('hidden');
-            }, 2000);
-        }
-    }
-    
-    window.addEventListener('scroll', throttle(handleScroll, 100));
+        lastScrollTop = scrollTop;
+    });
 }
 
 // Mostra estado de erro
@@ -265,4 +220,10 @@ function showError() {
     document.getElementById('loading-state').style.display = 'none';
     document.getElementById('error-state').style.display = 'block';
     document.getElementById('page-title').textContent = 'Recipe Not Found - Flavorfy';
+    
+    // Update header title for error state
+    const headerTitle = document.getElementById('recipe-header-title');
+    if (headerTitle) {
+        headerTitle.textContent = 'Recipe Not Found';
+    }
 }
