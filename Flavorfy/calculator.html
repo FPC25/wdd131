@@ -39,18 +39,18 @@
                 </nav>
                 <a href="./index.html"><img src="./images/Logo.svg" alt="Logo of Flavorfy" id="logo"></a>
             </div>
-            <div class="welcome-container">
+            <section class="welcome-container">
                 <div id="welcome-message">
                     <h1>Cost</h1>
                     <h1><span class="brand">Calculator</span></h1>
                 </div>
-            </div>
+            </section>
         </header>
 
         <main>
             <div class="calculator-container">
                 <!-- Recipe Selection Section -->
-                <section class="recipe-selection">
+                <section class="recipe-selection-section">
                     <h2>Select Recipe</h2>
                     <div class="recipe-selector">
                         <select id="recipe-select">
@@ -62,23 +62,21 @@
                 </section>
 
                 <!-- Recipe Display Section -->
-                <section class="recipe-display" id="recipe-display" style="display: none;">
+                <section class="recipe-display-section" id="recipe-display" style="display: none;">
                     <div class="recipe-header-calc">
                         <div class="recipe-basic-info">
                             <h3 id="selected-recipe-name">Recipe Name</h3>
                             <div class="recipe-meta-calc">
                                 <span id="recipe-serves">Serves: 0</span>
                                 <span id="recipe-difficulty">Difficulty: Easy</span>
+                                <span id="recipe-cook-time">Cook Time: 30 minutes</span>
                             </div>
-                        </div>
-                        <div class="recipe-image-calc">
-                            <img id="recipe-image-calc" src="./images/" alt="Recipe image">
                         </div>
                     </div>
                 </section>
 
                 <!-- Cost Input Section -->
-                <section class="cost-input" id="cost-input" style="display: none;">
+                <section class="cost-input-section" id="cost-input" style="display: none;">
                     <h2>Ingredient Costs</h2>
                     <p class="instructions">
                         Enter the cost per unit for each ingredient. For "to taste" ingredients, 
@@ -91,7 +89,7 @@
                 </section>
 
                 <!-- Results Section -->
-                <section class="results" id="results" style="display: none;">
+                <section class="results-section" id="results" style="display: none;">
                     <h2>Cost Analysis</h2>
                     
                     <!-- Total Cost Card -->
@@ -179,7 +177,7 @@
                 </section>
 
                 <!-- Saved Calculations History -->
-                <section class="calculation-history" id="calculation-history">
+                <section class="calculation-history-section" id="calculation-history">
                     <h2>Calculation History</h2>
                     <div class="history-grid" id="history-grid">
                         <!-- History items will be populated here -->

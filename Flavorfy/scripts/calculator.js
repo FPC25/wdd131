@@ -99,10 +99,13 @@ function initializeCalculator() {
     const recipeId = urlParams.get('recipe');
     if (recipeId) {
         const select = document.getElementById('recipe-select');
-        select.value = recipeId;
-        select.dispatchEvent(new Event('change'));
-        if (select.value) {
-            document.getElementById('load-recipe-btn').click();
+        if (select) {
+            select.value = recipeId;
+            select.dispatchEvent(new Event('change'));
+            if (select.value) {
+                const loadBtn = document.getElementById('load-recipe-btn');
+                if (loadBtn) loadBtn.click();
+            }
         }
     }
 }
@@ -110,6 +113,11 @@ function initializeCalculator() {
 function populateRecipeSelect() {
     const recipes = RecipeUtils.getRecipesData();
     const select = document.getElementById('recipe-select');
+    
+    if (!select) {
+        console.error('Recipe select element not found');
+        return;
+    }
     
     select.innerHTML = '<option value="">Choose a saved recipe to calculate costs...</option>';
     
@@ -143,17 +151,25 @@ function setupEventListeners() {
     const saveBtn = document.getElementById('save-calculation');
     const resetBtn = document.getElementById('reset-calculator');
     
-    recipeSelect.addEventListener('change', () => loadBtn.disabled = !recipeSelect.value);
-    loadBtn.addEventListener('click', loadSelectedRecipe);
-    calculateBtn.addEventListener('click', calculateCosts);
-    profitMarginInput.addEventListener('input', updateProfitCalculations);
-    toggleBreakdownBtn.addEventListener('click', toggleCostBreakdown);
-    saveBtn.addEventListener('click', saveCalculation);
-    resetBtn.addEventListener('click', resetCalculator);
+    if (recipeSelect && loadBtn) {
+        recipeSelect.addEventListener('change', () => loadBtn.disabled = !recipeSelect.value);
+    }
+    if (loadBtn) loadBtn.addEventListener('click', loadSelectedRecipe);
+    if (calculateBtn) calculateBtn.addEventListener('click', calculateCosts);
+    if (profitMarginInput) profitMarginInput.addEventListener('input', updateProfitCalculations);
+    if (toggleBreakdownBtn) toggleBreakdownBtn.addEventListener('click', toggleCostBreakdown);
+    if (saveBtn) saveBtn.addEventListener('click', saveCalculation);
+    if (resetBtn) resetBtn.addEventListener('click', resetCalculator);
 }
 
 function loadSelectedRecipe() {
-    const recipeId = parseInt(document.getElementById('recipe-select').value);
+    const recipeSelect = document.getElementById('recipe-select');
+    if (!recipeSelect || !recipeSelect.value) {
+        alert('Please select a recipe first');
+        return;
+    }
+    
+    const recipeId = parseInt(recipeSelect.value);
     const recipes = RecipeUtils.getRecipesData();
     const recipe = recipes.find(r => r.id === recipeId);
     
@@ -171,53 +187,41 @@ function loadSelectedRecipe() {
     displayRecipe(recipe);
     setupCostInputs(recipe);
     
-    ['recipe-display', 'cost-input'].forEach(id => 
-        document.getElementById(id).style.display = 'block'
-    );
-    document.getElementById('results').style.display = 'none';
+    // Show/hide sections - using correct IDs from HTML
+    const recipeDisplaySection = document.getElementById('recipe-display');
+    const costInputSection = document.getElementById('cost-input');
+    const resultsSection = document.getElementById('results');
+    
+    if (recipeDisplaySection) recipeDisplaySection.style.display = 'block';
+    if (costInputSection) costInputSection.style.display = 'block';
+    if (resultsSection) resultsSection.style.display = 'none';
     
     ingredientCosts = {};
     calculationResults = {};
 }
 
 function displayRecipe(recipe) {
-    document.getElementById('selected-recipe-name').textContent = recipe.name;
-    document.getElementById('recipe-serves').textContent = `Serves: ${recipe.serves}`;
-    document.getElementById('recipe-difficulty').textContent = 
-        `Difficulty: ${recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1)}`;
+    const nameElement = document.getElementById('selected-recipe-name');
+    const servesElement = document.getElementById('recipe-serves');
+    const difficultyElement = document.getElementById('recipe-difficulty');
     
-    const imageElement = document.getElementById('recipe-image-calc');
-    
-    // Verificar se é placeholder ou imagem real
-    const isPlaceholder = !recipe.cover || 
-                         recipe.cover === "image" || 
-                         recipe.cover.includes('placeholder.svg');
-    
-    if (isPlaceholder) {
-        // É placeholder - altura 60%
-        imageElement.src = './images/placeholder.svg';
-        imageElement.alt = 'No image available';
-        imageElement.style.height = '60%';
-        imageElement.style.width = 'auto';
-        imageElement.style.objectFit = 'contain';
-        imageElement.style.filter = 'invert(0.4)';
-        
-        console.log('Displaying placeholder with 60% height');
-    } else {
-        // É imagem real - altura 100%
-        imageElement.src = recipe.cover;
-        imageElement.alt = recipe.name;
-        imageElement.style.height = '100%';
-        imageElement.style.width = '100%';
-        imageElement.style.objectFit = 'cover';
-        imageElement.style.filter = 'none';
-        
-        console.log('Displaying real image with 100% height');
+    if (nameElement) nameElement.textContent = recipe.name;
+    if (servesElement) servesElement.textContent = `Serves: ${recipe.serves}`;
+    if (difficultyElement) {
+        difficultyElement.textContent = `Difficulty: ${recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1)}`;
     }
+    
+    // Note: Recipe image functionality removed as requested
+    console.log('Recipe loaded successfully:', recipe.name);
 }
 
 function setupCostInputs(recipe) {
     const container = document.getElementById('ingredients-cost-grid');
+    if (!container) {
+        console.error('Ingredients cost grid container not found');
+        return;
+    }
+    
     container.innerHTML = '';
     
     const { essentialIngredients, toTasteIngredients } = separateIngredients(recipe);
@@ -342,11 +346,11 @@ function createIngredientTemplate(ingredient, index, recipeQuantity, isOptional)
 }
 
 function createUnitOptions() {
-    const unitOptions = ['unit']
+    const unitOptions = ['piece']
         .map(unit => `<option value="${unit}">${unit}</option>`).join('');
     const weightOptions = ['g', 'kg', 'lb', 'oz']
         .map(unit => `<option value="${unit}">${unit}</option>`).join('');
-    const volumeOptions = ['ml', 'L', 'cup', 'tbsp', 'tsp', 'fl oz', 'pint', 'quart', 'gallon']
+    const volumeOptions = ['ml', 'l', 'cup', 'tbsp', 'tsp', 'fl oz', 'pint', 'quart', 'gallon']
         .map(unit => `<option value="${unit}">${unit}</option>`).join('');
     
     return `
@@ -374,7 +378,7 @@ function setupIngredientEventListeners(itemDiv, ingredient, index) {
 }
 
 function createToTasteSection(toTasteIngredients, container) {
-    const toTasteSection = document.createElement('div');
+    const toTasteSection = document.createElement('section');
     toTasteSection.className = 'to-taste-section';
     toTasteSection.innerHTML = `
         <h3 class="ingredients-section-header">Other Ingredients (Optional)</h3>
@@ -411,6 +415,11 @@ function setupToTasteEventListeners(toTasteIngredients) {
     const confirmBtn = document.getElementById('confirm-to-taste-btn');
     const cancelBtn = document.getElementById('cancel-to-taste-btn');
     
+    if (!addBtn || !selector || !select || !confirmBtn || !cancelBtn) {
+        console.error('To-taste elements not found');
+        return;
+    }
+    
     addBtn.addEventListener('click', () => {
         const availableOptions = Array.from(select.options).filter(option => 
             option.value !== '' && !option.disabled
@@ -436,12 +445,14 @@ function setupToTasteEventListeners(toTasteIngredients) {
         const ingredient = toTasteIngredients.find(ing => ing.originalIndex === selectedIndex);
         if (ingredient) {
             const container = document.getElementById('to-taste-ingredients');
-            createIngredientItem(ingredient, container, true);
-            
-            const option = select.querySelector(`option[value="${selectedIndex}"]`);
-            if (option) {
-                option.disabled = true;
-                option.style.display = 'none';
+            if (container) {
+                createIngredientItem(ingredient, container, true);
+                
+                const option = select.querySelector(`option[value="${selectedIndex}"]`);
+                if (option) {
+                    option.disabled = true;
+                    option.style.display = 'none';
+                }
             }
         }
         
@@ -462,7 +473,7 @@ function removeToTasteIngredient(index) {
     if (itemDiv) itemDiv.remove();
     
     const select = document.getElementById('to-taste-ingredient-select');
-    const option = select.querySelector(`option[value="${index}"]`);
+    const option = select?.querySelector(`option[value="${index}"]`);
     if (option) {
         option.disabled = false;
         option.style.display = 'block';
@@ -473,9 +484,9 @@ function removeToTasteIngredient(index) {
 }
 
 function calculateIngredientCost(index, ingredient, itemDiv) {
-    const purchaseQuantity = parseFloat(itemDiv.querySelector('.purchase-quantity').value) || 0;
-    const purchaseUnit = itemDiv.querySelector('.purchase-unit').value;
-    const purchasePrice = parseFloat(itemDiv.querySelector('.purchase-price').value) || 0;
+    const purchaseQuantity = parseFloat(itemDiv.querySelector('.purchase-quantity')?.value) || 0;
+    const purchaseUnit = itemDiv.querySelector('.purchase-unit')?.value;
+    const purchasePrice = parseFloat(itemDiv.querySelector('.purchase-price')?.value) || 0;
     
     const unitCostDisplay = itemDiv.querySelector('.unit-cost-value');
     const recipeCostDisplay = itemDiv.querySelector('.recipe-cost-value');
@@ -488,7 +499,9 @@ function calculateIngredientCost(index, ingredient, itemDiv) {
     }
     
     const costPerPurchaseUnit = purchasePrice / purchaseQuantity;
-    unitCostDisplay.textContent = `$${costPerPurchaseUnit.toFixed(4)} per ${purchaseUnit}`;
+    if (unitCostDisplay) {
+        unitCostDisplay.textContent = `$${costPerPurchaseUnit.toFixed(4)} per ${purchaseUnit}`;
+    }
     
     const { recipeQuantityNeeded, recipeUnit } = getRecipeQuantity(ingredient, itemDiv);
     
@@ -501,12 +514,14 @@ function calculateIngredientCost(index, ingredient, itemDiv) {
         recipeQuantityNeeded, recipeUnit, purchaseUnit, costPerPurchaseUnit, ingredient.item
     );
     
-    recipeCostDisplay.textContent = `$${costForRecipe.toFixed(4)}`;
+    if (recipeCostDisplay) {
+        recipeCostDisplay.textContent = `$${costForRecipe.toFixed(4)}`;
+    }
     
-    if (conversionText) {
+    if (conversionText && conversionDetails && conversionInfo) {
         conversionDetails.textContent = conversionText;
         conversionInfo.style.display = 'block';
-    } else {
+    } else if (conversionInfo) {
         conversionInfo.style.display = 'none';
     }
     
@@ -520,9 +535,9 @@ function calculateIngredientCost(index, ingredient, itemDiv) {
 }
 
 function resetCostDisplay(unitCostDisplay, recipeCostDisplay, conversionInfo, index) {
-    unitCostDisplay.textContent = '$0.00';
-    recipeCostDisplay.textContent = '$0.00';
-    conversionInfo.style.display = 'none';
+    if (unitCostDisplay) unitCostDisplay.textContent = '$0.00';
+    if (recipeCostDisplay) recipeCostDisplay.textContent = '$0.00';
+    if (conversionInfo) conversionInfo.style.display = 'none';
     ingredientCosts[index] = null;
     checkAllCostsEntered();
 }
@@ -532,8 +547,8 @@ function getRecipeQuantity(ingredient, itemDiv) {
         const actualQuantity = itemDiv.querySelector('.actual-quantity');
         const actualUnit = itemDiv.querySelector('.actual-unit');
         return {
-            recipeQuantityNeeded: parseFloat(actualQuantity.value) || 0,
-            recipeUnit: actualUnit.value
+            recipeQuantityNeeded: parseFloat(actualQuantity?.value) || 0,
+            recipeUnit: actualUnit?.value || ''
         };
     } else {
         return {
@@ -588,10 +603,14 @@ function calculateConvertedCost(recipeQuantityNeeded, recipeUnit, purchaseUnit, 
 }
 
 function checkAllCostsEntered() {
+    if (!currentRecipe) return;
+    
     const totalIngredients = currentRecipe.ingredients.length;
     const filledIngredients = Object.keys(ingredientCosts).filter(key => ingredientCosts[key] !== null).length;
     
     const calculateBtn = document.getElementById('calculate-btn');
+    if (!calculateBtn) return;
+    
     calculateBtn.disabled = filledIngredients === 0;
     
     if (filledIngredients === 0) {
@@ -627,20 +646,29 @@ function calculateCosts() {
     };
     
     displayResults();
-    document.getElementById('results').style.display = 'block';
-    document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+    
+    const resultsSection = document.getElementById('results');
+    if (resultsSection) {
+        resultsSection.style.display = 'block';
+        resultsSection.scrollIntoView({ behavior: 'smooth' });
+    }
 }
 
 function displayResults() {
     const { totalCost, costPerPortion, includedIngredients, totalIngredients } = calculationResults;
     
-    document.getElementById('total-cost').textContent = totalCost.toFixed(2);
-    document.getElementById('cost-per-portion').textContent = costPerPortion.toFixed(2);
+    const totalCostElement = document.getElementById('total-cost');
+    const costPerPortionElement = document.getElementById('cost-per-portion');
+    
+    if (totalCostElement) totalCostElement.textContent = totalCost.toFixed(2);
+    if (costPerPortionElement) costPerPortionElement.textContent = costPerPortion.toFixed(2);
     
     const totalCostCard = document.querySelector('.result-card .cost-description');
-    totalCostCard.textContent = includedIngredients < totalIngredients 
-        ? `Total cost of ${includedIngredients} out of ${totalIngredients} ingredients`
-        : 'Total cost of all ingredients';
+    if (totalCostCard) {
+        totalCostCard.textContent = includedIngredients < totalIngredients 
+            ? `Total cost of ${includedIngredients} out of ${totalIngredients} ingredients`
+            : 'Total cost of all ingredients';
+    }
     
     updateProfitCalculations();
     createCostBreakdown();
@@ -649,7 +677,8 @@ function displayResults() {
 function updateProfitCalculations() {
     if (!calculationResults.costPerPortion) return;
     
-    const margin = parseFloat(document.getElementById('profit-margin').value) || 0;
+    const marginInput = document.getElementById('profit-margin');
+    const margin = parseFloat(marginInput?.value) || 0;
     const costPerPortion = calculationResults.costPerPortion;
     const serves = calculationResults.serves;
     
@@ -657,13 +686,19 @@ function updateProfitCalculations() {
     const totalSalePrice = suggestedPrice * serves;
     const profit = totalSalePrice - calculationResults.totalCost;
     
-    document.getElementById('suggested-price').textContent = suggestedPrice.toFixed(2);
-    document.getElementById('total-sale-price').textContent = totalSalePrice.toFixed(2);
-    document.getElementById('profit-amount').textContent = profit.toFixed(2);
+    const suggestedPriceElement = document.getElementById('suggested-price');
+    const totalSalePriceElement = document.getElementById('total-sale-price');
+    const profitAmountElement = document.getElementById('profit-amount');
+    
+    if (suggestedPriceElement) suggestedPriceElement.textContent = suggestedPrice.toFixed(2);
+    if (totalSalePriceElement) totalSalePriceElement.textContent = totalSalePrice.toFixed(2);
+    if (profitAmountElement) profitAmountElement.textContent = profit.toFixed(2);
 }
 
 function createCostBreakdown() {
     const container = document.getElementById('cost-breakdown');
+    if (!container) return;
+    
     container.innerHTML = '';
     
     const includedItems = Object.values(ingredientCosts).filter(item => item !== null);
@@ -734,6 +769,8 @@ function toggleCostBreakdown() {
     const breakdown = document.getElementById('cost-breakdown');
     const btn = document.getElementById('toggle-breakdown');
     
+    if (!breakdown || !btn) return;
+    
     if (breakdown.style.display === 'none') {
         breakdown.style.display = 'block';
         btn.textContent = 'Hide Details';
@@ -749,7 +786,8 @@ function saveCalculation() {
         return;
     }
     
-    const margin = parseFloat(document.getElementById('profit-margin').value) || 0;
+    const marginInput = document.getElementById('profit-margin');
+    const margin = parseFloat(marginInput?.value) || 0;
     const savedCalculation = {
         ...calculationResults,
         profitMargin: margin,
@@ -770,12 +808,19 @@ function saveCalculation() {
 }
 
 function resetCalculator() {
-    document.getElementById('recipe-select').value = '';
-    document.getElementById('load-recipe-btn').disabled = true;
+    const recipeSelect = document.getElementById('recipe-select');
+    const loadBtn = document.getElementById('load-recipe-btn');
     
-    ['recipe-display', 'cost-input', 'results'].forEach(id => 
-        document.getElementById(id).style.display = 'none'
-    );
+    if (recipeSelect) recipeSelect.value = '';
+    if (loadBtn) loadBtn.disabled = true;
+    
+    const recipeDisplaySection = document.getElementById('recipe-display');
+    const costInputSection = document.getElementById('cost-input');
+    const resultsSection = document.getElementById('results');
+    
+    if (recipeDisplaySection) recipeDisplaySection.style.display = 'none';
+    if (costInputSection) costInputSection.style.display = 'none';
+    if (resultsSection) resultsSection.style.display = 'none';
     
     currentRecipe = null;
     ingredientCosts = {};
@@ -788,6 +833,8 @@ function resetCalculator() {
 function loadCalculationHistory() {
     const savedCalculations = JSON.parse(localStorage.getItem('flavorfy_calculations') || '[]');
     const container = document.getElementById('history-grid');
+    
+    if (!container) return;
     
     if (savedCalculations.length === 0) {
         container.innerHTML = '<div class="empty-history">No saved calculations yet. Complete a calculation and save it to see it here.</div>';
