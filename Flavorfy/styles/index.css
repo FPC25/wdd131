@@ -114,7 +114,7 @@
 
 /* Add recipe link */
 .add-recipe-link {
-    color: var(--accent-color);
+    color: var(--text-color);
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
