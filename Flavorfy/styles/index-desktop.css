@@ -83,7 +83,7 @@
     }
 
     /* Links inativos - background primary-color com texto BRANCO */
-    .hamburger-menu a {
+    header .hamburger-menu a {
         background: var(--primary-color);
         color: var(--secondary-color); /* TEXTO BRANCO no estado normal */
         padding: 0.75rem 1.5rem;
@@ -114,7 +114,7 @@
 
     /* Hover para link ativo - manter o mesmo visual */
     .hamburger-menu a#home:hover {
-        background: var(--accent-color);
+        background: var(--text-color);
         color: var(--secondary-color); /* MANTER TEXTO BRANCO */
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
