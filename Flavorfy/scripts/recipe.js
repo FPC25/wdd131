@@ -18,7 +18,7 @@ const quantityOptions = [
 
 // Opções de unidades para ingredientes
 const unitOptions = [
-    { value: '', text: 'Select unit' },
+    { value: '', text: 'Select' },
     { value: 'ml', text: 'ml' },
     { value: 'l', text: 'liter(s)' },
     { value: 'g', text: 'gram(s)' },
