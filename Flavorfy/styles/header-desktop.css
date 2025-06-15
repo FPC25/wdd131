@@ -16,6 +16,10 @@
         gap: 2rem;
     }
 
+    .header-top h1 {
+        display: none;
+    }
+
     /* Logo section à esquerda - logo + texto Flavorfy */
     .header-top > a {
         display: flex;

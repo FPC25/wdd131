@@ -1,77 +1,122 @@
 <!DOCTYPE html>
 <html lang="en-US">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Flavorfy - Explore recipes by category, difficulty, and cooking time. Find your next favorite dish!">
-        <meta name="keywords" content="recipes, explore, categories, cooking, Flavorfy">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta
+            name="description"
+            content="Flavorfy - Explore recipes by category, difficulty, and cooking time. Find your next favorite dish!">
+        <meta
+            name="keywords"
+            content="recipes, explore, categories, cooking, Flavorfy">
         <meta name="author" content="Felipe Proença Corral">
-        <title>Flavorfy - Explore</title>
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="styles/components/search-bar.css">
+		<title>Flavorfy - Explore</title>
+
         <link rel="stylesheet" href="styles/general.css">
-        <link rel="stylesheet" href="styles/explore.css">
-        <link rel="stylesheet" href="styles/header-desktop.css">
+		<link rel="stylesheet" href="styles/explore.css">
+		<link rel="stylesheet" href="styles/components/search-bar.css">
+		<link rel="stylesheet" href="styles/header-desktop.css">
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lora&family=Roboto&display=swap"
+			rel="stylesheet">
 
-        <!-- Scripts -->
-        <script src="./scripts/recipe-utils.js"></script>
         <script src="./scripts/general.js" defer></script>
-        <script src="./scripts/explore.js" defer></script>
-    </head>
-    <body data-page="explore">
-        <!-- Header -->
-        <header>
-            <div class="header-top">
-                <button id="hamburger" aria-label="Toggle navigation">☰</button>
-                <nav class="hamburger-menu">
-                    <ul>
-                        <li><a href="./index.html" id="home">Home</a></li>
-                        <li><a href="./explore.html" id="explore">Explore</a></li>
-                        <li><a href="./calculator.html" id="calculator">Calculator</a></li>
-                    </ul>
-                </nav>
-                <a href="./index.html"><img src="./images/Logo.svg" alt="Logo of Flavorfy" id="logo"></a>
-            </div>
-        </header>
+		<script src="./scripts/recipe-utils.js"></script>
+		<script src="./scripts/explore.js" defer></script>
+	</head>
+	<body>
+		<header>
+			<div class="header-top">
+				<button id="hamburger" aria-label="Toggle navigation">☰</button>
+				<nav class="hamburger-menu">
+					<ul>
+						<li><a href="./index.html" id="home">Home</a></li>
+						<li><a href="./explore.html" id="explore">Explore</a></li>
+						<li><a href="./calculator.html" id="calculator">Calculator</a></li>
+					</ul>
+				</nav>
+				<h1>Explore</h1>
+				<a href="./index.html"><img src="./images/Logo.svg" alt="Logo of Flavorfy" id="logo"></a>
+			</div>
+		</header>
+		<main>
+			<section class="search-container">
+				<div class="search-box">
+					<img
+						src="./images/search.svg"
+						alt="Search icon"
+						class="search-icon">
+					<input
+						type="text"
+						placeholder="Search for recipes..."
+						class="search-input">
+					<button class="search-button" aria-label="Search">Search</button>
+				</div>
+			</section>
 
-        <!-- Menu Overlay -->
-        <div class="menu-overlay"></div>
+			<section id="categories-container">
+				<div class="categories">
+					<button class="category-btn active" data-category="all">All</button>
+					<button class="category-btn" data-category="Breakfast">Breakfast</button>
+					<button class="category-btn" data-category="Lunch">Lunch</button>
+					<button class="category-btn" data-category="Dinner">Dinner</button>
+					<button class="category-btn" data-category="Dessert">Dessert</button>
+					<button class="category-btn" data-category="Snack">Snack</button>
+				</div>
+			</section>
 
-        <main>
-            <!-- Conteúdo da página explore -->
-        </main>
+			<section class="recipes-section">
+				<div class="recipe-grid">
+                    <!-- Recipes will be loaded here by JavaScript -->
+                </div>
+			</section>
 
-        <footer>
-            <div class="footer-content">
-                <p>
-                    &copy; <span id="currentYear"></span> &#128187; Felipe Proença Corral
-                    &#128187; Brazil
-                </p>
-                <p id="lastModified"></p>
-            </div>
+			<nav class="bottom-nav">
+				<a href="./index.html" class="nav-item">
+					<img src="./images/home.svg" alt="Home" class="nav-icon">
+					<span class="nav-label">Home</span>
+				</a>
+				<a href="./explore.html" class="nav-item">
+					<img src="./images/explore.svg" alt="Explore" class="nav-icon">
+					<span class="nav-label">Explore</span>
+				</a>
+				<a href="#" class="nav-item">
+					<img src="./images/favorite.svg" alt="Favorites" class="nav-icon">
+					<span class="nav-label">Favorites</span>
+				</a>
+			</nav>
+		</main>
 
-            <nav class="sociallinks">
-                <a href="mailto:felipepcorral@gmail.com">
-                    <img src="./images/email.svg" alt="Emails logo">
-                </a>
-                <a href="https://instagram.com">
-                    <img src="./images/instagram.svg" alt="Instagrams logo">
-                </a>
-                <a href="https://facebook.com">
-                    <img src="./images/facebook.svg" alt="Facebooks logo">
-                </a>
-                <a href="https://x.com/">
-                    <img src="./images/x_twitter.svg" alt="Xs logo">
-                </a>
-            </nav>
-        </footer>
-    </body>
+		<footer>
+			<div class="footer-content">
+				<p>
+					&copy; <span id="currentYear"></span> &#128187; Felipe Proença Corral
+					&#128187; Brazil
+				</p>
+				<p id="lastModified"></p>
+			</div>
+
+			<nav class="sociallinks">
+				<a href="mailto:felipepcorral@gmail.com">
+					<img src="./images/email.svg" alt="Emails logo">
+				</a>
+
+				<a href="https://instagram.com">
+					<img src="./images/instagram.svg" alt="Instagrams logo">
+				</a>
+				<a href="https://facebook.com">
+					<img src="./images/facebook.svg" alt="Facebooks logo">
+				</a>
+				<a href="https://x.com/">
+					<img src="./images/x_twitter.svg" alt="Xs logo">
+				</a>
+			</nav>
+		</footer>
+	</body>
 </html>
 
 
