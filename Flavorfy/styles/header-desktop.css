@@ -135,6 +135,10 @@
         max-width: 500px;
         margin: 0 auto;
     }
+
+    .bottom-nav {
+        display: none; /* Esconder banner no desktop */
+    }
 }
 
 /* Large desktop - 1024px and above */
@@ -179,4 +183,6 @@
     body:not([data-page="index"]) main {
         padding: 4rem;
     }
+
+
 }
