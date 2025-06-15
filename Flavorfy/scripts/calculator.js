@@ -92,22 +92,59 @@ function convertVolumeToWeight(quantity, volumeUnit, ingredientName) {
     return quantityInCups * conversionData.cup;
 }
 
+// FIX: Apenas habilitar botão e selecionar receita quando vem da URL
 function initializeCalculator() {
     populateRecipeSelect();
     
+    // Verificar se há um ID de receita na URL
     const urlParams = new URLSearchParams(window.location.search);
     const recipeId = urlParams.get('recipe');
+    
     if (recipeId) {
-        const select = document.getElementById('recipe-select');
-        if (select) {
-            select.value = recipeId;
-            select.dispatchEvent(new Event('change'));
-            if (select.value) {
-                const loadBtn = document.getElementById('load-recipe-btn');
-                if (loadBtn) loadBtn.click();
-            }
-        }
+        // Aguardar um pouco para garantir que o select foi populado
+        setTimeout(() => {
+            preselectRecipeFromUrl(recipeId);
+        }, 100);
     }
+}
+
+// FIX: Nova função que apenas pré-seleciona a receita e habilita o botão
+function preselectRecipeFromUrl(recipeId) {
+    const select = document.getElementById('recipe-select');
+    const loadBtn = document.getElementById('load-recipe-btn');
+    
+    if (!select || !loadBtn) {
+        console.error('Select or load button not found');
+        return;
+    }
+    
+    // Verificar se a receita existe no select
+    const option = select.querySelector(`option[value="${recipeId}"]`);
+    if (!option) {
+        console.warn('Recipe not found in select options:', recipeId);
+        // Mostrar mensagem mais amigável
+        alert('This recipe is not available for calculation. Make sure it is saved first.');
+        return;
+    }
+    
+    // Selecionar a receita no dropdown
+    select.value = recipeId;
+    
+    // Habilitar o botão de carregar
+    loadBtn.disabled = false;
+    
+    // Adicionar visual feedback de que a receita está pré-selecionada
+    select.style.border = '2px solid var(--accent-color)';
+    loadBtn.style.background = 'var(--accent-color)';
+    loadBtn.style.color = 'var(--secondary-color)';
+    
+    // Scroll suave para o botão de carregar para chamar atenção
+    setTimeout(() => {
+        loadBtn.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'center' 
+        });
+    }, 300);
 }
 
 function populateRecipeSelect() {
@@ -152,7 +189,14 @@ function setupEventListeners() {
     const resetBtn = document.getElementById('reset-calculator');
     
     if (recipeSelect && loadBtn) {
-        recipeSelect.addEventListener('change', () => loadBtn.disabled = !recipeSelect.value);
+        recipeSelect.addEventListener('change', () => {
+            loadBtn.disabled = !recipeSelect.value;
+            
+            // Remover visual feedback quando usuário muda seleção manualmente
+            recipeSelect.style.border = '';
+            loadBtn.style.background = '';
+            loadBtn.style.color = '';
+        });
     }
     if (loadBtn) loadBtn.addEventListener('click', loadSelectedRecipe);
     if (calculateBtn) calculateBtn.addEventListener('click', calculateCosts);
@@ -164,6 +208,8 @@ function setupEventListeners() {
 
 function loadSelectedRecipe() {
     const recipeSelect = document.getElementById('recipe-select');
+    const loadBtn = document.getElementById('load-recipe-btn');
+    
     if (!recipeSelect || !recipeSelect.value) {
         alert('Please select a recipe first');
         return;
@@ -183,6 +229,11 @@ function loadSelectedRecipe() {
         return;
     }
     
+    // Remover visual feedback após carregar
+    recipeSelect.style.border = '';
+    loadBtn.style.background = '';
+    loadBtn.style.color = '';
+    
     currentRecipe = recipe;
     displayRecipe(recipe);
     setupCostInputs(recipe);
@@ -198,6 +249,17 @@ function loadSelectedRecipe() {
     
     ingredientCosts = {};
     calculationResults = {};
+    
+    // Scroll suave para a seção de inputs de custo após carregar
+    setTimeout(() => {
+        const costInputSection = document.getElementById('cost-input');
+        if (costInputSection) {
+            costInputSection.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+            });
+        }
+    }, 300);
 }
 
 function displayRecipe(recipe) {
@@ -811,8 +873,15 @@ function resetCalculator() {
     const recipeSelect = document.getElementById('recipe-select');
     const loadBtn = document.getElementById('load-recipe-btn');
     
-    if (recipeSelect) recipeSelect.value = '';
-    if (loadBtn) loadBtn.disabled = true;
+    if (recipeSelect) {
+        recipeSelect.value = '';
+        recipeSelect.style.border = '';
+    }
+    if (loadBtn) {
+        loadBtn.disabled = true;
+        loadBtn.style.background = '';
+        loadBtn.style.color = '';
+    }
     
     const recipeDisplaySection = document.getElementById('recipe-display');
     const costInputSection = document.getElementById('cost-input');
