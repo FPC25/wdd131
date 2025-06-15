@@ -1,59 +1,98 @@
 document.addEventListener('DOMContentLoaded', async function() {
-    // Load recipes data when page loads
+    // Carregar dados das receitas
     await RecipeUtils.loadRecipes();
     
-    // Get DOM elements - AJUSTADO para seu HTML atual
+    // Obter elementos DOM que existem no index.html
     const favoritesGrid = document.querySelector('.favorites .recipe-grid');
-    const userRecipesGrid = document.querySelector('.recent .recipe-grid'); // Note: .recent não .your-recipes
+    const savedGrid = document.querySelector('.recent .recipe-grid');
     const searchInput = document.querySelector('.search-input');
     const searchButton = document.querySelector('.search-button');
     
-    // Setup search functionality
-    setupSearch();
+    // Estado da busca
+    let currentSearch = '';
     
-    // Initial render
-    renderAllSections();
+    // Renderização inicial
+    renderFavoritesSection();
+    renderSavedSection();
+    displayUserRecipes();
     
-    // Listen for recipe data changes
-    RecipeUtils.onFavoritesChange(renderAllSections);
+    // Registrar callback para mudanças nos dados
+    RecipeUtils.onFavoritesChange(() => {
+        renderFavoritesSection();
+        renderSavedSection();
+    });
     
-    function setupSearch() {
-        if (searchInput) {
-            searchInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    performSearch();
-                }
+    // Escutar mudanças no localStorage de outras páginas
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'flavorfy_favorites' || e.key === 'flavorfy_saved' || e.key === 'recipesData') {
+            RecipeUtils.loadRecipes().then(() => {
+                renderFavoritesSection();
+                renderSavedSection();
             });
         }
-        
-        if (searchButton) {
-            searchButton.addEventListener('click', performSearch);
-        }
-    }
+    });
     
+    // Atualizar quando a página ficar visível
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+            RecipeUtils.loadRecipes().then(() => {
+                renderFavoritesSection();
+                renderSavedSection();
+            });
+        }
+    });
+    
+    // Função de busca
     function performSearch() {
         const searchTerm = searchInput.value.trim();
         if (searchTerm) {
+            // Redirecionar para explore com parâmetro de busca
             window.location.href = `./explore.html?search=${encodeURIComponent(searchTerm)}`;
         }
     }
     
-    function renderAllSections() {
-        renderFavoritesSection();
-        renderUserRecipesSection();
+    // Event listeners para busca
+    if (searchButton) {
+        searchButton.addEventListener('click', performSearch);
     }
     
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // Feedback visual durante digitação
+        searchInput.addEventListener('input', function() {
+            if (this.value.trim()) {
+                this.style.backgroundColor = '#e8f5e8';
+            } else {
+                this.style.backgroundColor = '';
+            }
+        });
+    }
+    
+    // Renderizar seção de favoritos
     function renderFavoritesSection() {
-        const favoriteRecipes = RecipeUtils.filterRecipes('favorites');
+        const favoriteRecipes = RecipeUtils.filterRecipes('favorites', currentSearch);
         const emptyMessage = 'No favorite recipes yet. Start exploring and add some favorites!';
         RecipeUtils.renderRecipes(favoriteRecipes, favoritesGrid, emptyMessage);
     }
     
-    function renderUserRecipesSection() {
-        const container = userRecipesGrid;
+    // Renderizar seção de receitas salvas
+    function renderSavedSection() {
+        const savedRecipes = RecipeUtils.filterRecipes('saved', currentSearch);
+        const emptyMessage = 'No saved recipes yet. Create your first recipe or save some from explore!';
+        RecipeUtils.renderRecipes(savedRecipes, savedGrid, emptyMessage);
+    }
+    
+    // Exibe as receitas do usuário incluindo drafts
+    function displayUserRecipes() {
+        const container = document.querySelector('.your-recipes .recipe-grid');
         if (!container) return;
         
-        // Sua lógica de renderização aqui...
+        // Carregar receitas salvas do usuário
         const userRecipes = getUserRecipes();
         
         // Carregar draft se existir
