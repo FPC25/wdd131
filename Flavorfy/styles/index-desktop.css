@@ -82,10 +82,10 @@
         margin: 0;
     }
 
-    /* Links com cor branca (--secondary-color) */
+    /* Links inativos - background primary-color com texto BRANCO */
     .hamburger-menu a {
         background: var(--primary-color);
-        color: var(--secondary-color); /* Cor branca */
+        color: var(--secondary-color); /* TEXTO BRANCO no estado normal */
         padding: 0.75rem 1.5rem;
         border-radius: 8px;
         text-decoration: none;
@@ -97,17 +97,27 @@
         border: none;
     }
 
+    /* Hover para links inativos - mudar para accent-color e manter texto branco */
     .hamburger-menu a:hover {
         background: var(--accent-color);
-        color: var(--secondary-color); /* Manter branco no hover */
+        color: var(--secondary-color); /* MANTER TEXTO BRANCO no hover */
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
+    /* Link ativo (Home) - já começa com accent-color e texto branco */
     .hamburger-menu a#home {
         background: var(--accent-color);
-        color: var(--secondary-color); /* Manter branco no ativo */
+        color: var(--secondary-color); /* TEXTO BRANCO no ativo */
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Hover para link ativo - manter o mesmo visual */
+    .hamburger-menu a#home:hover {
+        background: var(--accent-color);
+        color: var(--secondary-color); /* MANTER TEXTO BRANCO */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     }
 
     /* Esconder welcome message no desktop */
