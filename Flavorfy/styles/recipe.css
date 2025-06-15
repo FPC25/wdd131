@@ -22,20 +22,28 @@
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0.5rem;
-    width: 2.5rem;
-    height: 2.5rem;
+    padding: 0.75rem; /* Aumentado para mais área clicável */
+    width: 4rem; /* Aumentado de 2.5rem para 3rem */
+    height: 4rem; /* Aumentado de 2.5rem para 3rem */
     border-radius: 8px;
     color: var(--text-color);
-    font-size: 1.5rem;
+    font-size: 2.8rem; 
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    flex-shrink: 0; /* Evita que encolha */
+    line-height: 1; /* Garante alinhamento vertical perfeito */
 }
 
 #back-btn:hover {
     background-color: var(--light-gray);
+    transform: translateX(-2px); /* Efeito visual sutil */
+}
+
+#back-btn:active {
+    transform: translateX(0);
+    background-color: var(--border-color);
 }
 
 .form-header h1 {
@@ -45,6 +53,7 @@
     font-size: 1.8rem;
     color: var(--text-color);
     margin: 0;
+    line-height: 1.2; /* Garante alinhamento com o botão */
 }
 
 /* Seções do formulário */
@@ -97,12 +106,6 @@
 .image-preview span {
     font-size: 0.9rem;
     color: var(--text-color);
-}
-
-.image-preview small {
-    font-size: 0.8rem;
-    color: var(--text-color);
-    opacity: 0.7;
 }
 
 .image-preview.has-image {
@@ -511,11 +514,26 @@
     box-shadow: none;
 }
 
-/* Responsividade - Updated */
+/* Responsividade - Updated para manter proporções */
 @media (max-width: 768px) {
     .recipe-form-container {
         margin: 1rem;
         padding: 1.5rem;
+    }
+    
+    .form-header {
+        gap: 0.75rem;
+    }
+    
+    #back-btn {
+        width: 2.75rem;
+        height: 2.75rem;
+        font-size: 1.6rem;
+        padding: 0.65rem;
+    }
+    
+    .form-header h1 {
+        font-size: 1.6rem;
     }
     
     .form-row.two-columns {
@@ -577,6 +595,17 @@
         padding: 1rem;
     }
     
+    .form-header {
+        gap: 0.5rem;
+    }
+    
+    #back-btn {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.4rem;
+        padding: 0.5rem;
+    }
+    
     .form-header h1 {
         font-size: 1.5rem;
     }
@@ -635,12 +664,22 @@
     }
 }
 
-/* Para telas extra pequenas */
 @media (max-width: 360px) {
     .recipe-form-container {
         max-width: 98%;
         margin: 0.25rem auto;
         padding: 0.75rem;
+    }
+    
+    #back-btn {
+        width: 2.25rem;
+        height: 2.25rem;
+        font-size: 1.3rem;
+        padding: 0.4rem;
+    }
+    
+    .form-header h1 {
+        font-size: 1.3rem;
     }
     
     .ingredient-row {
