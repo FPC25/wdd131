@@ -43,7 +43,7 @@ function loadRecipeDetail(recipeId) {
     // Configurar botões de ação
     setupActionButtons(recipe);
     
-    // Esconder loading e mostrar conteúdo - FIX: usar display em vez de classes para loading
+    // Esconder loading e mostrar conteúdo
     const loadingState = document.getElementById('loading-state');
     const errorState = document.getElementById('error-state');
     const recipeContent = document.getElementById('recipe-content');
@@ -61,13 +61,16 @@ function loadRecipeDetail(recipeId) {
     }
 }
 
-// Exibe os dados da receita na página - SEM SEÇÃO DE IMAGEM
+// Exibe os dados da receita na página - COM IMAGEM CONDICIONAL
 function displayRecipe(recipe) {
     // Atualizar título no header
     const headerTitle = document.getElementById('recipe-header-title');
     if (headerTitle) {
         headerTitle.textContent = recipe.name;
     }
+    
+    // Verificar e exibir imagem se não for placeholder
+    displayRecipeImage(recipe);
     
     // Meta informações básicas
     const cookTimeElement = document.getElementById('cook-time');
@@ -96,6 +99,28 @@ function displayRecipe(recipe) {
     
     // Instruções
     displayInstructions(recipe);
+}
+
+// Exibe a imagem da receita se não for placeholder
+function displayRecipeImage(recipe) {
+    const imageSection = document.getElementById('recipe-image-section');
+    const mainImg = document.getElementById('recipe-main-img');
+    
+    if (!imageSection || !mainImg) return;
+    
+    // Verificar se a receita tem imagem e não é placeholder
+    const hasValidImage = recipe.cover && 
+                         recipe.cover !== "image" && 
+                         !recipe.cover.includes('placeholder.svg') &&
+                         recipe.cover.trim() !== '';
+    
+    if (hasValidImage) {
+        mainImg.src = recipe.cover;
+        mainImg.alt = recipe.name;
+        imageSection.style.display = 'block';
+    } else {
+        imageSection.style.display = 'none';
+    }
 }
 
 // Exibe as categorias da receita
@@ -155,8 +180,20 @@ function setupActionButtons(recipe) {
     const saveBtn = document.getElementById('save-btn');
     const calculateBtn = document.getElementById('calculate-btn');
     
+    // DEBUG: Verificar se os botões foram encontrados
+    console.log('Action buttons found:', {
+        favorite: !!favoriteBtn,
+        save: !!saveBtn,
+        calculate: !!calculateBtn
+    });
+    
     if (!favoriteBtn || !saveBtn || !calculateBtn) {
         console.error('Action buttons not found in DOM');
+        console.log('Available elements:', {
+            favoriteBtn: favoriteBtn,
+            saveBtn: saveBtn,
+            calculateBtn: calculateBtn
+        });
         return;
     }
     
@@ -339,6 +376,7 @@ function debugRecipeData(recipe) {
         hasInstructions: recipe.instructions && recipe.instructions.length > 0,
         hasFilters: recipe.filters && recipe.filters.length > 0,
         isSaved: recipe.isSaved,
-        isFavorite: recipe.isFavorite
+        isFavorite: recipe.isFavorite,
+        hasValidImage: recipe.cover && recipe.cover !== "image" && !recipe.cover.includes('placeholder.svg')
     });
 }
