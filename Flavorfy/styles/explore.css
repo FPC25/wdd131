@@ -106,7 +106,6 @@
     width: 24px;
     height: 24px;
     margin-bottom: 0.25rem;
-    filter: invert(0.5);
     transition: filter 0.3s ease;
 }
 
