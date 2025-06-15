@@ -117,6 +117,7 @@ function displayRecipeImage(recipe) {
     if (hasValidImage) {
         mainImg.src = recipe.cover;
         mainImg.alt = recipe.name;
+        mainImg.loading = "lazy";
         imageSection.style.display = 'block';
     } else {
         imageSection.style.display = 'none';

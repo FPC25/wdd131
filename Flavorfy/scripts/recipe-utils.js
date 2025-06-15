@@ -92,7 +92,7 @@ function createRecipeCard(recipe) {
     return `
         <div class="recipe-card" data-recipe-id="${recipe.id}">
             <div class="recipe-image ${imageClass}">
-                <img src="${imageSrc}" alt="${recipe.name}">
+                <img src="${imageSrc}" alt="${recipe.name}" loading="lazy">
                 <div class="recipe-actions">
                     <button class="action-btn save-btn ${savedClass}" 
                             data-recipe-id="${recipe.id}" 

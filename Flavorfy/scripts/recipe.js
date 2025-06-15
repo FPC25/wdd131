@@ -183,12 +183,13 @@ function handleImageUpload(event) {
     
     reader.onload = function(e) {
         preview.innerHTML = `
-            <img src="${e.target.result}" alt="Recipe preview" style="
+            <img src="${e.target.result}" alt="Recipe preview"  loading="lazy" style="
                 width: 100%; 
                 height: 100%; 
                 object-fit: cover; 
                 border-radius: 8px;
                 position: relative;
+                
             ">
             <button type="button" class="remove-image-btn" onclick="removeImageSimple()" style="
                 position: absolute;
@@ -504,7 +505,7 @@ function populateForm(recipeData) {
     if (recipeData.cover && recipeData.cover !== "image" && recipeData.cover.startsWith('data:')) {
         const preview = document.getElementById('image-preview');
         preview.innerHTML = `
-            <img src="${recipeData.cover}" alt="Recipe preview" class="recipe-preview-img">
+            <img src="${recipeData.cover}" alt="Recipe preview"  class="recipe-preview-img"  loading="lazy">
             <button type="button" class="remove-image-btn" onclick="removeImageSimple()">×</button>
         `;
         preview.classList.add('has-image');
