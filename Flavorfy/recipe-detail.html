@@ -42,38 +42,21 @@
         </header>
 
         <main>
-            <div class="recipe-detail-container">
-                <!-- Updated header with recipe name - similar to recipe.html pattern -->
-                <div class="recipe-header">
+            <section class="recipe-detail-container">
+                <!-- Header simplificado - apenas voltar e título -->
+                <header class="recipe-header">
                     <button type="button" id="back-btn" aria-label="Go back">←</button>
                     <h1 id="recipe-header-title" class="recipe-header-name">Recipe Details</h1>
-                    <div class="recipe-actions">
-                        <button class="action-btn favorite-btn" 
-                                id="favorite-btn"
-                                aria-label="Toggle favorite">
-                            <img src="./images/star.svg" alt="Favorite">
-                        </button>
-                        <button class="action-btn save-btn" 
-                                id="save-btn"
-                                aria-label="Toggle save">
-                            <img src="./images/plus.svg" alt="Save">
-                        </button>
-                        <button class="action-btn calculate-btn" 
-                                id="calculate-btn"
-                                aria-label="Calculate costs">
-                            <img src="./images/list.svg" alt="Calculate">
-                        </button>
-                    </div>
-                </div>
+                </header>
 
                 <div class="recipe-content">
-                    <!-- Enhanced loading state -->
+                    <!-- Loading state -->
                     <div id="loading-state" class="loading-message">
                         <div class="loading-spinner"></div>
                         <p>Loading recipe...</p>
                     </div>
 
-                    <!-- Enhanced error state - REMOVED inline style -->
+                    <!-- Error state -->
                     <div id="error-state" class="error-message">
                         <div class="error-icon">⚠️</div>
                         <h2>Recipe Not Found</h2>
@@ -84,14 +67,34 @@
                         </div>
                     </div>
 
-                    <!-- Recipe content - REMOVED inline style -->
+                    <!-- Recipe content -->
                     <div id="recipe-content">
-                        <div class="recipe-image-section">
-                            <img id="recipe-image" src="./images/" alt="Recipe image" class="recipe-main-image">
-                        </div>
+                        <!-- Basic Information Section com botões -->
+                        <section class="recipe-section basic-info-section">
+                            <div class="section-header-with-actions">
+                                <h2>Basic Information</h2>
+                                <div class="recipe-actions">
+                                    <button class="action-btn favorite-btn" 
+                                            id="favorite-btn"
+                                            type="button"
+                                            aria-label="Toggle favorite">
+                                        <img src="./images/star.svg" alt="Favorite">
+                                    </button>
+                                    <button class="action-btn save-btn" 
+                                            id="save-btn"
+                                            type="button"
+                                            aria-label="Toggle save">
+                                        <img src="./images/plus.svg" alt="Save">
+                                    </button>
+                                    <button class="action-btn calculate-btn" 
+                                            id="calculate-btn"
+                                            type="button"
+                                            aria-label="Calculate costs">
+                                        <img src="./images/list.svg" alt="Calculate">
+                                    </button>
+                                </div>
+                            </div>
 
-                        <div class="recipe-info-section">
-                            <!-- Remove duplicate title since it's now in header -->
                             <div class="recipe-meta-info">
                                 <div class="meta-item">
                                     <span class="meta-label">Cook Time:</span>
@@ -114,24 +117,26 @@
                             <div class="recipe-categories" id="categories">
                                 <!-- Categories will be populated here -->
                             </div>
-                        </div>
+                        </section>
 
-                        <div class="recipe-ingredients-section">
+                        <!-- Ingredients Section -->
+                        <section class="recipe-section ingredients-section">
                             <h2>Ingredients</h2>
                             <ul id="ingredients-list">
                                 <!-- Ingredients will be populated here -->
                             </ul>
-                        </div>
+                        </section>
 
-                        <div class="recipe-instructions-section">
+                        <!-- Instructions Section -->
+                        <section class="recipe-section instructions-section">
                             <h2>Instructions</h2>
                             <ol id="instructions-list">
                                 <!-- Instructions will be populated here -->
                             </ol>
-                        </div>
+                        </section>
                     </div>
                 </div>
-            </div>
+            </section>
 
             <!-- Bottom Navigation -->
             <nav class="bottom-nav">

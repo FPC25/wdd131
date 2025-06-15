@@ -43,41 +43,66 @@ function loadRecipeDetail(recipeId) {
     // Configurar botões de ação
     setupActionButtons(recipe);
     
-    // UPDATED: Use CSS classes instead of inline styles
-    document.getElementById('loading-state').style.display = 'none';
-    document.getElementById('recipe-content').classList.add('show');
+    // Esconder loading e mostrar conteúdo - FIX: usar display em vez de classes para loading
+    const loadingState = document.getElementById('loading-state');
+    const errorState = document.getElementById('error-state');
+    const recipeContent = document.getElementById('recipe-content');
+    
+    if (loadingState) {
+        loadingState.style.display = 'none';
+    }
+    if (errorState) {
+        errorState.classList.remove('show');
+        errorState.style.display = 'none';
+    }
+    if (recipeContent) {
+        recipeContent.style.display = 'block';
+        recipeContent.classList.add('show');
+    }
 }
 
-// Exibe os dados da receita na página
+// Exibe os dados da receita na página - SEM SEÇÃO DE IMAGEM
 function displayRecipe(recipe) {
-    // Atualizar título no header - NOVO
+    // Atualizar título no header
     const headerTitle = document.getElementById('recipe-header-title');
     if (headerTitle) {
         headerTitle.textContent = recipe.name;
     }
     
-    // Imagem
-    const imageElement = document.getElementById('recipe-image');
-    const hasImage = recipe.cover && recipe.cover !== "image" && !recipe.cover.includes('placeholder.svg');
+    // Meta informações básicas
+    const cookTimeElement = document.getElementById('cook-time');
+    const difficultyElement = document.getElementById('difficulty');
+    const servesElement = document.getElementById('serves');
+    const sourceElement = document.getElementById('source');
     
-    if (hasImage) {
-        imageElement.src = recipe.cover;
-        imageElement.alt = recipe.name;
-        imageElement.classList.remove('no-image');
-    } else {
-        imageElement.src = './images/placeholder.svg';
-        imageElement.alt = 'No image available';
-        imageElement.classList.add('no-image');
+    if (cookTimeElement) {
+        cookTimeElement.textContent = `${recipe.cookTime.time} ${recipe.cookTime.unit}`;
+    }
+    if (difficultyElement) {
+        difficultyElement.textContent = recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1);
+    }
+    if (servesElement) {
+        servesElement.textContent = recipe.serves;
+    }
+    if (sourceElement) {
+        sourceElement.textContent = recipe.source || 'Not specified';
     }
     
-    // Meta informações
-    document.getElementById('cook-time').textContent = `${recipe.cookTime.time} ${recipe.cookTime.unit}`;
-    document.getElementById('difficulty').textContent = recipe.difficulty.charAt(0).toUpperCase() + recipe.difficulty.slice(1);
-    document.getElementById('serves').textContent = recipe.serves;
-    document.getElementById('source').textContent = recipe.source || 'Not specified';
-    
     // Categorias
+    displayCategories(recipe);
+    
+    // Ingredientes
+    displayIngredients(recipe);
+    
+    // Instruções
+    displayInstructions(recipe);
+}
+
+// Exibe as categorias da receita
+function displayCategories(recipe) {
     const categoriesContainer = document.getElementById('categories');
+    if (!categoriesContainer) return;
+    
     if (recipe.filters && recipe.filters.length > 0) {
         categoriesContainer.innerHTML = recipe.filters.map(filter => 
             `<span class="category-tag">${filter}</span>`
@@ -85,9 +110,13 @@ function displayRecipe(recipe) {
     } else {
         categoriesContainer.innerHTML = '<span class="category-tag">Uncategorized</span>';
     }
-    
-    // Ingredientes
+}
+
+// Exibe a lista de ingredientes
+function displayIngredients(recipe) {
     const ingredientsList = document.getElementById('ingredients-list');
+    if (!ingredientsList) return;
+    
     if (recipe.ingredients && recipe.ingredients.length > 0) {
         ingredientsList.innerHTML = recipe.ingredients.map(ingredient => {
             const quantity = ingredient.quantity;
@@ -104,9 +133,13 @@ function displayRecipe(recipe) {
     } else {
         ingredientsList.innerHTML = '<li class="ingredient-item">No ingredients specified</li>';
     }
-    
-    // Instruções
+}
+
+// Exibe as instruções da receita
+function displayInstructions(recipe) {
     const instructionsList = document.getElementById('instructions-list');
+    if (!instructionsList) return;
+    
     if (recipe.instructions && recipe.instructions.length > 0) {
         instructionsList.innerHTML = recipe.instructions.map(instruction => 
             `<li class="instruction-item">${instruction}</li>`
@@ -121,6 +154,11 @@ function setupActionButtons(recipe) {
     const favoriteBtn = document.getElementById('favorite-btn');
     const saveBtn = document.getElementById('save-btn');
     const calculateBtn = document.getElementById('calculate-btn');
+    
+    if (!favoriteBtn || !saveBtn || !calculateBtn) {
+        console.error('Action buttons not found in DOM');
+        return;
+    }
     
     // Estado inicial dos botões
     updateButtonStates(recipe);
@@ -138,9 +176,20 @@ function setupActionButtons(recipe) {
         updateButtonStates(recipe);
     });
     
-    // Botão de calcular custos
+    // Botão de calcular custos - redireciona para calculadora
     calculateBtn.addEventListener('click', function() {
-        window.location.href = `./calculator.html?recipe=${recipe.id}`;
+        if (recipe.isSaved) {
+            window.location.href = `./calculator.html?recipe=${recipe.id}`;
+        } else {
+            // Se a receita não está salva, salvar primeiro
+            RecipeUtils.toggleSaved(recipe.id);
+            recipe.isSaved = true;
+            updateButtonStates(recipe);
+            
+            setTimeout(() => {
+                window.location.href = `./calculator.html?recipe=${recipe.id}`;
+            }, 300);
+        }
     });
 }
 
@@ -149,35 +198,55 @@ function updateButtonStates(recipe) {
     const favoriteBtn = document.getElementById('favorite-btn');
     const saveBtn = document.getElementById('save-btn');
     
+    if (!favoriteBtn || !saveBtn) return;
+    
     // Botão de favorito
     favoriteBtn.classList.toggle('active', recipe.isFavorite);
     
     // Botão de salvar
     saveBtn.classList.toggle('active', recipe.isSaved);
     const saveImg = saveBtn.querySelector('img');
-    if (recipe.isSaved) {
-        saveImg.src = './images/check.svg';
-        saveImg.alt = 'Saved';
-    } else {
-        saveImg.src = './images/plus.svg';
-        saveImg.alt = 'Save';
+    if (saveImg) {
+        if (recipe.isSaved) {
+            saveImg.src = './images/check.svg';
+            saveImg.alt = 'Saved';
+        } else {
+            saveImg.src = './images/plus.svg';
+            saveImg.alt = 'Save';
+        }
     }
 }
 
 // Configura event listeners gerais
 function setupEventListeners(recipeId) {
     // Botão voltar
-    document.getElementById('back-btn').addEventListener('click', function() {
-        window.history.back();
-    });
+    const backBtn = document.getElementById('back-btn');
+    if (backBtn) {
+        backBtn.addEventListener('click', function() {
+            window.history.back();
+        });
+    }
     
-    // Listener para mudanças nos favoritos/salvos
+    // Listener para mudanças nos favoritos/salvos de outras páginas
     RecipeUtils.onFavoritesChange(() => {
         // Recarregar dados atualizados
         const recipes = RecipeUtils.getRecipesData();
         const recipe = recipes.find(r => r.id === recipeId);
         if (recipe) {
             updateButtonStates(recipe);
+        }
+    });
+    
+    // Listener para mudanças no localStorage de outras páginas
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'flavorfy_favorites' || e.key === 'flavorfy_saved' || e.key === 'recipesData') {
+            RecipeUtils.loadRecipes().then(() => {
+                const recipes = RecipeUtils.getRecipesData();
+                const recipe = recipes.find(r => r.id === recipeId);
+                if (recipe) {
+                    updateButtonStates(recipe);
+                }
+            });
         }
     });
 }
@@ -193,6 +262,13 @@ function setupBottomNavigation() {
             window.location.href = './explore.html?filter=favorites';
         });
     }
+    
+    // Marcar item ativo se necessário
+    const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+    navItems.forEach(item => {
+        // Nenhum item específico ativo na página de detalhes
+        item.classList.remove('active');
+    });
 }
 
 // Configura comportamento de scroll para o bottom nav
@@ -200,31 +276,69 @@ function setupScrollBehavior() {
     let lastScrollTop = 0;
     const bottomNav = document.querySelector('.bottom-nav');
     
+    if (!bottomNav) return;
+    
+    // Throttle function para melhor performance
+    let isScrolling = false;
+    
     window.addEventListener('scroll', function() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // Scrolling down
-            bottomNav.classList.add('hidden');
-        } else {
-            // Scrolling up
-            bottomNav.classList.remove('hidden');
+        if (!isScrolling) {
+            requestAnimationFrame(function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    // Scrolling down - esconder navigation
+                    bottomNav.classList.add('hidden');
+                } else {
+                    // Scrolling up - mostrar navigation
+                    bottomNav.classList.remove('hidden');
+                }
+                
+                lastScrollTop = scrollTop;
+                isScrolling = false;
+            });
+            isScrolling = true;
         }
-        
-        lastScrollTop = scrollTop;
     });
 }
 
-// Mostra estado de erro
+// Mostra estado de erro - FIX: melhor gerenciamento de estados
 function showError() {
-    // UPDATED: Use CSS classes instead of inline styles
-    document.getElementById('loading-state').style.display = 'none';
-    document.getElementById('error-state').classList.add('show');
-    document.getElementById('page-title').textContent = 'Recipe Not Found - Flavorfy';
-    
-    // Update header title for error state
+    // Esconder loading e mostrar erro
+    const loadingState = document.getElementById('loading-state');
+    const errorState = document.getElementById('error-state');
+    const recipeContent = document.getElementById('recipe-content');
+    const pageTitle = document.getElementById('page-title');
     const headerTitle = document.getElementById('recipe-header-title');
+    
+    if (loadingState) {
+        loadingState.style.display = 'none';
+    }
+    if (recipeContent) {
+        recipeContent.style.display = 'none';
+        recipeContent.classList.remove('show');
+    }
+    if (errorState) {
+        errorState.style.display = 'block';
+        errorState.classList.add('show');
+    }
+    if (pageTitle) {
+        pageTitle.textContent = 'Recipe Not Found - Flavorfy';
+    }
     if (headerTitle) {
         headerTitle.textContent = 'Recipe Not Found';
     }
+}
+
+// Função auxiliar para debug
+function debugRecipeData(recipe) {
+    console.log('Recipe data:', {
+        id: recipe.id,
+        name: recipe.name,
+        hasIngredients: recipe.ingredients && recipe.ingredients.length > 0,
+        hasInstructions: recipe.instructions && recipe.instructions.length > 0,
+        hasFilters: recipe.filters && recipe.filters.length > 0,
+        isSaved: recipe.isSaved,
+        isFavorite: recipe.isFavorite
+    });
 }
