@@ -129,6 +129,138 @@
     text-decoration: underline;
 }
 
+/* Draft badge styling */
+.draft-badge {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Draft card styling */
+.draft-card {
+    border: 2px dashed var(--accent-color);
+    background: rgba(169, 92, 50, 0.05);
+    transition: all 0.3s ease;
+}
+
+.draft-card:hover {
+    border-color: var(--primary-color);
+    background: rgba(169, 92, 50, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* User recipe card styling */
+.user-recipe-card {
+    border: 1px solid var(--border-color);
+    background: var(--secondary-color);
+    transition: all 0.3s ease;
+}
+
+.user-recipe-card:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Action buttons for user recipes */
+.edit-btn,
+.delete-btn,
+.edit-draft-btn,
+.delete-draft-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border-color);
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-btn img,
+.delete-btn img,
+.edit-draft-btn img,
+.delete-draft-btn img {
+    width: 16px;
+    height: 16px;
+    filter: invert(0.4);
+}
+
+.edit-btn:hover,
+.edit-draft-btn:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.edit-btn:hover img,
+.edit-draft-btn:hover img {
+    filter: invert(1);
+}
+
+.delete-btn:hover,
+.delete-draft-btn:hover {
+    background: #dc3545;
+    border-color: #dc3545;
+}
+
+.delete-btn:hover img,
+.delete-draft-btn:hover img {
+    filter: invert(1);
+}
+
+/* Empty state styling */
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.btn-accent {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-accent:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Recipe actions visibility */
+.recipe-card .recipe-actions {
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.recipe-card:hover .recipe-actions {
+    opacity: 1;
+}
+
 /* Força o layout flexbox especificamente para mobile */
 @media screen and (max-width: 767px) {
     .section-header {
@@ -154,6 +286,11 @@
         font-size: 1rem;
         flex-shrink: 0 !important;
         white-space: nowrap !important;
+    }
+    
+    /* Mostrar ações sempre no mobile */
+    .recipe-card .recipe-actions {
+        opacity: 1;
     }
 }
 
@@ -200,5 +337,29 @@
     
     .add-recipe-link:hover {
         transform: translateY(-1px);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .draft-badge {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.4rem;
+    }
+    
+    .edit-btn,
+    .delete-btn,
+    .edit-draft-btn,
+    .delete-draft-btn {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .edit-btn img,
+    .delete-btn img,
+    .edit-draft-btn img,
+    .delete-draft-btn img {
+        width: 14px;
+        height: 14px;
     }
 }
