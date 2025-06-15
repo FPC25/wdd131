@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Load recipes data
     await RecipeUtils.loadRecipes();
     
-    // Get DOM elements
+    // Get DOM elements - AJUSTADO para sua estrutura atual
     const recipesGrid = document.querySelector('.recipe-grid');
     const bottomNav = document.querySelector('.bottom-nav');
     const categoryButtons = document.querySelectorAll('.category-btn');
@@ -59,6 +59,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
 
     function handleScroll() {
+        if (!bottomNav) return;
+        
         const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
         clearTimeout(scrollTimeout);
         
@@ -87,6 +89,8 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Unified render function
     function renderCurrentView() {
+        if (!recipesGrid) return;
+        
         let recipes;
         
         console.log('Rendering with search:', currentSearch, 'and filter:', currentFilter); // Debug
@@ -145,6 +149,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         favoritesNavItem.addEventListener('click', function(e) {
             e.preventDefault();
             categoryButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Ativar botão de favoritos
+            const favButton = document.querySelector('[data-category="favorites"]');
+            if (favButton) favButton.classList.add('active');
+            
             currentFilter = 'favorites';
             
             // Limpar busca quando clicar em favoritos
@@ -158,7 +167,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
 
-    // Search functionality
+    // Search functionality - AJUSTADO para funcionar com search button
     function performSearch() {
         const searchValue = searchInput ? searchInput.value.trim() : '';
         currentSearch = searchValue.toLowerCase();
@@ -181,6 +190,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         renderCurrentView();
     }
     
+    // Event listeners para search
     if (searchButton) {
         searchButton.addEventListener('click', performSearch);
     }
@@ -198,11 +208,33 @@ document.addEventListener('DOMContentLoaded', async function() {
                 this.style.backgroundColor = '#e8f5e8';
             } else {
                 this.style.backgroundColor = '';
+                // Se limpar o campo, limpar busca também
+                if (currentSearch) {
+                    currentSearch = '';
+                    renderCurrentView();
+                }
             }
         });
     }
 
-    // Clear search function
+    // Listen for recipe data changes
+    RecipeUtils.onFavoritesChange(renderCurrentView);
+    
+    // Listen for storage changes from other pages
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'flavorfy_favorites' || e.key === 'flavorfy_saved' || e.key === 'recipesData') {
+            RecipeUtils.loadRecipes().then(renderCurrentView);
+        }
+    });
+    
+    // Update when page becomes visible (for mobile navigation)
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+            RecipeUtils.loadRecipes().then(renderCurrentView);
+        }
+    });
+
+    // Clear search function (opcional - para uso futuro)
     function clearSearch() {
         if (searchInput) {
             searchInput.value = '';
