@@ -499,4 +499,16 @@ function populateForm(recipeData) {
         lastRow.querySelector('.ingredient-input').value = ingredient.item;
         lastRow.querySelector('.unit-input').value = ingredient.unit || '';
     });
+    
+    // UPDATED: Remove inline styles from image preview
+    if (recipeData.cover && recipeData.cover !== "image" && recipeData.cover.startsWith('data:')) {
+        const preview = document.getElementById('image-preview');
+        preview.innerHTML = `
+            <img src="${recipeData.cover}" alt="Recipe preview" class="recipe-preview-img">
+            <button type="button" class="remove-image-btn" onclick="removeImageSimple()">×</button>
+        `;
+        preview.classList.add('has-image');
+    }
+    
+    console.log('Form populated with recipe data');
 }

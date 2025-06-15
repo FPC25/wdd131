@@ -43,9 +43,9 @@ function loadRecipeDetail(recipeId) {
     // Configurar botões de ação
     setupActionButtons(recipe);
     
-    // Esconder loading e mostrar conteúdo
+    // UPDATED: Use CSS classes instead of inline styles
     document.getElementById('loading-state').style.display = 'none';
-    document.getElementById('recipe-content').style.display = 'block';
+    document.getElementById('recipe-content').classList.add('show');
 }
 
 // Exibe os dados da receita na página
@@ -217,8 +217,9 @@ function setupScrollBehavior() {
 
 // Mostra estado de erro
 function showError() {
+    // UPDATED: Use CSS classes instead of inline styles
     document.getElementById('loading-state').style.display = 'none';
-    document.getElementById('error-state').style.display = 'block';
+    document.getElementById('error-state').classList.add('show');
     document.getElementById('page-title').textContent = 'Recipe Not Found - Flavorfy';
     
     // Update header title for error state

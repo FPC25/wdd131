@@ -237,6 +237,7 @@
 /* Seção da imagem */
 .recipe-image-section {
     width: 100%;
+    margin: 1rem;
 }
 
 .recipe-main-image {
@@ -453,6 +454,24 @@
 
 .nav-item:active {
     transform: scale(0.95);
+}
+
+/* Initial state visibility - Remove inline styles */
+#error-state {
+    display: none;
+}
+
+#recipe-content {
+    display: none;
+}
+
+/* Show states - controlled by JavaScript */
+#error-state.show {
+    display: block;
+}
+
+#recipe-content.show {
+    display: block;
 }
 
 /* Responsividade */
