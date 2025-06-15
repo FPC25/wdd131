@@ -1,0 +1,268 @@
+/* Desktop Layout para Index - 769px and above */
+@media (min-width: 769px) {
+    /* Header desktop layout */
+    header {
+        background: var(--background-color);
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 2rem;
+    }
+
+    /* Logo section à esquerda - logo + texto Flavorfy */
+    .header-top > a {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+        order: 1;
+    }
+
+    #logo {
+        height: 60px; /* Aumentado de 50px para 60px */
+        width: auto;
+    }
+
+    /* Adicionar texto Flavorfy ao lado do logo */
+    .header-top > a::after {
+        content: "Flavorfy";
+        font-family: 'Lora', serif;
+        font-size: 2rem; /* Tamanho grande igual ao logo */
+        font-weight: 600;
+        color: var(--text-color);
+        text-decoration: none;
+    }
+
+    /* Esconder hamburger menu e overlay */
+    #hamburger {
+        display: none;
+    }
+
+    .menu-overlay {
+        display: none;
+    }
+
+    /* Transformar menu mobile em navegação horizontal */
+    .hamburger-menu {
+        position: static;
+        left: auto;
+        width: auto;
+        height: auto;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        display: flex;
+        order: 2;
+        margin-left: auto;
+        margin-right: 2rem;
+    }
+
+    /* Esconder menu header (Menu x) no desktop */
+    .hamburger-menu .menu-header {
+        display: none;
+    }
+
+    .hamburger-menu ul {
+        display: flex;
+        gap: 1rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-direction: row;
+    }
+
+    .hamburger-menu li {
+        margin: 0;
+    }
+
+    /* Links com cor branca (--secondary-color) */
+    .hamburger-menu a {
+        background: var(--primary-color);
+        color: var(--secondary-color); /* Cor branca */
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        display: inline-block;
+        border: none;
+    }
+
+    .hamburger-menu a:hover {
+        background: var(--accent-color);
+        color: var(--secondary-color); /* Manter branco no hover */
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .hamburger-menu a#home {
+        background: var(--accent-color);
+        color: var(--secondary-color); /* Manter branco no ativo */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Esconder welcome message no desktop */
+    .welcome-container {
+        display: none;
+    }
+
+    /* Main content adjustments */
+    main {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Search container centralizada */
+    .search-container {
+        text-align: center;
+        margin: 2rem 0 3rem 0;
+    }
+
+    .search-box {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    /* Section headers desktop styling */
+    .section-header {
+        margin-bottom: 2rem;
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+        text-decoration: underline;
+        text-decoration-color: var(--text-color);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 4px;
+    }
+
+    .add-recipe-link {
+        font-size: 1.1rem;
+    }
+
+    /* Favorites: converter de horizontal scroll para grid */
+    .favorites .recipe-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        overflow-x: visible;
+        padding-bottom: 0;
+    }
+
+    .favorites .recipe-card {
+        width: 100%;
+        min-width: auto;
+    }
+
+    /* Your Recipes: melhor grid para desktop */
+    .recent .recipe-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    /* Enhanced hover effects para desktop */
+    .recipe-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Recipe actions sempre visíveis no hover desktop */
+    .recipe-card .recipe-actions {
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .recipe-card:hover .recipe-actions {
+        opacity: 1;
+    }
+
+    /* Animation para carregamento do conteúdo */
+    .favorites,
+    .recent {
+        animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}
+
+/* Large desktop - 1024px and above */
+@media (min-width: 1024px) {
+    .header-top {
+        gap: 3rem;
+        padding: 0 1rem;
+    }
+
+    /* Logo ainda maior em telas grandes */
+    #logo {
+        height: 70px;
+    }
+
+    .header-top > a::after {
+        font-size: 2.2rem; /* Texto proporcionalmente maior */
+    }
+
+    main {
+        padding: 3rem;
+        max-width: 1400px;
+    }
+
+    /* Mais espaço para favoritas em telas muito grandes */
+    .favorites .recipe-grid {
+        gap: 2rem;
+    }
+
+    .recent .recipe-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .section-header h2 {
+        font-size: 2.2rem;
+    }
+}
+
+/* Extra large desktop - 1200px and above */
+@media (min-width: 1200px) {
+    .header-top {
+        gap: 4rem;
+    }
+
+    main {
+        padding: 4rem;
+    }
+
+    /* Logo máximo em telas muito grandes */
+    #logo {
+        height: 80px;
+    }
+
+    .header-top > a::after {
+        font-size: 2.5rem; /* Texto máximo */
+    }
+
+    /* Permitir até 4 colunas em favoritas se houver espaço */
+    .favorites .recipe-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
