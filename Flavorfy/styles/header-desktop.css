@@ -1,0 +1,178 @@
+/* Desktop Header Layout - 769px and above - TODAS AS PÁGINAS */
+@media (min-width: 769px) {
+    /* Header desktop layout */
+    header {
+        background: var(--background-color);
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 2rem;
+    }
+
+    /* Logo section à esquerda - logo + texto Flavorfy */
+    .header-top > a {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-decoration: none;
+        order: 1;
+    }
+
+    #logo {
+        height: 60px;
+        width: auto;
+    }
+
+    /* Adicionar texto Flavorfy ao lado do logo */
+    .header-top > a::after {
+        content: "Flavorfy";
+        font-family: 'Lora', serif;
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--text-color);
+        text-decoration: none;
+    }
+
+    /* Esconder hamburger menu e overlay */
+    #hamburger {
+        display: none;
+    }
+
+    .menu-overlay {
+        display: none;
+    }
+
+    /* Transformar menu mobile em navegação horizontal */
+    .hamburger-menu {
+        position: static;
+        left: auto;
+        width: auto;
+        height: auto;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        display: flex;
+        order: 2;
+        margin-left: auto;
+        margin-right: 2rem;
+    }
+
+    /* Esconder menu header (Menu x) no desktop */
+    .hamburger-menu .menu-header {
+        display: none;
+    }
+
+    .hamburger-menu ul {
+        display: flex;
+        gap: 1rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-direction: row;
+    }
+
+    .hamburger-menu li {
+        margin: 0;
+    }
+
+    /* Links inativos - MÁXIMA ESPECIFICIDADE para sobrepor general.css */
+    header .header-top .hamburger-menu a,
+    .header-top nav.hamburger-menu a {
+        background: var(--primary-color) !important;
+        color: var(--secondary-color) !important;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        display: inline-block;
+        border: none;
+        border-bottom: none !important;
+    }
+
+    /* Hover para todos os links - MÁXIMA ESPECIFICIDADE */
+    header .header-top .hamburger-menu a:hover,
+    .header-top nav.hamburger-menu a:hover {
+        background: var(--accent-color) !important;
+        color: var(--secondary-color) !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Esconder welcome message no desktop (específico do index) */
+    .welcome-container {
+        display: none;
+    }
+
+    /* Main content adjustments para páginas que não são index */
+    body:not([data-page="index"]) main {
+        padding: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: 2rem; /* Compensar altura do header */
+    }
+
+    /* Search container para páginas que têm search */
+    .search-container {
+        text-align: center;
+        margin: 2rem 0 3rem 0;
+    }
+
+    .search-box {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+/* Large desktop - 1024px and above */
+@media (min-width: 1024px) {
+    .header-top {
+        gap: 3rem;
+        padding: 0 1rem;
+    }
+
+    /* Logo ainda maior em telas grandes */
+    #logo {
+        height: 70px;
+    }
+
+    .header-top > a::after {
+        font-size: 2.2rem;
+    }
+
+    /* Main content para páginas não-index */
+    body:not([data-page="index"]) main {
+        padding: 3rem;
+        max-width: 1400px;
+    }
+}
+
+/* Extra large desktop - 1200px and above */
+@media (min-width: 1200px) {
+    .header-top {
+        gap: 4rem;
+    }
+
+    /* Logo máximo em telas muito grandes */
+    #logo {
+        height: 80px;
+    }
+
+    .header-top > a::after {
+        font-size: 2.5rem;
+    }
+
+    /* Main content para páginas não-index */
+    body:not([data-page="index"]) main {
+        padding: 4rem;
+    }
+}

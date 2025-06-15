@@ -3,30 +3,29 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta
-            name="description"
-            content="Flavorfy - Recipe cost calculator for determining ingredient costs, portion pricing, and profit margins.">
-        <meta
-            name="keywords"
-            content="recipe calculator, cost analysis, profit margin, pricing, Flavorfy">
+        <meta name="description" content="Flavorfy - Recipe cost calculator for determining ingredient costs, portion pricing, and profit margins.">
+        <meta name="keywords" content="recipe calculator, cost analysis, profit margin, pricing, Flavorfy">
         <meta name="author" content="Felipe Proença Corral">
+        <title>Flavorfy - Calculator</title>
 
-        <title>Flavorfy - Cost Calculator</title>
-
+        <!-- CSS -->
+        <link rel="stylesheet" href="styles/components/search-bar.css">
         <link rel="stylesheet" href="styles/general.css">
         <link rel="stylesheet" href="styles/calculator.css">
+        <link rel="stylesheet" href="styles/header-desktop.css">
 
+        <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Roboto:wght@400;500;600&display=swap"
-            rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&family=Roboto:wght@400;500;600&display=swap" rel="stylesheet">
 
+        <!-- Scripts -->
         <script src="./scripts/recipe-utils.js"></script>
         <script src="./scripts/general.js" defer></script>
         <script src="./scripts/calculator.js" defer></script>
     </head>
-    <body>
+    <body data-page="calculator">
+        <!-- Header -->
         <header>
             <div class="header-top">
                 <button id="hamburger" aria-label="Toggle navigation">☰</button>
@@ -39,15 +38,13 @@
                 </nav>
                 <a href="./index.html"><img src="./images/Logo.svg" alt="Logo of Flavorfy" id="logo"></a>
             </div>
-            <section class="welcome-container">
-                <div id="welcome-message">
-                    <h1>Cost</h1>
-                    <h1><span class="brand">Calculator</span></h1>
-                </div>
-            </section>
         </header>
 
+        <!-- Menu Overlay -->
+        <div class="menu-overlay"></div>
+
         <main>
+            <!-- Conteúdo da página calculator -->
             <div class="calculator-container">
                 <!-- Recipe Selection Section -->
                 <section class="recipe-selection-section">
